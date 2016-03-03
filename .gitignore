@@ -1,0 +1,15 @@
+.DS_Store
+*~
+
+._*
+
+www/application/cache/*
+!www/application/cache/index.html
+!www/application/cache/.htaccess
+
+www/application/logs/*
+!www/application/logs/index.html
+!www/application/logs/.htaccess
+
+.settings/*
+www/application/config/database.php
