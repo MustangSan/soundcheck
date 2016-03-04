@@ -31,7 +31,7 @@ class Album {
      *-------------------------
      */
     // Constructor
-    public function __construct($idAlbum, $idAlbum, $name, $coverArt, $genre, 
+    public function __construct($idAlbum, $idBand, $name, $coverArt, $genre, 
         $releaseDate, $label, $copyrightDate, $sellerLink, $listeningLink) {
         $this->setIdAlbum($idAlbum);
         $this->setIdBand($idBand);

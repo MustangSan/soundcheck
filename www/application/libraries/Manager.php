@@ -1,34 +1,28 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+require_once 'User.php';
 /*
  *-------------------------------------------------------------------------------
- * BAND CLASS
+ * MANAGER CLASS
  *-------------------------------------------------------------------------------
  */
 
-class Band {
+class Manager extends User{
 
     /*
      *-------------------------
      * ATTRIBUTES
      *-------------------------
      */
-    private $idBand;
-    private $name;
-    private $about;
-    private $photo;
+    private $agencyName;
+    private $description;
     private $website;
     private $facebook;
     private $twitter;
     private $youtube;
     private $myspace;
-    private $country;
-    private $estate;
-    private $city;
     private $phone;
     private $contactEmail;
-    
 
     /*
      *-------------------------
@@ -36,39 +30,29 @@ class Band {
      *-------------------------
      */
     // Constructor
-    public function __construct($idBand, $name, $about, $photo, $website, $facebook, 
-        $twitter, $youtube, $myspace, $country, $estate, $city, $phone, $contactEmail) {
-        $this->setIdBand($idBand);
-        $this->setName($name);
-        $this->setAbout($about);
-        $this->setPhoto($photo);
+    public function __construct($idUser, $email, $password, $name, $photo, $country, 
+        $estate, $city, $zipcode, $registeredDate, $status, $agencyName, $description, 
+        $website, $facebook, $twitter, $youtube, $myspace, $phone, $contactEmail) {
+        parent::__construct($idUser, $email, $password, $name, $photo, $country, $estate, 
+            $city, $zipcode, $registeredDate, $status);
+        $this->setAgencyName($agencyName);
+        $this->setDescription($description);
         $this->setWebsite($website);
         $this->setFacebook($facebook);
         $this->setTwitter($twitter);
         $this->setYoutube($youtube);
         $this->setMyspace($myspace);
-        $this->setCountry($country);
-        $this->setEstate($estate);
-        $this->setCity($city);
         $this->setPhone($phone);
         $this->setContactEmail($contactEmail);
     }
 
     // Setters
-    public function setIdBand($newValue) {
-        $this->idBand = $newValue;
+    public function setAgencyName($newValue) {
+        $this->agencyName = $newValue;
     }
 
-    public function setName($newValue) {
-        $this->name = $newValue;
-    }
-
-    public function setAbout($newValue) {
-        $this->about = $newValue;
-    }
-
-    public function setPhoto($newValue) {
-        $this->photo = $newValue;
+    public function setDescription($newValue) {
+        $this->description = $newValue;
     }
 
     public function setWebsite($newValue) {
@@ -91,18 +75,6 @@ class Band {
         $this->myspace = $newValue;
     }
 
-    public function setCountry($newValue) {
-        $this->country = $newValue;
-    }
-
-    public function setEstate($newValue) {
-        $this->estate = $newValue;
-    }
-
-    public function setCity($newValue) {
-        $this->city = $newValue;
-    }
-
     public function setPhone($newValue) {
         $this->phone = $newValue;
     }
@@ -112,20 +84,12 @@ class Band {
     }
 
     // Getters
-    public function getIdBand() {
-        return $this->idBand;
+    public function getAgencyName() {
+        return $this->agencyName;
     }
 
-    public function getName() {
-        return $this->name;
-    }
-
-    public function getAbout() {
-        return $this->about;
-    }
-
-    public function getPhoto() {
-        return $this->photo;
+    public function getDescription() {
+        return $this->description;
     }
 
     public function getWebsite() {
@@ -148,18 +112,6 @@ class Band {
         return $this->myspace;
     }
 
-    public function getCountry() {
-        return $this->country;
-    }
-
-    public function getEstate() {
-        return $this->estate;
-    }
-
-    public function getCity() {
-        return $this->city;
-    }
-
     public function getPhone() {
         return $this->phone;
     }
@@ -169,5 +121,5 @@ class Band {
     }
 }
 
-/* End of file Band.php */
-/* Location: ./application/libraries/Band.php */
+/* End of file Manager.php */
+/* Location: ./application/libraries/Manager.php */

@@ -3,32 +3,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 /*
  *-------------------------------------------------------------------------------
- * BAND CLASS
+ * VENUE CLASS
  *-------------------------------------------------------------------------------
  */
 
-class Band {
+class Venue {
 
     /*
      *-------------------------
      * ATTRIBUTES
      *-------------------------
      */
-    private $idBand;
+    private $idVenue;
+    private $idUser;
     private $name;
     private $about;
-    private $photo;
     private $website;
     private $facebook;
     private $twitter;
     private $youtube;
-    private $myspace;
     private $country;
     private $estate;
     private $city;
+    private $district;
+    private $street;
+    private $number;
+    private $complement;
+    private $zipcode;
     private $phone;
+    private $phoneAuxiliar;
     private $contactEmail;
-    
 
     /*
      *-------------------------
@@ -36,27 +40,37 @@ class Band {
      *-------------------------
      */
     // Constructor
-    public function __construct($idBand, $name, $about, $photo, $website, $facebook, 
-        $twitter, $youtube, $myspace, $country, $estate, $city, $phone, $contactEmail) {
-        $this->setIdBand($idBand);
+    public function __construct($idVenue, $idUser, $name, $about, $website, $facebook, 
+        $twitter, $youtube, $country, $estate, $city, $district, $street, $number, 
+        $complement, $zipcode, $phone, $phoneAuxiliar, $contactEmail) {
+        $this->setIdVenue($idVenue);
+        $this->setIdUser($idUser);
         $this->setName($name);
         $this->setAbout($about);
-        $this->setPhoto($photo);
         $this->setWebsite($website);
         $this->setFacebook($facebook);
         $this->setTwitter($twitter);
         $this->setYoutube($youtube);
-        $this->setMyspace($myspace);
         $this->setCountry($country);
         $this->setEstate($estate);
         $this->setCity($city);
+        $this->setDistrict($district);
+        $this->setStreet($street);
+        $this->setNumber($number);
+        $this->setComplement($complement);
+        $this->setZipcode($zipcode);
         $this->setPhone($phone);
+        $this->setPhoneAuxiliar($phoneAuxiliar);
         $this->setContactEmail($contactEmail);
     }
 
     // Setters
-    public function setIdBand($newValue) {
-        $this->idBand = $newValue;
+    public function setIdVenue($newValue) {
+        $this->idVenue = $newValue;
+    }
+
+    public function setIdUser($newValue) {
+        $this->idUser = $newValue;
     }
 
     public function setName($newValue) {
@@ -65,10 +79,6 @@ class Band {
 
     public function setAbout($newValue) {
         $this->about = $newValue;
-    }
-
-    public function setPhoto($newValue) {
-        $this->photo = $newValue;
     }
 
     public function setWebsite($newValue) {
@@ -87,10 +97,6 @@ class Band {
         $this->youtube = $newValue;
     }
 
-    public function setMyspace($newValue) {
-        $this->myspace = $newValue;
-    }
-
     public function setCountry($newValue) {
         $this->country = $newValue;
     }
@@ -103,8 +109,32 @@ class Band {
         $this->city = $newValue;
     }
 
+    public function setDistrict($newValue) {
+        $this->district = $newValue;
+    }
+
+    public function setStreet($newValue) {
+        $this->street = $newValue;
+    }
+
+    public function setNumber($newValue) {
+        $this->number = $newValue;
+    }
+
+    public function setComplement($newValue) {
+        $this->complement = $newValue;
+    }
+
+    public function setZipcode($newValue) {
+        $this->zipcode = $newValue;
+    }
+
     public function setPhone($newValue) {
         $this->phone = $newValue;
+    }
+
+    public function setPhoneAuxiliar($newValue) {
+        $this->phoneAuxiliar = $newValue;
     }
 
     public function setContactEmail($newValue) {
@@ -112,8 +142,12 @@ class Band {
     }
 
     // Getters
-    public function getIdBand() {
-        return $this->idBand;
+    public function getIdVenue() {
+        return $this->idVenue;
+    }
+
+    public function getIdUser() {
+        return $this->idUser;
     }
 
     public function getName() {
@@ -122,10 +156,6 @@ class Band {
 
     public function getAbout() {
         return $this->about;
-    }
-
-    public function getPhoto() {
-        return $this->photo;
     }
 
     public function getWebsite() {
@@ -144,10 +174,6 @@ class Band {
         return $this->youtube;
     }
 
-    public function getMyspace() {
-        return $this->myspace;
-    }
-
     public function getCountry() {
         return $this->country;
     }
@@ -160,8 +186,32 @@ class Band {
         return $this->city;
     }
 
+    public function getDistrict() {
+        return $this->district;
+    }
+
+    public function getStreet() {
+        return $this->street;
+    }
+
+    public function getNumber() {
+        return $this->number;
+    }
+
+    public function getComplement() {
+        return $this->complement;
+    }
+
+    public function getZipcode() {
+        return $this->zipcode;
+    }
+
     public function getPhone() {
         return $this->phone;
+    }
+
+    public function getPhoneAuxiliar() {
+        return $this->phoneAuxiliar;
     }
 
     public function getContactEmail() {
@@ -169,5 +219,5 @@ class Band {
     }
 }
 
-/* End of file Band.php */
-/* Location: ./application/libraries/Band.php */
+/* End of file Venue.php */
+/* Location: ./application/libraries/Venue.php */
