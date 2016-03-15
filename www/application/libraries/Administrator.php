@@ -18,6 +18,7 @@ class Administrator {
     private $email;
     private $password;
     private $name;
+    private $permission;
     private $status;
 
     /*
@@ -26,13 +27,27 @@ class Administrator {
      *-------------------------
      */
     // Constructor
-    public function __construct($idAdministrator, $email, $password, $name, $status) {
-        $this->setIdAdministrator($idAdministrator);
-        $this->setEmail($email);
-        $this->setPassword($password);
-        $this->setName($name);
-        $this->setStatus($status);
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdAdministrator($data[0]);
+            $this->setEmail($data[1]);
+            $this->setPassword($data[2]);
+            $this->setName($data[3]);
+            $this->setPermission($data[4]);
+            $this->setStatus($data[5]);
+        }
     }
+    /*
+    public function __construct($idAdministrator = NULL, $email = NULL, $password = NULL, $name = NULL, $status = NULL) {
+        if(is_null($email)) {
+            $this->setIdAdministrator($idAdministrator);
+            $this->setEmail($email);
+            $this->setPassword($password);
+            $this->setName($name);
+            $this->setStatus($status);
+        }
+    }
+    //*/
 
     // Setters
     public function setIdAdministrator($newValue) {
@@ -49,6 +64,10 @@ class Administrator {
 
     public function setName($newValue) {
         $this->name = $newValue;
+    }
+
+    public function setPermission($newValue) {
+        $this->permission = $newValue;
     }
 
     public function setStatus($newValue) {
@@ -70,6 +89,10 @@ class Administrator {
 
     public function getName() {
         return $this->name;
+    }
+
+    public function getPermission() {
+        return $this->permission;
     }
 
     public function getStatus() {

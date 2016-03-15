@@ -42,6 +42,32 @@ class Event {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdEvent($data[0]);
+            $this->setIdUser($data[1]);
+            $this->setName($data[2]);
+            $this->setAbout($data[3]);
+            $this->setWebsite($data[4]);
+            $this->setFacebook($data[5]);
+            $this->setTwitter($data[6]);
+            $this->setYoutube($data[7]);
+            $this->setPlace($data[8]);
+            $this->setDate($data[9]);
+            $this->setCountry($data[10]);
+            $this->setEstate($data[11]);
+            $this->setCity($data[12]);
+            $this->setDistrict($data[13]);
+            $this->setStreet($data[14]);
+            $this->setNumber($data[15]);
+            $this->setComplement($data[16]);
+            $this->setZipcode($data[17]);
+            $this->setPhone($data[18]);
+            $this->setPhoneAuxiliar($data[19]);
+            $this->setContactEmail($data[20]);
+        }
+    }
+    /*
     public function __construct($idEvent, $idUser, $name, $about, $website, $facebook, 
         $twitter, $youtube, $place, $date, $country, $estate, $city, $district, $street,
         $number, $complement, $zipcode, $phone, $phoneAuxiliar, $contactEmail) {
@@ -67,6 +93,7 @@ class Event {
         $this->setPhoneAuxiliar($phoneAuxiliar);
         $this->setContactEmail($contactEmail);
     }
+    //*/
 
     // Setters
     public function setIdEvent($newValue) {

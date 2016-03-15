@@ -27,6 +27,12 @@ class Musician extends User{
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+
+        }
+    }
+    /*
     public function __construct($idUser, $email, $password, $name, $photo, $country, 
         $estate, $city, $zipcode, $registeredDate, $status, $biography, $website, 
         $facebook, $twitter, $youtube, $myspace) {
@@ -39,6 +45,7 @@ class Musician extends User{
         $this->setYoutube($youtube);
         $this->setMyspace($myspace);
     }
+    //*/
 
     // Setters
     public function setBiography($newValue) {

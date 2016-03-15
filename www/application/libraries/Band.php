@@ -36,6 +36,25 @@ class Band {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdBand($data[0]);
+            $this->setName($data[1]);
+            $this->setAbout($data[2]);
+            $this->setPhoto($data[3]);
+            $this->setWebsite($data[4]);
+            $this->setFacebook($data[5]);
+            $this->setTwitter($data[6]);
+            $this->setYoutube($data[7]);
+            $this->setMyspace($data[8]);
+            $this->setCountry($data[9]);
+            $this->setEstate($data[10]);
+            $this->setCity($data[11]);
+            $this->setPhone($data[12]);
+            $this->setContactEmail($data[13]);
+        }
+    }
+    /*
     public function __construct($idBand, $name, $about, $photo, $website, $facebook, 
         $twitter, $youtube, $myspace, $country, $estate, $city, $phone, $contactEmail) {
         $this->setIdBand($idBand);
@@ -53,6 +72,7 @@ class Band {
         $this->setPhone($phone);
         $this->setContactEmail($contactEmail);
     }
+    //*/
 
     // Setters
     public function setIdBand($newValue) {

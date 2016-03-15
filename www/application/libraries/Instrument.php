@@ -23,10 +23,18 @@ class Instrument {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdInstrument($data[0]);
+            $this->setName($data[1]);
+        }
+    }
+    /*
     public function __construct($idInstrument, $name) {
         $this->setIdInstrument($idInstrument);
         $this->setName($name);
     }
+    //*/
 
     // Setters
     public function setIdInstrument($newValue) {

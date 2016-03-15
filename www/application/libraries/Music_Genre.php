@@ -23,10 +23,18 @@ class Music_Genre {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdMusicGenre($data[0]);
+            $this->setName($data[1]);
+        }
+    }
+    /*
     public function __construct($idMusicGenre, $name) {
         $this->setIdMusicGenre($idMusicGenre);
         $this->setName($name);
     }
+    //*/
 
     // Setters
     public function setIdMusicGenre($newValue) {

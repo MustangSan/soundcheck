@@ -18,6 +18,7 @@ class Song {
     private $idAlbum;
     private $idBand;
     private $name;
+    private $trackNumber;
     private $genre;
 
     /*
@@ -26,6 +27,17 @@ class Song {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdSong($data[0]);
+            $this->setIdAlbum($data[1]);
+            $this->setIdBand($data[2]);
+            $this->setName($data[3]);
+            $this->setTrackNumber($data[4]);
+            $this->setGenre($data[5]);
+        }
+    }
+    /*
     public function __construct($idSong, $idAlbum, $idBand, $name, $genre) {
         $this->setIdSong($idSong);
         $this->setIdAlbum($idAlbum);
@@ -33,6 +45,7 @@ class Song {
         $this->setName($name);
         $this->setGenre($genre);
     }
+    //*/
 
     // Setters
     public function setIdSong($newValue) {
@@ -49,6 +62,10 @@ class Song {
 
     public function setName($newValue) {
         $this->name = $newValue;
+    }
+
+    public function setTrackNumber($newValue) {
+        $this->trackNumber = $newValue;
     }
 
     public function setGenre($newValue) {
@@ -70,6 +87,10 @@ class Song {
 
     public function getName() {
         return $this->name;
+    }
+
+    public function getTrackNumber() {
+        return $this->trackNumber;
     }
 
     public function getGenre() {

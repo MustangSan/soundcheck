@@ -23,7 +23,7 @@ class User {
     private $estate;
     private $city;
     private $zipcode;
-    private $registeredDate
+    private $registeredDate;
     private $status;
     
 
@@ -33,6 +33,12 @@ class User {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+
+        }
+    }
+    /*
     public function __construct($idUser, $email, $password, $name, $photo, $country, 
         $estate, $city, $zipcode, $registeredDate, $status) {
         $this->setIdUser($idUser);
@@ -47,6 +53,7 @@ class User {
         $this->setRegisteredDate($registeredDate);
         $this->setStatus($status);
     }
+    //*/
 
     // Setters
     public function setIdUser($newValue) {

@@ -1,10 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Welcome to CodeIgniter</title>
+   <title>Administrators</title>
 
    <style type="text/css">
 
@@ -45,6 +46,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       padding: 12px 10px 12px 10px;
    }
 
+   table {
+      /*border: 1px solid;*/
+      color: black;
+   }
+
+   th {
+      border-right: 1px solid;
+      color: black;
+      padding: 0px 10px;
+   }
+
+   td {
+      text-align: center;
+      padding: 10px 25px;
+      border-right: 1px solid;
+   }
+
    #body {
       margin: 0 15px 0 15px;
    }
@@ -68,45 +86,41 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Welcome to CodeIgniter!</h1>
+   <h1>Administrators</h1>
 
    <div id="body">
-      <p>Admin Teste</p>
+      <p><a href="<?php echo base_url('administration/administrators/createAdministrator'); ?>">Create Admin</a></p>
       <table>
          <tr>
-            <th>id</th>
-            <th>email</th>
-            <th>senha</th>
-            <th>nome</th>
-            <th>status</th>
+            <th>IdAdmin</th>
+            <th>E-Mail</th>
+            <th>Password</th>
+            <th>Name</th>
+            <th>Access Permission</th>
+            <th>Status</th>
+            <th></th>
          </tr>
             <?php 
-            /*if(is_array($administrators))
+            if(is_array($administrators))
                foreach ($administrators as $key) {
                   echo "<tr><td>{$key->getIdAdministrator()}</td>";
                   echo "<td>{$key->getEmail()}</td>";
                   echo "<td>{$key->getPassword()}</td>";
                   echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getStatus()}</td></tr>";
-               }*/
+                  echo "<td>{$key->getPermission()}</td>";
+                  echo "<td>{$key->getStatus()}</td>";
+                  echo "<td><a href=\"".base_url('administration/administrators/updateAdministrator/'.$key->getIdAdministrator())."\">Update</a></td></tr>";
+               }
             ?>
       </table>
-      <code>
-         <?php var_dump($administrators);?>
-      </code>
-      <p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
-
-      <p>If you would like to edit this page you'll find it located at:</p>
-      <code>application/views/welcome_message.php</code>
-
-      <p>The corresponding controller for this page is found at:</p>
-      <code>application/controllers/Welcome.php</code>
-
-      <p>If you are exploring CodeIgniter for the very first time, you should start by reading the <a href="user_guide/">User Guide</a>.</p>
+      <pre><code>
+         <?php 
+            var_dump($administrators);
+         ?>
+      </code></pre>
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
-
 </body>
 </html>

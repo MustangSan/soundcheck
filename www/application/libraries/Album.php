@@ -31,6 +31,21 @@ class Album {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdAlbum($data[0]);
+            $this->setIdBand($data[1]);
+            $this->setName($data[2]);
+            $this->setCoverArt($data[3]);
+            $this->setGenre($data[4]);
+            $this->setReleaseDate($data[5]);
+            $this->setLabel($data[6]);
+            $this->setCopyrightDate($data[7]);
+            $this->setSellerLink($data[8]);
+            $this->setListeningLink($data[9]);            
+        }
+    }
+    /*
     public function __construct($idAlbum, $idBand, $name, $coverArt, $genre, 
         $releaseDate, $label, $copyrightDate, $sellerLink, $listeningLink) {
         $this->setIdAlbum($idAlbum);
@@ -44,6 +59,7 @@ class Album {
         $this->setSellerLink($sellerLink);
         $this->setListeningLink($listeningLink);
     }
+    //*/
 
     // Setters
     public function setIdAlbum($newValue) {

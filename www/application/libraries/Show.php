@@ -29,6 +29,19 @@ class Show {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdShow($data[0]);
+            $this->setIdBand($data[1]);
+            $this->setIdTour($data[2]);
+            $this->setName($data[3]);
+            $this->setDescription($data[4]);
+            $this->setDate($data[5]);
+            $this->setTimetable($data[6]);
+            $this->setPlace($data[7]);
+        }
+    }
+    /*
     public function __construct($idShow, $idBand, $idTour, $name, $description, $date, 
         $timetable, $place) {
         $this->setIdShow($idShow);
@@ -40,6 +53,7 @@ class Show {
         $this->setTimetable($timetable);
         $this->setPlace($place);
     }
+    //*/
 
     // Setters
     public function setIdShow($newValue) {

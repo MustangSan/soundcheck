@@ -26,6 +26,16 @@ class Member {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdMember($data[0]);
+            $this->setIdBand($data[1]);
+            $this->setName($data[2]);
+            $this->setPhoto($data[3]);
+            $this->setInstrument($data[4]);
+        }
+    }
+    /*
     public function __construct($idMember, $idBand, $name, $photo, $instrument) {
         $this->setIdMember($idMember);
         $this->setIdBand($idBand);
@@ -33,6 +43,7 @@ class Member {
         $this->setPhoto($photo);
         $this->setInstrument($instrument);
     }
+    //*/
 
     // Setters
     public function setIdMember($newValue) {

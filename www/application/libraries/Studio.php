@@ -40,6 +40,30 @@ class Studio {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdStudio($data[0]);
+            $this->setIdUser($data[1]);
+            $this->setName($data[2]);
+            $this->setAbout($data[3]);
+            $this->setWebsite($data[4]);
+            $this->setFacebook($data[5]);
+            $this->setTwitter($data[6]);
+            $this->setYoutube($data[7]);
+            $this->setCountry($data[8]);
+            $this->setEstate($data[9]);
+            $this->setCity($data[10]);
+            $this->setDistrict($data[11]);
+            $this->setStreet($data[12]);
+            $this->setNumber($data[13]);
+            $this->setComplement($data[14]);
+            $this->setZipcode($data[15]);
+            $this->setPhone($data[16]);
+            $this->setPhoneAuxiliar($data[17]);
+            $this->setContactEmail($data[18]);
+        }
+    }
+    /*
     public function __construct($idStudio, $idUser, $name, $about, $website, $facebook, 
         $twitter, $youtube, $country, $estate, $city, $district, $street,
         $number, $complement, $zipcode, $phone, $phoneAuxiliar, $contactEmail) {
@@ -63,6 +87,7 @@ class Studio {
         $this->setPhoneAuxiliar($phoneAuxiliar);
         $this->setContactEmail($contactEmail);
     }
+    //*/
 
     // Setters
     public function setIdStudio($newValue) {

@@ -27,6 +27,17 @@ class Tour {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdTour($data[0]);
+            $this->setIdBand($data[1]);
+            $this->setName($data[2]);
+            $this->setDescription($data[3]);
+            $this->setBeginDate($data[4]);
+            $this->setEndDate($data[5]);
+        }
+    }
+    /*
     public function __construct($idTour, $idBand, $name, $description, $beginDate, 
         $endDate) {
         $this->setIdTour($idTour);
@@ -36,6 +47,7 @@ class Tour {
         $this->setBeginDate($beginDate);
         $this->setEndDate($endDate);
     }
+    //*/
 
     // Setters
     public function setIdTour($newValue) {

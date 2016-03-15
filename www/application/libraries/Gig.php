@@ -37,6 +37,27 @@ class Gig {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdGig($data[0]);
+            $this->setIdUser($data[1]);
+            $this->setDescription($data[2]);
+            $this->setStatus($data[3]);
+            $this->setPlace($data[4]);
+            $this->setDate($data[5]);
+            $this->setCountry($data[6]);
+            $this->setEstate($data[7]);
+            $this->setCity($data[8]);
+            $this->setDistrict($data[9]);
+            $this->setStreet($data[10]);
+            $this->setNumber($data[11]);
+            $this->setComplement($data[12]);
+            $this->setZipcode($data[13]);
+            $this->setPhone($data[14]);
+            $this->setContactEmail($data[15]);
+        }
+    }
+    /*
     public function __construct($idGig, $idUser, $description, $status, $place, $date, 
         $country, $estate, $city, $district, $street, $number, $complement, $zipcode, 
         $phone, $contactEmail) {
@@ -57,6 +78,7 @@ class Gig {
         $this->setPhone($phone);
         $this->setContactEmail($contactEmail);
     }
+    //*/
 
     // Setters
     public function setIdGig($newValue) {

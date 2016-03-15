@@ -18,8 +18,24 @@ class Welcome extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
+	function __construct() {
+		
+		// Chama todas as models e bibliotecas necessárias no controller
+        parent::__construct();
+        $this->load->model('Administrator_model', 'Admin');
+        $this->load->library('Library');
+    }
+	
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		$data['administrators'] = $this->Admin->readAdministrators();
+		//$data['key'] = $this->Admin->getAdministrator(3);
+		$this->load->view('welcome_message',$data);
+	}
+
+	public function insertAdmin() {
+		$admin = new Administrator(array(NULL, 'mustangsan@gmail.com', '1234pass', 'Mustang San', 1));
+		$result = $this->Admin->createAdministrator($admin);
+		redirect('welcome', 'refresh');
 	}
 }

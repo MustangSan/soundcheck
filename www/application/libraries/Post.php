@@ -30,6 +30,20 @@ class Post {
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+            $this->setIdPost($data[0]);
+            $this->setIdBand($data[1]);
+            $this->setIdAuthor($data[2]);
+            $this->setPostName($data[3]);
+            $this->setTitle($data[4]);
+            $this->setContent($data[5]);
+            $this->setFeaturedImagem($data[6]);
+            $this->setDate($data[7]);
+            $this->setStatus($data[8]);
+        }
+    }
+    /*
     public function __construct($idPost, $idBand, $idAuthor, $postName, $title, $content,
         $featuredImage, $date, $status) {
         $this->setIdPost($idPost);
@@ -42,6 +56,7 @@ class Post {
         $this->setDate($date);
         $this->setStatus($status);
     }
+    //*/
 
     // Setters
     public function setIdPost($newValue) {

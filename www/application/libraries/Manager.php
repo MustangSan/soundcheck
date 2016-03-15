@@ -30,6 +30,12 @@ class Manager extends User{
      *-------------------------
      */
     // Constructor
+    public function __construct($data = NULL) {
+        if(is_array($data)) {
+
+        }
+    }
+    /*
     public function __construct($idUser, $email, $password, $name, $photo, $country, 
         $estate, $city, $zipcode, $registeredDate, $status, $agencyName, $description, 
         $website, $facebook, $twitter, $youtube, $myspace, $phone, $contactEmail) {
@@ -45,6 +51,7 @@ class Manager extends User{
         $this->setPhone($phone);
         $this->setContactEmail($contactEmail);
     }
+    //*/
 
     // Setters
     public function setAgencyName($newValue) {
