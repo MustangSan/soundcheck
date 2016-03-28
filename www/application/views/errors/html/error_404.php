@@ -57,8 +57,12 @@ p {
 </head>
 <body>
 	<div id="container">
-		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<!--h1><?php //echo $heading; ?></h1>
+		<p><?php //echo $message; ?></p-->
+		<h1>Error</h1>
+		<p>Não foi possivel executar está ação</p>
+		<p><a href="<?php echo base_url('administration/administrators/'); ?>">Voltar</a></p>
+
 	</div>
 </body>
 </html>

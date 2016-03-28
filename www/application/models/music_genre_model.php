@@ -11,10 +11,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Music_Genre_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
-        $this->load->database();
         $this->load->library('Library');
+    }
+
+    public function startDatabase() {
+        $this->load->database();
+    }
+
+    public function closeDatabase() {
+        $this->db->close();
     }
 
     public function record_count() {
@@ -34,14 +41,13 @@ class Music_Genre_model extends CI_Model {
 
     public function createMusicGenre($data) {
         if($data instanceof Music_Genre) {
-           $this->db->trans_start();
-           $this->db->insert('music_genres', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
+            $this->db->trans_start();
+            $this->db->insert('music_genres', $this->dismountClass($data));
+            $this->db->trans_complete();
 
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
         }
         return FALSE;
     }
@@ -50,9 +56,8 @@ class Music_Genre_model extends CI_Model {
         if($data instanceof Music_Genre) {
             $this->db->trans_start();
             $this->db->where('idMusicGenre', $data->getIdMusicGenre());
-            $this->db->update('music_genres', dismountClass($data));
+            $this->db->update('music_genres', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -66,7 +71,6 @@ class Music_Genre_model extends CI_Model {
         $this->db->order_by('name ASC');
         $query = $this->db->get('music_genres');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Music_Genre');
@@ -79,7 +83,6 @@ class Music_Genre_model extends CI_Model {
         $this->db->where('idMusicGenre', $id);
         $query = $this->db->get('music_genres');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Music_Genre')[0];

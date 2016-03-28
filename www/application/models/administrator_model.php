@@ -11,15 +11,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Administrator_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
         $this->load->library('Library');
     }
 
-    public function record_count() {
+    public function startDatabase() {
         $this->load->database();
-        return $this->db->count_all('administrators');
+    }
+
+    public function closeDatabase() {
         $this->db->close();
+    }
+
+    public function record_count() {
+        return $this->db->count_all('administrators');
     }
 
     private function dismountClass($class) {
@@ -35,27 +41,23 @@ class Administrator_model extends CI_Model {
 
     public function createAdministrator($data) {
         if($data instanceof Administrator) {
-           $this->load->database();
-           $this->db->trans_start();
-           $this->db->insert('administrators', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
+            $this->db->trans_start();
+            $this->db->insert('administrators', $this->dismountClass($data));
+            $this->db->trans_complete();
 
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
         }
         return FALSE;
     }
 
     public function updateAdministrator($data) {
         if($data instanceof Administrator) {
-            $this->load->database();
             $this->db->trans_start();
             $this->db->where('idAdministrator', $data->getIdAdministrator());
             $this->db->update('administrators', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -65,12 +67,10 @@ class Administrator_model extends CI_Model {
     }
 
     public function readAdministrators() {
-        $this->load->database();
         $this->db->trans_start();
         $this->db->order_by('name ASC');
         $query = $this->db->get('administrators');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Administrator');
@@ -79,12 +79,10 @@ class Administrator_model extends CI_Model {
     }
 
     public function getAdministrator($id) {
-        $this->load->database();
         $this->db->trans_start();
         $this->db->where('idAdministrator', $id);
         $query = $this->db->get('administrators');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Administrator')[0];

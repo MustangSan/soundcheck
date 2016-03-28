@@ -11,5 +11,8 @@ www/application/logs/*
 !www/application/logs/index.html
 !www/application/logs/.htaccess
 
+www/content-uploaded/*
+!www/content-uploaded/index.html
+
 .settings/*
 www/application/config/database.php

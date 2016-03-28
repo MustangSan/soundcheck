@@ -32,7 +32,16 @@ class Manager extends User{
     // Constructor
     public function __construct($data = NULL) {
         if(is_array($data)) {
-
+            parent::__construct($data);
+            $this->setAgencyName($data[11]);
+            $this->setDescription($data[12]);
+            $this->setWebsite($data[13]);
+            $this->setFacebook($data[14]);
+            $this->setTwitter($data[15]);
+            $this->setYoutube($data[16]);
+            $this->setMyspace($data[17]);
+            $this->setPhone($data[18]);
+            $this->setContactEmail($data[19]);
         }
     }
     /*

@@ -11,10 +11,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tour_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
-        $this->load->database();
         $this->load->library('Library');
+    }
+
+    public function startDatabase() {
+        $this->load->database();
+    }
+
+    public function closeDatabase() {
+        $this->db->close();
     }
 
     public function record_count() {
@@ -34,14 +41,13 @@ class Tour_model extends CI_Model {
 
     public function createTour($data) {
         if($data instanceof Tour) {
-           $this->db->trans_start();
-           $this->db->insert('tours', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
+            $this->db->trans_start();
+            $this->db->insert('tours', $this->dismountClass($data));
+            $this->db->trans_complete();
 
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
         }
         return FALSE;
     }
@@ -50,9 +56,8 @@ class Tour_model extends CI_Model {
         if($data instanceof Tour) {
             $this->db->trans_start();
             $this->db->where('idTour', $data->getIdTour());
-            $this->db->update('tours', dismountClass($data));
+            $this->db->update('tours', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -68,7 +73,6 @@ class Tour_model extends CI_Model {
             $this->db->where('idBand', $idBand);
         $query = $this->db->get('tours');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Tour');
@@ -81,7 +85,6 @@ class Tour_model extends CI_Model {
         $this->db->where('idTour', $id);
         $query = $this->db->get('tours');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Tour')[0];

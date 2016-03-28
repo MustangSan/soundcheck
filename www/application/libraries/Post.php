@@ -38,7 +38,7 @@ class Post {
             $this->setPostName($data[3]);
             $this->setTitle($data[4]);
             $this->setContent($data[5]);
-            $this->setFeaturedImagem($data[6]);
+            $this->setFeaturedImage($data[6]);
             $this->setDate($data[7]);
             $this->setStatus($data[8]);
         }
@@ -52,7 +52,7 @@ class Post {
         $this->setPostName($postName);
         $this->setTitle($title);
         $this->setContent($content);
-        $this->setFeaturedImagem($featuredImage);
+        $this->setFeaturedImage($featuredImage);
         $this->setDate($date);
         $this->setStatus($status);
     }
@@ -83,7 +83,7 @@ class Post {
         $this->content = $newValue;
     }
 
-    public function setFeaturedImagem($newValue) {
+    public function setFeaturedImage($newValue) {
         $this->featuredImage = $newValue;
     }
 
@@ -120,7 +120,7 @@ class Post {
         return $this->content;
     }
 
-    public function getFeaturedImagem() {
+    public function getFeaturedImage() {
         return $this->featuredImage;
     }
 

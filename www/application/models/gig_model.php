@@ -11,10 +11,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Gig_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
-        $this->load->database();
         $this->load->library('Library');
+    }
+
+    public function startDatabase() {
+        $this->load->database();
+    }
+
+    public function closeDatabase() {
+        $this->db->close();
     }
 
     public function record_count() {
@@ -34,14 +41,13 @@ class Gig_model extends CI_Model {
 
     public function createGig($data) {
         if($data instanceof Gig) {
-           $this->db->trans_start();
-           $this->db->insert('gigs', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
+            $this->db->trans_start();
+            $this->db->insert('gigs', $this->dismountClass($data));
+            $this->db->trans_complete();
 
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
         }
         return FALSE;
     }
@@ -50,9 +56,8 @@ class Gig_model extends CI_Model {
         if($data instanceof Gig) {
             $this->db->trans_start();
             $this->db->where('idGig', $data->getIdGig());
-            $this->db->update('gigs', dismountClass($data));
+            $this->db->update('gigs', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -69,7 +74,6 @@ class Gig_model extends CI_Model {
             $this->db->where('idUser', $idUser);
         $query = $this->db->get('gigs');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Gig');
@@ -82,7 +86,6 @@ class Gig_model extends CI_Model {
         $this->db->where('idGig', $id);
         $query = $this->db->get('gigs');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Gig')[0];

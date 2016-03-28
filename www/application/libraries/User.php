@@ -35,9 +35,20 @@ class User {
     // Constructor
     public function __construct($data = NULL) {
         if(is_array($data)) {
-
+            $this->setIdUser($data[0]);
+            $this->setEmail($data[1]);
+            $this->setPassword($data[2]);
+            $this->setName($data[3]);
+            $this->setPhoto($data[4]);
+            $this->setCountry($data[5]);
+            $this->setEstate($data[6]);
+            $this->setCity($data[7]);
+            $this->setZipcode($data[8]);
+            $this->setRegisteredDate($data[9]);
+            $this->setStatus($data[10]);
         }
     }
+
     /*
     public function __construct($idUser, $email, $password, $name, $photo, $country, 
         $estate, $city, $zipcode, $registeredDate, $status) {
@@ -143,6 +154,20 @@ class User {
 
     public function getStatus() {
         return $this->status;
+    }
+
+    public function copyUserData($data) {
+        $this->setIdUser($data->getIdUser());
+        $this->setEmail($data->getEmail());
+        $this->setPassword($data->getPassword());
+        $this->setName($data->getName());
+        $this->setPhoto($data->getPhoto());
+        $this->setCountry($data->getCountry());
+        $this->setEstate($data->getEstate());
+        $this->setCity($data->getCity());
+        $this->setZipcode($data->getZipcode());
+        $this->setRegisteredDate($data->getRegisteredDate());
+        $this->setStatus($data->getStatus());
     }
 }
 

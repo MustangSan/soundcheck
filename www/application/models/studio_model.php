@@ -11,10 +11,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Studio_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
-        $this->load->database();
         $this->load->library('Library');
+    }
+
+    public function startDatabase() {
+        $this->load->database();
+    }
+
+    public function closeDatabase() {
+        $this->db->close();
     }
 
     public function record_count() {
@@ -34,14 +41,13 @@ class Studio_model extends CI_Model {
 
     public function createStudio($data) {
         if($data instanceof Studio) {
-           $this->db->trans_start();
-           $this->db->insert('studios', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
+            $this->db->trans_start();
+            $this->db->insert('studios', $this->dismountClass($data));
+            $this->db->trans_complete();
 
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
         }
         return FALSE;
     }
@@ -50,9 +56,8 @@ class Studio_model extends CI_Model {
         if($data instanceof Studio) {
             $this->db->trans_start();
             $this->db->where('idStudio', $data->getIdStudio());
-            $this->db->update('studios', dismountClass($data));
+            $this->db->update('studios', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -68,7 +73,6 @@ class Studio_model extends CI_Model {
             $this->db->where('idUser', $idUser);
         $query = $this->db->get('studios');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Studio');
@@ -81,7 +85,6 @@ class Studio_model extends CI_Model {
         $this->db->where('idStudio', $id);
         $query = $this->db->get('studios');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Studio')[0];

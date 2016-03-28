@@ -11,10 +11,17 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Song_model extends CI_Model {
 
-    public function __construct() {
+    function __construct() {
         parent::__construct();
-        $this->load->database();
         $this->load->library('Library');
+    }
+
+    public function startDatabase() {
+        $this->load->database();
+    }
+
+    public function closeDatabase() {
+        $this->db->close();
     }
 
     public function record_count() {
@@ -34,25 +41,9 @@ class Song_model extends CI_Model {
 
     public function createSong($data) {
         if($data instanceof Song) {
-           $this->db->trans_start();
-           $this->db->insert('songs', $this->dismountClass($data));
-           $this->db->trans_complete();
-           $this->db->close();
-
-           if($this->db->trans_status())
-              return TRUE;
-           return FALSE;
-        }
-        return FALSE;
-    }
-
-    public function updateSong($data) {
-        if($data instanceof Song) {
             $this->db->trans_start();
-            $this->db->where('idSong', $data->getIdSong());
-            $this->db->update('songs', dismountClass($data));
+            $this->db->insert('songs', $this->dismountClass($data));
             $this->db->trans_complete();
-            $this->db->close();
 
             if($this->db->trans_status())
                 return TRUE;
@@ -61,13 +52,27 @@ class Song_model extends CI_Model {
         return FALSE;
     }
 
-    public function readSongs($idAlbum) {
+    public function updateSong($data) {
+        if($data instanceof Song) {
+            $this->db->trans_start();
+            $this->db->where('idSong', $data->getIdSong());
+            $this->db->update('songs', $this->dismountClass($data));
+            $this->db->trans_complete();
+
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
+        }
+        return FALSE;
+    }
+
+    public function readSongs($idAlbum = NULL) {
         $this->db->trans_start();
         $this->db->order_by('name ASC');
-        $this->db->where('idAlbum', $idAlbum);
+        if(!is_null($idAlbum))
+            $this->db->where('idAlbum', $idAlbum);
         $query = $this->db->get('songs');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Song');
@@ -80,7 +85,6 @@ class Song_model extends CI_Model {
         $this->db->where('idSong', $id);
         $query = $this->db->get('songs');
         $this->db->trans_complete();
-        $this->db->close();
 
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Song')[0];
