@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($instruments);
+            //var_dump($instruments);
          ?>
       </code></pre>
    </div>

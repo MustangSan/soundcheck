@@ -89,7 +89,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Administrators</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('administration/administrators/createAdministrator'); ?>">Create Admin</a></p>
+      <p>
+         <a href="<?php echo base_url('administration/administrators/createAdministrator'); ?>">Create Admin</a> 
+         <a href="<?php echo base_url('administration/logout'); ?>">Logout</a>
+      </p>
       <table>
          <tr>
             <th>IdAdmin</th>
@@ -117,7 +120,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($administrators);
+            //var_dump($administrators);
          ?>
       </code></pre>
    </div>

@@ -97,7 +97,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
       $data = array(
       'name' => 'password',
-      'type' => 'text',
+      'type' => 'password',
       'value' => $password
       );       
       echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Senha</span>'.form_input($data);

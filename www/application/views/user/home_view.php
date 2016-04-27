@@ -1,11 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-<!DOCTYPE html>
+?><!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Songs</title>
+   <title>SoundCheck</title>
 
    <style type="text/css">
 
@@ -46,23 +45,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       padding: 12px 10px 12px 10px;
    }
 
-   table {
-      /*border: 1px solid;*/
-      color: black;
-   }
-
-   th {
-      border-right: 1px solid;
-      color: black;
-      padding: 0px 10px;
-   }
-
-   td {
-      text-align: center;
-      padding: 10px 25px;
-      border-right: 1px solid;
-   }
-
    #body {
       margin: 0 15px 0 15px;
    }
@@ -86,43 +68,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Songs</h1>
+   <h3>Welcome <?php echo $this->session->userdata('user')['name']; ?>!</h3>
 
    <div id="body">
-      <p><a href="<?php echo base_url('songs/createSong'); ?>">Create Song</a></p>
-      <table>
-         <tr>
-            <th>IdSong</th>
-            <th>IdAlbum</th>
-            <th>IdBand</th>
-            <th>Name</th>
-            <th>Track Number</th>
-            <th>Genre</th>
-            <th></th>
-         </tr>
-            <?php 
-            if(is_array($songs))
-               foreach ($songs as $key) {
-                  echo "<tr><td>{$key->getIdSong()}</td>";
-                  echo "<td>{$key->getIdAlbum()}</td>";
-                  echo "<td>{$key->getIdBand()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getTrackNumber()}</td>";
-                  echo "<td>{$key->getGenre()}</td>";
-                  echo "<td><a href=\"".base_url('songs/updateSong/'.$key->getIdSong())."\">Update</a></td></tr>";
-               }
-               else
-                  echo "<tr><td colspan=7>No data found</td></tr>"
-            ?>
-      </table>
-      <pre><code>
-         <?php 
-            //var_dump($songs);
-         ?>
-      </code></pre>
+      <p>Conteudo</p>
+      <ul>
+         <li><a href="<?php echo base_url('albuns'); ?>">Albuns</a></li>
+         <li><a href="<?php echo base_url('bands'); ?>">Bands</a></li>
+         <li><a href="<?php echo base_url('events'); ?>">Events</a></li>
+         <li><a href="<?php echo base_url('gigs'); ?>">Gigs</a></li>
+         <li><a href="<?php echo base_url('members'); ?>">Members</a></li>
+         <li><a href="<?php echo base_url('posts'); ?>">Posts</a></li>
+         <li><a href="<?php echo base_url('shows'); ?>">Shows</a></li>
+         <li><a href="<?php echo base_url('studios'); ?>">Studios</a></li>
+         <li><a href="<?php echo base_url('tours'); ?>">Tours</a></li>
+         <li><a href="<?php echo base_url('venues'); ?>">Venues</a></li>
+         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
+      </ul>
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
+
 </body>
 </html>

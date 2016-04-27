@@ -20,6 +20,10 @@ class Albuns extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Album_model', 'Album');
+        $this->load->model('Login_user_model', 'Login');
+
+        if(!$this->Login->is_logged())
+            redirect('login', 'refresh');
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
@@ -55,7 +59,7 @@ class Albuns extends CI_Controller {
         }
     }
 
-    public function index() {
+    public function index($id = NULL) {
         $this->Album->startDatabase();
         $data['albuns'] = $this->Album->readAlbuns();
         $this->Album->closeDatabase();

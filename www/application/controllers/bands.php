@@ -20,6 +20,10 @@ class Bands extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Band_model', 'Band');
+        $this->load->model('Login_user_model', 'Login');
+
+        if(!$this->Login->is_logged())
+            redirect('login', 'refresh');
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';

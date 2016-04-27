@@ -28,9 +28,9 @@ class Welcome extends CI_Controller {
 	
 	public function index()
 	{
-		$data['administrators'] = $this->Admin->readAdministrators();
+		//$data['administrators'] = $this->Admin->readAdministrators();
 		//$data['key'] = $this->Admin->getAdministrator(3);
-		$this->load->view('welcome_message',$data);
+		$this->load->view('welcome_message');
 	}
 
 	public function insertAdmin() {

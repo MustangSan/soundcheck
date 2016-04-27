@@ -21,13 +21,6 @@ class Sign_up extends CI_Controller {
     }
 
     public function index() {
-        $this->User->startDatabase();
-        $data['users'] = $this->User->readUsers();
-        $this->User->closeDatabase();
-        $this->load->view('user/user_list_view', $data);
-    }
-
-    public function registration() {
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('accountType', 'Account Type', 'trim|required');
@@ -116,7 +109,7 @@ class Sign_up extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('sign_up');
+                redirect('login');
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
@@ -198,7 +191,7 @@ class Sign_up extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('sign_up');
+                redirect('login');
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
@@ -289,7 +282,7 @@ class Sign_up extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('sign_up');
+                redirect('login');
             }
             else {
                 $this->session->set_flashdata('result', 'createError');

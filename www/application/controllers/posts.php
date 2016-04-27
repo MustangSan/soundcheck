@@ -18,6 +18,10 @@ class Posts extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Post_model', 'Post');
+        $this->load->model('Login_user_model', 'Login');
+
+        if(!$this->Login->is_logged())
+            redirect('login', 'refresh');
     }
 
     public function index() {

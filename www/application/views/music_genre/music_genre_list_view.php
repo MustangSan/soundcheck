@@ -109,7 +109,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($music_genres);
+            //var_dump($music_genres);
          ?>
       </code></pre>
    </div>

@@ -16,8 +16,13 @@ class Administrators extends CI_Controller {
         
         $this->load->library('Library');
         $this->load->library('form_validation');
+        //$this->load->library('session');
 
         $this->load->model('Administrator_model', 'Admin');
+        $this->load->model('Login_model', 'Login');
+
+        if(!$this->Login->is_logged())
+            redirect('administration/login', 'refresh');
     }
 
     public function index() {

@@ -66,7 +66,8 @@ class User_model extends CI_Model {
             $this->db->insert('users', $this->dismountClass($data));
             
             if($this->db->trans_status()){
-                //$data = $this->dismountClass($fa);
+                //$data = $this->dismountClass($data);
+                unset($data);
                 $data['idUser'] = $this->db->insert_id();
                 $this->db->insert('fans', $data);
             }

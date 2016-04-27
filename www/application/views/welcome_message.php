@@ -92,7 +92,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>
       </table>
       <code>
-         <?php var_dump($administrators);?>
+         <?php //var_dump($administrators);?>
       </code>
       <p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 

@@ -121,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($shows);
+            //var_dump($shows);
          ?>
       </code></pre>
    </div>

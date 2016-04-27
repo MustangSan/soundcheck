@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Administrators</title>
+   <title>Login</title>
 
    <style type="text/css">
 
@@ -69,27 +69,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Create Administrator</h1>
+   <h1>Login</h1>
 
    <div id="body">
       <?php          
       echo form_open();
 
       $data = array(
-      'name' => 'name',
-      'type' => 'text',
-      'style' => 'width: 210px;',
-      'value' => $name
-      );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Name</span>'.form_input($data);
-      echo form_error('name', '<div class="error">', '</div>');
-      echo '</div>';
-
-      $data = array(
       'name' => 'email',
       'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $email
+      'style' => 'width: 275px;'
       );       
       echo '<div class="input-prepend"> <span class="add-on">E-mail</span>'.form_input($data);
       echo form_error('email', '<div class="error">', '</div>');
@@ -103,23 +92,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo form_error('password', '<div class="error">', '</div>');
       echo '</div>';
 
-      $options = array(
-      'Overlord' => 'Overlord',
-      'Super-Administrator' => 'Super-Administrator',
-      'Administrator' => 'Administrator'
-      );
-      $js = 'id="permission" class="input"';
-      echo '<div class="input-prepend"> <span class="add-on">Permissão</span>'.form_dropdown('permission', $options, $permission, $js);
-      echo '</div><br>';
-
-      $options = array(
-      'Active' => 'Active',
-      'Inactive' => 'Inactive'
-      );
-      $js = 'id="status" class="input"';
-      echo '<div class="input-prepend"> <span class="add-on">Permissão</span>'.form_dropdown('status', $options, $status, $js);
-      echo '</div><br>';
-
       $data = array(
       'type' => 'submit',
       'name' => 'submit',
@@ -131,6 +103,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo form_input($data);
 
       form_close();
+
+      if(isset($result))
+         echo '<p>'.$result.'</p>';
 
       ?>
    </div>

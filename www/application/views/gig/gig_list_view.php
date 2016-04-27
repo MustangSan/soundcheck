@@ -137,7 +137,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($gigs);
+            //var_dump($gigs);
          ?>
       </code></pre>
    </div>

@@ -143,7 +143,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($studios);
+            //var_dump($studios);
          ?>
       </code></pre>
    </div>

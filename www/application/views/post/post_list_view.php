@@ -123,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       </table>
       <pre><code>
          <?php 
-            var_dump($posts);
+            //var_dump($posts);
          ?>
       </code></pre>
    </div>
