@@ -109,6 +109,22 @@ class User_model extends CI_Model {
         return FALSE;
     }
 
+    public function upgradeToManager($managerData, $idUser){
+        if($managerData instanceof Manager) {
+            $data = $this->dismountClass($managerData);
+            $data['idUser'] = $idUser;
+            
+            $this->db->trans_start();
+            $this->db->insert('managers', $data);
+            $this->db->trans_complete();
+            
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
+        }
+        return FALSE;
+    }
+
     /*
      *-------------------------
      * MANAGER METHODS
@@ -128,6 +144,22 @@ class User_model extends CI_Model {
                 $this->db->insert('managers', $data);
             }
             
+            $this->db->trans_complete();
+            
+            if($this->db->trans_status())
+                return TRUE;
+            return FALSE;
+        }
+        return FALSE;
+    }
+
+    public function upgradeToMusician($musicianData, $idUser){
+        if($musicianData instanceof Musician) {
+            $data = $this->dismountClass($musicianData);
+            $data['idUser'] = $idUser;
+            
+            $this->db->trans_start();
+            $this->db->insert('musicians', $data);
             $this->db->trans_complete();
             
             if($this->db->trans_status())

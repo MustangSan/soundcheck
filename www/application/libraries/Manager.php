@@ -31,7 +31,7 @@ class Manager extends User{
      */
     // Constructor
     public function __construct($data = NULL) {
-        if(is_array($data)) {
+        if(is_array($data) && count($data) > 10) {
             parent::__construct($data);
             $this->setAgencyName($data[11]);
             $this->setDescription($data[12]);
@@ -42,6 +42,17 @@ class Manager extends User{
             $this->setMyspace($data[17]);
             $this->setPhone($data[18]);
             $this->setContactEmail($data[19]);
+        }
+        else {
+            $this->setAgencyName($data[0]);
+            $this->setDescription($data[1]);
+            $this->setWebsite($data[2]);
+            $this->setFacebook($data[3]);
+            $this->setTwitter($data[4]);
+            $this->setYoutube($data[5]);
+            $this->setMyspace($data[6]);
+            $this->setPhone($data[7]);
+            $this->setContactEmail($data[8]);
         }
     }
     /*

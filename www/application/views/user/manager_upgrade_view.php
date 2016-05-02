@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Posts</title>
+   <title>Users</title>
 
    <style type="text/css">
 
@@ -69,70 +69,100 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Create Post</h1>
+   <h1>Upgrade Account</h1>
 
    <div id="body">
       <?php          
       echo form_open();
 
       $data = array(
-      'name' => 'postName',
+      'name' => 'agencyName',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $postName
+      'value' => $agencyName
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Post Name</span>'.form_input($data);
-      echo form_error('postName', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">agencyName</span>'.form_input($data);
+      echo form_error('agencyName', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'title',
+      'name' => 'description',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $title
+      'value' => $description
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Title</span>'.form_input($data);
-      echo form_error('title', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">description</span>'.form_input($data);
+      echo form_error('description', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'content',
+      'name' => 'website',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $content
+      'value' => $website
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Content</span>'.form_input($data);
-      echo form_error('content', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">website</span>'.form_input($data);
+      echo form_error('website', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'featuredImage',
+      'name' => 'facebook',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $featuredImage
+      'value' => $facebook
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Featured Image</span>'.form_input($data);
-      echo form_error('featuredImage', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">facebook</span>'.form_input($data);
+      echo form_error('facebook', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'date',
+      'name' => 'twitter',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $date
+      'value' => $twitter
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Date</span>'.form_input($data);
-      echo form_error('date', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">twitter</span>'.form_input($data);
+      echo form_error('twitter', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'status',
+      'name' => 'youtube',
       'type' => 'text',
       'style' => 'width: 210px;',
-      'value' => $status
+      'value' => $youtube
       );       
-      echo '<div class="input-prepend" > <span class="add-on">Status</span>'.form_input($data);
-      echo form_error('status', '<div class="error">', '</div>');
+      echo '<div class="input-prepend" > <span class="add-on">youtube</span>'.form_input($data);
+      echo form_error('youtube', '<div class="error">', '</div>');
+      echo '</div><br>';
+
+      $data = array(
+      'name' => 'myspace',
+      'type' => 'text',
+      'style' => 'width: 210px;',
+      'value' => $myspace
+      );       
+      echo '<div class="input-prepend" > <span class="add-on">myspace</span>'.form_input($data);
+      echo form_error('myspace', '<div class="error">', '</div>');
+      echo '</div><br>';
+
+      $data = array(
+      'name' => 'phone',
+      'type' => 'text',
+      'style' => 'width: 210px;',
+      'value' => $phone
+      );       
+      echo '<div class="input-prepend" > <span class="add-on">phone</span>'.form_input($data);
+      echo form_error('phone', '<div class="error">', '</div>');
+      echo '</div><br>';
+
+      $data = array(
+      'name' => 'contactEmail',
+      'type' => 'text',
+      'style' => 'width: 210px;',
+      'value' => $contactEmail
+      );       
+      echo '<div class="input-prepend" > <span class="add-on">contactEmail</span>'.form_input($data);
+      echo form_error('contactEmail', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(

@@ -28,7 +28,7 @@ class Musician extends User{
      */
     // Constructor
     public function __construct($data = NULL) {
-        if(is_array($data)) {
+        if(is_array($data) && count($data) > 10) {
             parent::__construct($data);
             $this->setBiography($data[11]);
             $this->setWebsite($data[12]);
@@ -36,6 +36,14 @@ class Musician extends User{
             $this->setTwitter($data[14]);
             $this->setYoutube($data[15]);
             $this->setMyspace($data[16]);
+        }
+        else {
+            $this->setBiography($data[0]);
+            $this->setWebsite($data[1]);
+            $this->setFacebook($data[2]);
+            $this->setTwitter($data[3]);
+            $this->setYoutube($data[4]);
+            $this->setMyspace($data[5]);
         }
     }
     /*

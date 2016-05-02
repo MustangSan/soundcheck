@@ -81,7 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $name
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Name</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Name</span>'.form_input($data);
       echo form_error('name', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $description
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Description</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Description</span>'.form_input($data);
       echo form_error('description', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $beginDate
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Begin Date</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Begin Date</span>'.form_input($data);
       echo form_error('beginDate', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $endDate
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">End Date</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">End Date</span>'.form_input($data);
       echo form_error('endDate', '<div class="error">', '</div>');
       echo '</div><br>';
 

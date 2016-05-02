@@ -81,7 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $name
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Name</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Name</span>'.form_input($data);
       echo form_error('name', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -91,7 +91,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $about
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">About</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">About</span>'.form_input($data);
       echo form_error('about', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -101,7 +101,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $website
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Website</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Website</span>'.form_input($data);
       echo form_error('website', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -111,7 +111,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $facebook
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Facebook</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Facebook</span>'.form_input($data);
       echo form_error('facebook', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -121,7 +121,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $twitter
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Twitter</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Twitter</span>'.form_input($data);
       echo form_error('twitter', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -131,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $youtube
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Youtube</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Youtube</span>'.form_input($data);
       echo form_error('youtube', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -141,7 +141,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $country
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Country</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Country</span>'.form_input($data);
       echo form_error('country', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -151,7 +151,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $estate
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Estate</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Estate</span>'.form_input($data);
       echo form_error('estate', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -161,7 +161,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $city
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">City</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">City</span>'.form_input($data);
       echo form_error('city', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -171,7 +171,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $district
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">District</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">District</span>'.form_input($data);
       echo form_error('district', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -181,7 +181,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $street
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Street</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Street</span>'.form_input($data);
       echo form_error('street', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -191,7 +191,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $number
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Number</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Number</span>'.form_input($data);
       echo form_error('number', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -201,7 +201,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $complement
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Complement</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Complement</span>'.form_input($data);
       echo form_error('complement', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -211,7 +211,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $zipcode
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Zipcode</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Zipcode</span>'.form_input($data);
       echo form_error('zipcode', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -221,7 +221,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $phone
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Phone</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Phone</span>'.form_input($data);
       echo form_error('phone', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -231,7 +231,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $phoneAuxiliar
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Phone Auxiliar</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Phone Auxiliar</span>'.form_input($data);
       echo form_error('phoneAuxiliar', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -241,7 +241,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 210px;',
       'value' => $contactEmail
       );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Contact Email</span>'.form_input($data);
+      echo '<div class="input-prepend" > <span class="add-on">Contact Email</span>'.form_input($data);
       echo form_error('contactEmail', '<div class="error">', '</div>');
       echo '</div><br>';
 
