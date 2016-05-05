@@ -22,6 +22,9 @@ class Venues extends CI_Controller {
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
+
+        if($this->session->userdata('user')['permission'] !== 'manager' || $this->session->userdata('user')['permission'] !== 'M&M')
+            redirect('home', 'refresh');
     }
 
     public function index() {
