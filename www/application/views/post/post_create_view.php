@@ -106,16 +106,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'featuredImage',
-      'type' => 'text',
-      'style' => 'width: 210px;',
-      'value' => $featuredImage
-      );       
-      echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Featured Image</span>'.form_input($data);
-      echo form_error('featuredImage', '<div class="error">', '</div>');
-      echo '</div><br>';
-
-      $data = array(
       'name' => 'date',
       'type' => 'text',
       'style' => 'width: 210px;',
@@ -133,6 +123,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       );       
       echo '<div class="input-prepend" style="float: left; margin-right: 20px;"> <span class="add-on">Status</span>'.form_input($data);
       echo form_error('status', '<div class="error">', '</div>');
+      echo '</div><br>';
+
+      $data = array(
+      'name' => 'coverArt',
+      'style' => 'width: 275px;',
+      );       
+      echo '<div class="input-prepend"> <span class="add-on">Cover Art</span>'.form_upload($data);
+      echo form_error('coverArt', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(

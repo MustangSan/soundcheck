@@ -23,6 +23,7 @@ class Posts extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
+<<<<<<< HEAD
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = 900;
@@ -55,6 +56,10 @@ class Posts extends CI_Controller {
             else
                 $_POST['coverArt'] = $this->album->getCoverArt();
         }
+=======
+        if($this->session->userdata('user')['permission'] !== 'musician' || $this->session->userdata('user')['permission'] !== 'M&M')
+            redirect('home', 'refresh');
+>>>>>>> f4ca37eac2f6d9c6c4c4f7a8c198de6116273c16
     }
 
     public function index() {
