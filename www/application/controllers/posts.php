@@ -22,6 +22,39 @@ class Posts extends CI_Controller {
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
+
+        $config['upload_path']      = './content-uploaded/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = 900;
+        $config['max_width']        = 300;
+        $config['max_height']       = 300;
+        $this->load->library('upload', $config);
+    }
+
+    public function handle_upload() {
+        if (isset($_FILES['coverArt']) && !empty($_FILES['coverArt']['name'])) {
+            if ($this->upload->do_upload('coverArt')) {
+                if(!empty($this->album))
+                    unlink('./content-uploaded/'.$this->album->getCoverArt());
+                
+                $upload_data    = $this->upload->data();
+                $_POST['coverArt'] = $upload_data['file_name'];
+                return TRUE;
+            }
+            else {
+                $this->form_validation->set_message('handle_upload', $this->upload->display_errors());
+                return FALSE;
+            }
+            return TRUE;
+        }
+        else {
+            if(empty($this->album)) {
+                $this->form_validation->set_message('handle_upload', "You must upload an image!");
+                return FALSE;
+            }
+            else
+                $_POST['coverArt'] = $this->album->getCoverArt();
+        }
     }
 
     public function index() {
@@ -35,7 +68,7 @@ class Posts extends CI_Controller {
         $this->form_validation->set_rules('postName', 'Post Name', 'trim|required');
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('content', 'Content', 'trim|required');
-        $this->form_validation->set_rules('featuredImage', 'Featured Image', 'trim|required');
+        $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
         $this->form_validation->set_rules('date', 'Date', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
@@ -82,7 +115,7 @@ class Posts extends CI_Controller {
             $this->form_validation->set_rules('postName', 'Post Name', 'trim|required');
             $this->form_validation->set_rules('title', 'Title', 'trim|required');
             $this->form_validation->set_rules('content', 'Content', 'trim|required');
-            $this->form_validation->set_rules('featuredImage', 'Featured Image', 'trim|required');
+            $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
             $this->form_validation->set_rules('date', 'Date', 'trim|required');
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
