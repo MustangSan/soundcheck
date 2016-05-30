@@ -25,7 +25,7 @@ class Bands extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
-        if($this->session->userdata('user')['permission'] !== 'musician' || $this->session->userdata('user')['permission'] !== 'M&M')
+        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
 
         $config['upload_path']      = './content-uploaded/';
@@ -196,6 +196,19 @@ class Bands extends CI_Controller {
                     redirect('bands');
                 }
             }
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
+    public function profile($id) {
+        $this->Band->startDatabase();
+        $this->band = $this->Band->getBand($id);
+        $this->Band->closeDatabase();
+
+        if(!empty($this->band)) {
+            $data['band'] = $this->band;
+            $this->load->view('band/band_profile_view', $data);
         }
         else
             $this->load->view('errors/html/error_404');

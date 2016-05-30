@@ -73,7 +73,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <div id="body">
       <p>Conteudo</p>
       <ul>
-         <li><a href="<?php echo base_url('albuns'); ?>">Albuns</a></li>
          <li><a href="<?php echo base_url('bands'); ?>">Bands</a></li>
          <li><a href="<?php echo base_url('events'); ?>">Events</a></li>
          <li><a href="<?php echo base_url('gigs'); ?>">Gigs</a></li>

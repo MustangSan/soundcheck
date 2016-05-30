@@ -89,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Albuns</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('albuns/createAlbum'); ?>">Create Albuns</a></p>
+      <p><a href="<?php echo base_url('albuns/createAlbum/'.$idBand); ?>">Create Albuns</a></p>
       <table>
          <tr>
             <th>Cover Art</th>
@@ -117,7 +117,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getCopyrightDate()}</td>";
                   echo "<td>{$key->getSellerLink()}</td>";
                   echo "<td>{$key->getListeningLink()}</td>";
-                  echo "<td><a href=\"".base_url('albuns/updateAlbum/'.$key->getIdAlbum())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('albuns/updateAlbum/'.$key->getIdAlbum())."\">Update</a><br>";
+                  echo "<a href=\"".base_url('albuns/myAlbumSongs/'.$idBand.'/'.$key->getIdAlbum())."\">Album Songs</a></td></tr>";
                }
                else
                   echo "<tr><td colspan=11>No data found</td></tr>"

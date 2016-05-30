@@ -23,18 +23,34 @@ class Shows extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
-        if($this->session->userdata('user')['permission'] !== 'musician' || $this->session->userdata('user')['permission'] !== 'M&M')
+        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
     }
 
     public function index() {
-        $this->Show->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Show->startDatabase();
         $data['shows'] = $this->Show->readShows();
+        $this->Show->closeDatabase();
+        $this->load->view('show/show_list_view', $data);
+        */
+    }
+
+    public function myShows($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Show->startDatabase();
+        $data['shows'] = $this->Show->readShows($idBand);
         $this->Show->closeDatabase();
         $this->load->view('show/show_list_view', $data);
     }
 
-    public function createShow() {
+    public function createShow($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('date', 'Date', 'trim|required');
@@ -48,10 +64,12 @@ class Shows extends CI_Controller {
                             'timetable'     => $this->input->post('timetable'),
                             'place'         => $this->input->post('place')
                         );
+            $data['idBand'] = $idBand;
             $this->load->view('show/show_create_view', $data);
         }
         else {
-            $data = new Show ([ NULL,1,
+            $data = new Show ([ NULL,
+                                $idBand,
                                 NULL,
                                 $this->input->post('name'),
                                 $this->input->post('description'),
@@ -65,16 +83,19 @@ class Shows extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('shows');
+                redirect('shows/myShows/'.$idBand);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('shows');
+                redirect('shows/myShows/'.$idBand);
             }
         }
     }
 
-    public function updateShow($id) {
+    public function updateShow($id = NULL) {
+        if(!isset($id) || empty($id))
+            redirect('home', 'refresh');
+
         $this->Show->startDatabase();
         $show = $this->Show->getShow($id);
         $this->Show->closeDatabase();
@@ -93,6 +114,7 @@ class Shows extends CI_Controller {
                                 'timetable'     => $show->getTimetable(),
                                 'place'         => $show->getPlace()
                             );
+                $data['idBand'] = $show->getIdBand();
                 $this->load->view('show/show_update_view', $data);
             }
 
@@ -112,11 +134,11 @@ class Shows extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('shows');
+                    redirect('shows/myShows/'.$show->getIdBand());
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('shows');
+                    redirect('shows/myShows/'.$show->getIdBand());
                 }
             }
         }

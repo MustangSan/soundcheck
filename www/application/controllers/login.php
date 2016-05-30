@@ -35,7 +35,7 @@ class Login extends CI_Controller {
                 $user = array(  'name'              => $query->name,
                                 'email'             => $query->email,
                                 'idUser'            => $query->idUser,
-                                'permission'        => 'manager'
+                                'permission'        => $query->permission
                             );
                 $data = array('user' => $user);
                 $this->session->set_userdata($data);

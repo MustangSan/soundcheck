@@ -73,7 +73,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    <div id="body">
       <?php          
-      echo form_open();
+      echo form_open_multipart();
 
       $data = array(
       'name' => 'postName',
@@ -126,11 +126,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo '</div><br>';
 
       $data = array(
-      'name' => 'coverArt',
+      'name' => 'featuredImage',
       'style' => 'width: 275px;',
       );       
-      echo '<div class="input-prepend"> <span class="add-on">Cover Art</span>'.form_upload($data);
-      echo form_error('coverArt', '<div class="error">', '</div>');
+      echo '<div class="input-prepend"> <span class="add-on">Featured Image</span>'.form_upload($data);
+      echo form_error('featuredImage', '<div class="error">', '</div>');
       echo '</div><br>';
 
       $data = array(

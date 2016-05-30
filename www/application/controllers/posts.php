@@ -11,6 +11,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Posts extends CI_Controller {
 
+    private $post;
+
     function __construct() {
         parent::__construct();
 
@@ -23,7 +25,6 @@ class Posts extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
-<<<<<<< HEAD
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
         $config['max_size']         = 900;
@@ -33,13 +34,13 @@ class Posts extends CI_Controller {
     }
 
     public function handle_upload() {
-        if (isset($_FILES['coverArt']) && !empty($_FILES['coverArt']['name'])) {
-            if ($this->upload->do_upload('coverArt')) {
-                if(!empty($this->album))
-                    unlink('./content-uploaded/'.$this->album->getCoverArt());
+        if (isset($_FILES['featuredImage']) && !empty($_FILES['featuredImage']['name'])) {
+            if ($this->upload->do_upload('featuredImage')) {
+                if(!empty($this->post))
+                    unlink('./content-uploaded/'.$this->post->getFeaturedImage());
                 
-                $upload_data    = $this->upload->data();
-                $_POST['coverArt'] = $upload_data['file_name'];
+                $upload_data = $this->upload->data();
+                $_POST['featuredImage'] = $upload_data['file_name'];
                 return TRUE;
             }
             else {
@@ -49,17 +50,13 @@ class Posts extends CI_Controller {
             return TRUE;
         }
         else {
-            if(empty($this->album)) {
+            if(empty($this->post)) {
                 $this->form_validation->set_message('handle_upload', "You must upload an image!");
                 return FALSE;
             }
             else
-                $_POST['coverArt'] = $this->album->getCoverArt();
+                $_POST['featuredImage'] = $this->post->getFeaturedImage();
         }
-=======
-        if($this->session->userdata('user')['permission'] !== 'musician' || $this->session->userdata('user')['permission'] !== 'M&M')
-            redirect('home', 'refresh');
->>>>>>> f4ca37eac2f6d9c6c4c4f7a8c198de6116273c16
     }
 
     public function index() {
@@ -70,10 +67,10 @@ class Posts extends CI_Controller {
     }
 
     public function createPost() {
+        $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
         $this->form_validation->set_rules('postName', 'Post Name', 'trim|required');
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
         $this->form_validation->set_rules('content', 'Content', 'trim|required');
-        $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
         $this->form_validation->set_rules('date', 'Date', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
@@ -81,7 +78,6 @@ class Posts extends CI_Controller {
             $data = array(  'postName'          => $this->input->post('postName'),
                             'title'             => $this->input->post('title'),
                             'content'           => $this->input->post('content'),
-                            'featuredImage'     => $this->input->post('featuredImage'),
                             'date'              => $this->input->post('date'),
                             'status'            => $this->input->post('status')
                         );
@@ -113,31 +109,30 @@ class Posts extends CI_Controller {
 
     public function updatePost($id) {
         $this->Post->startDatabase();
-        $post = $this->Post->getPost($id);
+        $this->post = $this->Post->getPost($id);
         $this->Post->closeDatabase();
 
-        if(!empty($post)) {
+        if(!empty($this->post)) {
+            $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
             $this->form_validation->set_rules('postName', 'Post Name', 'trim|required');
             $this->form_validation->set_rules('title', 'Title', 'trim|required');
             $this->form_validation->set_rules('content', 'Content', 'trim|required');
-            $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
             $this->form_validation->set_rules('date', 'Date', 'trim|required');
             $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
             if($this->form_validation->run() == FALSE) {
-                $data = array(  'postName'          => $post->getPostName(),
-                                'title'             => $post->getTitle(),
-                                'content'           => $post->getContent(),
-                                'featuredImage'     => $post->getFeaturedImage(),
-                                'date'              => $post->getDate(),
-                                'status'            => $post->getStatus()
+                $data = array(  'postName'          => $this->post->getPostName(),
+                                'title'             => $this->post->getTitle(),
+                                'content'           => $this->post->getContent(),
+                                'date'              => $this->post->getDate(),
+                                'status'            => $this->post->getStatus()
                             );
                 $this->load->view('post/post_update_view', $data);
             }
             else {
-                $data = new Post ([ $post->getIdPost(),
-                                    $post->getIdBand(),
-                                    $post->getIdAuthor(),
+                $data = new Post ([ $this->post->getIdPost(),
+                                    $this->post->getIdBand(),
+                                    $this->post->getIdAuthor(),
                                     $this->input->post('postName'),
                                     $this->input->post('title'),
                                     $this->input->post('content'),

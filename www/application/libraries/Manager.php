@@ -31,17 +31,17 @@ class Manager extends User{
      */
     // Constructor
     public function __construct($data = NULL) {
-        if(is_array($data) && count($data) > 10) {
+        if(is_array($data) && count($data) > 11) {
             parent::__construct($data);
-            $this->setAgencyName($data[11]);
-            $this->setDescription($data[12]);
-            $this->setWebsite($data[13]);
-            $this->setFacebook($data[14]);
-            $this->setTwitter($data[15]);
-            $this->setYoutube($data[16]);
-            $this->setMyspace($data[17]);
-            $this->setPhone($data[18]);
-            $this->setContactEmail($data[19]);
+            $this->setAgencyName($data[12]);
+            $this->setDescription($data[13]);
+            $this->setWebsite($data[14]);
+            $this->setFacebook($data[15]);
+            $this->setTwitter($data[16]);
+            $this->setYoutube($data[17]);
+            $this->setMyspace($data[18]);
+            $this->setPhone($data[19]);
+            $this->setContactEmail($data[20]);
         }
         else {
             $this->setAgencyName($data[0]);

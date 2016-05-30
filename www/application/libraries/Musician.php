@@ -28,14 +28,14 @@ class Musician extends User{
      */
     // Constructor
     public function __construct($data = NULL) {
-        if(is_array($data) && count($data) > 10) {
+        if(is_array($data) && count($data) > 11) {
             parent::__construct($data);
-            $this->setBiography($data[11]);
-            $this->setWebsite($data[12]);
-            $this->setFacebook($data[13]);
-            $this->setTwitter($data[14]);
-            $this->setYoutube($data[15]);
-            $this->setMyspace($data[16]);
+            $this->setBiography($data[12]);
+            $this->setWebsite($data[13]);
+            $this->setFacebook($data[14]);
+            $this->setTwitter($data[15]);
+            $this->setYoutube($data[16]);
+            $this->setMyspace($data[17]);
         }
         else {
             $this->setBiography($data[0]);

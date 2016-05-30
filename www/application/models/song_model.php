@@ -68,7 +68,9 @@ class Song_model extends CI_Model {
 
     public function readSongs($idAlbum = NULL) {
         $this->db->trans_start();
-        $this->db->order_by('name ASC');
+        $this->db->order_by('idAlbum ASC');
+        $this->db->order_by('idBand ASC');
+        $this->db->order_by('trackNumber ASC');
         if(!is_null($idAlbum))
             $this->db->where('idAlbum', $idAlbum);
         $query = $this->db->get('songs');

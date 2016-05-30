@@ -20,12 +20,13 @@ class Albuns extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Album_model', 'Album');
+        $this->load->model('Song_model', 'Song');
         $this->load->model('Login_user_model', 'Login');
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
-        if($this->session->userdata('user')['permission'] !== 'musician' || $this->session->userdata('user')['permission'] !== 'M&M')
+        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
 
         $config['upload_path']      = './content-uploaded/';
@@ -42,7 +43,7 @@ class Albuns extends CI_Controller {
                 if(!empty($this->album))
                     unlink('./content-uploaded/'.$this->album->getCoverArt());
                 
-                $upload_data    = $this->upload->data();
+                $upload_data = $this->upload->data();
                 $_POST['coverArt'] = $upload_data['file_name'];
                 return TRUE;
             }
@@ -62,14 +63,30 @@ class Albuns extends CI_Controller {
         }
     }
 
-    public function index($id = NULL) {
-        $this->Album->startDatabase();
+    public function index() {
+        redirect('home', 'refresh');
+        /*$this->Album->startDatabase();
         $data['albuns'] = $this->Album->readAlbuns();
+        $this->Album->closeDatabase();
+        $this->load->view('album/album_list_view', $data);
+        */
+    }
+
+    public function myAlbuns($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Album->startDatabase();
+        $data['albuns'] = $this->Album->readAlbuns($idBand);
         $this->Album->closeDatabase();
         $this->load->view('album/album_list_view', $data);
     }
 
-    public function createAlbum() {
+    public function createAlbum($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
         $this->form_validation->set_rules('coverArt', 'Cover Art', 'callback_handle_upload');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('genre', 'Genre', 'trim|required');
@@ -88,10 +105,12 @@ class Albuns extends CI_Controller {
                             'sellerLink'    => $this->input->post('sellerLink'),
                             'listeningLink' => $this->input->post('listeningLink')
                         );
+            $data['idBand'] = $idBand;
             $this->load->view('album/album_create_view', $data);
         }
         else {
-            $data = new Album ([NULL,1,
+            $data = new Album ([NULL,
+                                $idBand,
                                 $this->input->post('name'),
                                 $this->input->post('coverArt'),
                                 $this->input->post('genre'),
@@ -107,16 +126,19 @@ class Albuns extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('albuns');
+                redirect('albuns/myAlbuns/'.$idBand);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('albuns');
+                redirect('albuns/myAlbuns/'.$idBand);
             }
         }
     }
 
-    public function updateAlbum($id) {
+    public function updateAlbum($id  = NULL) {
+        if(!isset($id) || empty($id))
+            redirect('home', 'refresh');
+
         $this->Album->startDatabase();
         $this->album = $this->Album->getAlbum($id);
         $this->Album->closeDatabase();
@@ -140,6 +162,7 @@ class Albuns extends CI_Controller {
                                 'sellerLink'    => $this->album->getSellerLink(),
                                 'listeningLink' => $this->album->getListeningLink()
                             );
+                $data['idBand'] = $this->album->getIdBand();
                 $this->load->view('album/album_update_view', $data);
             }
             else {
@@ -160,11 +183,104 @@ class Albuns extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('albuns');
+                    redirect('albuns/myAlbuns/'.$this->album->getIdBand());
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('albuns');
+                    redirect('albuns/myAlbuns/'.$this->album->getIdBand());
+                }
+            }
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
+    public function myAlbumSongs($idBand = NULL, $idAlbum = NULL) {
+        if((!isset($idBand) || empty($idBand)) || (!isset($idAlbum) || empty($idAlbum)))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $data['idAlbum'] = $idAlbum;
+        $this->Song->startDatabase();
+        $data['songs'] = $this->Song->readSongs($idAlbum);
+        $this->Song->closeDatabase();
+        $this->load->view('song/song_list_view', $data);
+    }
+
+    public function createSong($idBand = NULL, $idAlbum = NULL) {
+        if((!isset($idBand) || empty($idBand)) || (!isset($idAlbum) || empty($idAlbum)))
+            redirect('home', 'refresh');
+        
+        $this->form_validation->set_rules('name', 'Name', 'trim|required');
+        $this->form_validation->set_rules('trackNumber', 'Track Number', 'trim|required');
+        $this->form_validation->set_rules('genre', 'Genre', 'trim|required');
+
+        if($this->form_validation->run() == FALSE) {
+            $data = array(  'name'          => $this->input->post('name'),
+                            'trackNumber'   => $this->input->post('trackNumber'),
+                            'genre'         => $this->input->post('genre')
+                        );
+            $this->load->view('song/song_create_view', $data);
+        }
+        else {
+            $data = new Song ([ NULL,
+                                $idAlbum,
+                                $idBand,
+                                $this->input->post('name'),
+                                $this->input->post('trackNumber'),
+                                $this->input->post('genre')
+                            ]);
+            $this->Song->startDatabase();
+            $result = $this->Song->createSong($data);
+            $this->Song->closeDatabase();
+
+            if($result) {
+                $this->session->set_flashdata('result', 'createSuccess');
+                redirect('albuns/myAlbumSongs/'.$idBand.'/'.$idAlbum);
+            }
+            else {
+                $this->session->set_flashdata('result', 'createError');
+                redirect('albuns/myAlbumSongs/'.$idBand.'/'.$idAlbum);
+            }
+        }
+    }
+
+    public function updateSong($idSong) {
+        $this->Song->startDatabase();
+        $song = $this->Song->getSong($idSong);
+        $this->Song->closeDatabase();
+
+        if(!empty($song)) {
+            $this->form_validation->set_rules('name', 'Name', 'trim|required');
+            $this->form_validation->set_rules('trackNumber', 'Track Number', 'trim|required');
+            $this->form_validation->set_rules('genre', 'Genre', 'trim|required');
+
+            if($this->form_validation->run() == FALSE) {
+                $data = array(  'name'          => $song->getName(),
+                                'trackNumber'   => $song->getTrackNumber(),
+                                'genre'         => $song->getGenre()
+                            );
+                $this->load->view('song/song_update_view', $data);
+            }
+            else {
+                $data = new Song ([ $song->getIdSong(),
+                                    $song->getIdAlbum(),
+                                    $song->getIdBand(),
+                                    $this->input->post('name'),
+                                    $this->input->post('trackNumber'),
+                                    $this->input->post('genre')
+                                ]);
+                $this->Song->startDatabase();
+                $result = $this->Song->updateSong($data);
+                $this->Song->closeDatabase();
+
+                if($result) {
+                    $this->session->set_flashdata('result', 'updateSuccess');
+                    redirect('albuns/myAlbumSongs/'.$song->getIdBand().'/'.$song->getIdAlbum());
+                }
+                else {
+                    $this->session->set_flashdata('result', 'updateError');
+                    redirect('albuns/myAlbumSongs/'.$song->getIdBand().'/'.$song->getIdAlbum());
                 }
             }
         }

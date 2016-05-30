@@ -66,9 +66,11 @@ class Album_model extends CI_Model {
         return FALSE;
     }
 
-    public function readAlbuns() {
+    public function readAlbuns($idBand = NULL) {
         $this->db->trans_start();
         $this->db->order_by('name ASC');
+        if(!is_null($idBand))
+            $this->db->where('idBand', $idBand);
         $query = $this->db->get('albuns');
         $this->db->trans_complete();
 

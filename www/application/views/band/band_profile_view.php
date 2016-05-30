@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Songs</title>
+   <title>Administrators</title>
 
    <style type="text/css">
 
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    td {
       text-align: center;
-      padding: 10px 25px;
+      padding: 5px 10px;
       border-right: 1px solid;
    }
 
@@ -86,38 +86,57 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Songs</h1>
+   <h1>Band</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('albuns/createSong/'.$idBand.'/'.$idAlbum); ?>">Create Song</a></p>
-      <table>
-         <tr>
-            <th>IdSong</th>
-            <th>IdAlbum</th>
-            <th>IdBand</th>
-            <th>Name</th>
-            <th>Track Number</th>
-            <th>Genre</th>
-            <th></th>
-         </tr>
+      <?php 
+      if(!empty($band)) {
+      ?>
+         <p><a href="<?php echo base_url('bands/updateBand/'.$band->getIdBand()); ?>">Uptade Band</a></p>
+         <table>
+            <tr>
+               <th>Photo</th>
+               <th>IdBand</th>
+               <th>Name</th>
+               <th>About</th>
+               <th>Website</th>
+               <th>Facebook</th>
+               <th>Twitter</th>
+               <th>Youtube</th>
+               <th>Myspace</th>
+               <th>Country</th>
+               <th>Estate</th>
+               <th>City</th>
+               <th>Phone</th>
+               <th>Email</th>
+            </tr>
             <?php 
-            if(is_array($songs))
-               foreach ($songs as $key) {
-                  echo "<tr><td>{$key->getIdSong()}</td>";
-                  echo "<td>{$key->getIdAlbum()}</td>";
-                  echo "<td>{$key->getIdBand()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getTrackNumber()}</td>";
-                  echo "<td>{$key->getGenre()}</td>";
-                  echo "<td><a href=\"".base_url('albuns/updateSong/'.$key->getIdSong())."\">Update</a></td></tr>";
+                  echo "<tr><td>{$band->getPhoto()}</td>";
+                  echo "<td>{$band->getIdBand()}</td>";
+                  echo "<td>{$band->getName()}</td>";
+                  echo "<td>{$band->getAbout()}</td>";
+                  echo "<td>{$band->getWebsite()}</td>";
+                  echo "<td>{$band->getFacebook()}</td>";
+                  echo "<td>{$band->getTwitter()}</td>";
+                  echo "<td>{$band->getYoutube()}</td>";
+                  echo "<td>{$band->getMyspace()}</td>";
+                  echo "<td>{$band->getCountry()}</td>";
+                  echo "<td>{$band->getEstate()}</td>";
+                  echo "<td>{$band->getCity()}</td>";
+                  echo "<td>{$band->getPhone()}</td>";
+                  echo "<td>{$band->getContactEmail()}</td>";
                }
                else
-                  echo "<tr><td colspan=7>No data found</td></tr>"
+                  echo "<p>No data found</p>"
             ?>
       </table>
+      <p><a href="<?php echo base_url('albuns/myAlbuns/'.$band->getIdBand()); ?>">Albuns</a></p>
+      <p><a href="<?php echo base_url('shows/myShows/'.$band->getIdBand()); ?>">Shows</a></p>
+      <p><a href="<?php echo base_url('tours/myTours/'.$band->getIdBand()); ?>">Tours</a></p>
+
       <pre><code>
          <?php 
-            //var_dump($songs);
+            //var_dump($bands);
          ?>
       </code></pre>
    </div>

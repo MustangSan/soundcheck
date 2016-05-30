@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Administrators</title>
+   <title>Bands</title>
 
    <style type="text/css">
 
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Administrators</h1>
+   <h1>Bands</h1>
 
    <div id="body">
       <p><a href="<?php echo base_url('bands/createBand'); ?>">Create Band</a></p>
@@ -125,7 +125,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getCity()}</td>";
                   echo "<td>{$key->getPhone()}</td>";
                   echo "<td>{$key->getContactEmail()}</td>";
-                  echo "<td><a href=\"".base_url('bands/updateBand/'.$key->getIdBand())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('bands/profile/'.$key->getIdBand())."\">Profile</a></td></tr>";
                }
                else
                   echo "<tr><td colspan=15>No data found</td></tr>"

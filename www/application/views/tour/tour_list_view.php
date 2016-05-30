@@ -89,7 +89,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Tours</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('tours/createTour'); ?>">Create Tour</a></p>
+      <p><a href="<?php echo base_url('tours/createTour/'.$idBand); ?>">Create Tour</a></p>
       <table>
          <tr>
             <th>IdTour</th>
@@ -109,7 +109,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getDescription()}</td>";
                   echo "<td>{$key->getBeginDate()}</td>";
                   echo "<td>{$key->getEndDate()}</td>";
-                  echo "<td><a href=\"".base_url('tours/updateTour/'.$key->getIdTour())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('tours/updateTour/'.$key->getIdTour())."\">Update</a><br>";
+                  echo "<a href=\"".base_url('tours/myTourShows/'.$idBand.'/'.$key->getIdTour())."\">Tour Shows</a></td></tr>";
                }
                else
                   echo "<tr><td colspan=8>No data found</td></tr>"

@@ -89,7 +89,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Shows</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('shows/createShow'); ?>">Create Show</a></p>
+      <?php if($this->uri->segment(1) == "shows") {?>
+         <p><a href="<?php echo base_url('shows/createShow/'.$idBand); ?>">Create Show</a></p>
+      <?php }else if($this->uri->segment(1) == "tours") { ?>
+         <p><a href="<?php echo base_url('tours/createShow/'.$idBand.'/'.$idTour); ?>">Create Show</a></p>
+      <?php } ?>
       <table>
          <tr>
             <th>IdShow</th>
@@ -113,7 +117,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getDate()}</td>";
                   echo "<td>{$key->getTimetable()}</td>";
                   echo "<td>{$key->getPlace()}</td>";
-                  echo "<td><a href=\"".base_url('shows/updateShow/'.$key->getIdShow())."\">Update</a></td></tr>";
+                  if($this->uri->segment(1) == "shows")
+                     echo "<td><a href=\"".base_url('shows/updateShow/'.$key->getIdShow())."\">Update</a></td></tr>";
+                  else if($this->uri->segment(1) == "tours")
+                     echo "<td><a href=\"".base_url('tours/updateShow/'.$key->getIdShow())."\">Update</a></td></tr>";
                }
                else
                   echo "<tr><td colspan=9>No data found</td></tr>"

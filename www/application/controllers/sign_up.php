@@ -34,7 +34,7 @@ class Sign_up extends CI_Controller {
         }
         else{
             $data = array(  'name'          => $this->input->post('name'),
-                            'email'         => $this->input->post('email'),
+                            'email'         => $this->input->post('email')
                         );
             $this->session->set_userdata($data);
             switch ($this->input->post('accountType')) {
@@ -101,6 +101,7 @@ class Sign_up extends CI_Controller {
                                 $this->input->post('city'),
                                 $this->input->post('zipcode'),
                                 $this->input->post('registeredDate'),
+                                'fa',
                                 $this->input->post('status')
                             ]);
             $this->User->startDatabase();
@@ -177,6 +178,7 @@ class Sign_up extends CI_Controller {
                                     $this->input->post('city'),
                                     $this->input->post('zipcode'),
                                     $this->input->post('registeredDate'),
+                                    'musician',
                                     $this->input->post('status'),
                                     $this->input->post('biography'),
                                     $this->input->post('website'),
@@ -265,6 +267,7 @@ class Sign_up extends CI_Controller {
                                     $this->input->post('city'),
                                     $this->input->post('zipcode'),
                                     $this->input->post('registeredDate'),
+                                    'manager',
                                     $this->input->post('status'),
                                     $this->input->post('agencyName'),
                                     $this->input->post('description'),

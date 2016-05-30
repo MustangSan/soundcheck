@@ -24,6 +24,7 @@ class User {
     private $city;
     private $zipcode;
     private $registeredDate;
+    private $permission;
     private $status;
     
 
@@ -45,13 +46,14 @@ class User {
             $this->setCity($data[7]);
             $this->setZipcode($data[8]);
             $this->setRegisteredDate($data[9]);
-            $this->setStatus($data[10]);
+            $this->setPermission($data[10]);
+            $this->setStatus($data[11]);
         }
     }
 
     /*
     public function __construct($idUser, $email, $password, $name, $photo, $country, 
-        $estate, $city, $zipcode, $registeredDate, $status) {
+        $estate, $city, $zipcode, $registeredDate, $permission, $status) {
         $this->setIdUser($idUser);
         $this->setEmail($email);
         $this->setPassword($password);
@@ -62,6 +64,7 @@ class User {
         $this->setCity($city);
         $this->setZipcode($zipcode);
         $this->setRegisteredDate($registeredDate);
+        $this->setPermission($permission);
         $this->setStatus($status);
     }
     //*/
@@ -105,6 +108,10 @@ class User {
 
     public function setRegisteredDate($newValue) {
         $this->registeredDate = $newValue;
+    }
+
+    public function setPermission($newValue) {
+        $this->permission = $newValue;
     }
 
     public function setStatus($newValue) {
@@ -152,6 +159,10 @@ class User {
         return $this->registeredDate;
     }
 
+    public function getPermission() {
+        return $this->permission;
+    }
+
     public function getStatus() {
         return $this->status;
     }
@@ -167,6 +178,7 @@ class User {
         $this->setCity($data->getCity());
         $this->setZipcode($data->getZipcode());
         $this->setRegisteredDate($data->getRegisteredDate());
+        $this->setPermission($data->getPermission());
         $this->setStatus($data->getStatus());
     }
 }

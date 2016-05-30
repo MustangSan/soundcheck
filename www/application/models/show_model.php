@@ -71,8 +71,7 @@ class Show_model extends CI_Model {
         $this->db->order_by('name ASC');
         if(!is_null($idBand))
             $this->db->where('idBand', $idBand);
-        if(!is_null($idTour))
-            $this->db->where('idTour', $idTour);
+        $this->db->where('idTour', $idTour);
         $query = $this->db->get('shows');
         $this->db->trans_complete();
 
