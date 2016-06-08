@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Administrators</title>
+   <title>Band</title>
 
    <style type="text/css">
 
@@ -130,9 +130,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<p>No data found</p>"
             ?>
       </table>
+
       <p><a href="<?php echo base_url('albuns/myAlbuns/'.$band->getIdBand()); ?>">Albuns</a></p>
       <p><a href="<?php echo base_url('shows/myShows/'.$band->getIdBand()); ?>">Shows</a></p>
       <p><a href="<?php echo base_url('tours/myTours/'.$band->getIdBand()); ?>">Tours</a></p>
+      <p><a href="<?php echo base_url('members/bandMembers/'.$band->getIdBand()); ?>">Members</a></p>
+      <p><a href="<?php echo base_url('posts/myPosts/'.$band->getIdBand()); ?>">Blog</a>
 
       <pre><code>
          <?php 

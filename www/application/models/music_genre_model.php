@@ -66,9 +66,11 @@ class Music_Genre_model extends CI_Model {
         return FALSE;
     }
 
-    public function readMusicGenres() {
+    public function readMusicGenres($idBand = NULL) {
         $this->db->trans_start();
         $this->db->order_by('name ASC');
+        if(!is_null($idBand))
+            $this->db->where('idBand', $idBand);
         $query = $this->db->get('music_genres');
         $this->db->trans_complete();
 

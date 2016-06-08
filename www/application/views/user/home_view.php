@@ -73,15 +73,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <div id="body">
       <p>Conteudo</p>
       <ul>
-         <li><a href="<?php echo base_url('bands'); ?>">Bands</a></li>
+         <li><a href="<?php echo base_url('bands/myBands'); ?>">Bands</a></li>
          <li><a href="<?php echo base_url('events'); ?>">Events</a></li>
-         <li><a href="<?php echo base_url('gigs'); ?>">Gigs</a></li>
-         <li><a href="<?php echo base_url('members'); ?>">Members</a></li>
-         <li><a href="<?php echo base_url('posts'); ?>">Posts</a></li>
-         <li><a href="<?php echo base_url('shows'); ?>">Shows</a></li>
-         <li><a href="<?php echo base_url('studios'); ?>">Studios</a></li>
-         <li><a href="<?php echo base_url('tours'); ?>">Tours</a></li>
-         <li><a href="<?php echo base_url('venues'); ?>">Venues</a></li>
+         <li><a href="<?php echo base_url('gigs/myGigs'); ?>">Gigs</a></li>
+         <li><a href="<?php echo base_url('studios/myStudios'); ?>">Studios</a></li>
+         <li><a href="<?php echo base_url('venues/myVenues'); ?>">Venues</a></li>
          <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
       </ul>
    </div>

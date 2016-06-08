@@ -43,6 +43,15 @@ class Band_model extends CI_Model {
         if($data instanceof Band) {
             $this->db->trans_start();
             $this->db->insert('bands', $this->dismountClass($data));
+            
+            if($this->db->trans_status()){
+                unset($data);
+                $data['idBand'] = $this->db->insert_id();
+                $data['idUser'] = $this->session->userdata('user')['idUser'];
+
+                $this->db->insert('band_members', $data);
+            }
+
             $this->db->trans_complete();
 
             if($this->db->trans_status())
@@ -66,10 +75,17 @@ class Band_model extends CI_Model {
         return FALSE;
     }
 
-    public function readBands() {
+    public function readBands($idUser = NULL) {
         $this->db->trans_start();
         $this->db->order_by('name ASC');
-        $query = $this->db->get('bands');
+        if(!is_null($idUser)) {
+            $this->db->select('b.*');
+            $this->db->from('bands as b, band_members as bm');
+            $this->db->where('b.idBand = bm.idBand and bm.idUser = '.$idUser);
+            $query = $this->db->get();
+        }
+        else
+            $query = $this->db->get('bands');
         $this->db->trans_complete();
 
         if($query->num_rows() > 0) {

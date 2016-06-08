@@ -70,9 +70,14 @@ class Gig_model extends CI_Model {
         $this->db->trans_start();
         $this->db->order_by('status ASC');
         $this->db->order_by('idGig ASC');
-        if(!is_null($idUser))
+        if(!is_null($idUser)){
             $this->db->where('idUser', $idUser);
-        $query = $this->db->get('gigs');
+            $query = $this->db->get('gigs');
+        }
+        else {
+            $this->db->where('status','Active');
+            $query = $this->db->get('gigs');
+        }
         $this->db->trans_complete();
 
         if($query->num_rows() > 0) {

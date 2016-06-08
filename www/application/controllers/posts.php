@@ -60,13 +60,28 @@ class Posts extends CI_Controller {
     }
 
     public function index() {
-        $this->Post->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Post->startDatabase();
         $data['posts'] = $this->Post->readPosts();
+        $this->Post->closeDatabase();
+        $this->load->view('post/post_list_view', $data);*/
+    }
+
+    public function myPosts($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Post->startDatabase();
+        $data['posts'] = $this->Post->readPosts($idBand);
         $this->Post->closeDatabase();
         $this->load->view('post/post_list_view', $data);
     }
 
-    public function createPost() {
+    public function createPost($idBand = NULL) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+
         $this->form_validation->set_rules('featuredImage', 'Featured Image', 'callback_handle_upload');
         $this->form_validation->set_rules('postName', 'Post Name', 'trim|required');
         $this->form_validation->set_rules('title', 'Title', 'trim|required');
@@ -81,10 +96,13 @@ class Posts extends CI_Controller {
                             'date'              => $this->input->post('date'),
                             'status'            => $this->input->post('status')
                         );
+            $data['idBand'] = $idBand;
             $this->load->view('post/post_create_view', $data);
         }
         else {
-            $data = new Post ([ NULL,1,1,
+            $data = new Post ([ NULL,
+                                $idBand,
+                                $this->session->userdata('user')['idUser'],
                                 $this->input->post('postName'),
                                 $this->input->post('title'),
                                 $this->input->post('content'),
@@ -98,16 +116,19 @@ class Posts extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('posts');
+                redirect('posts/myPosts/'.$idBand);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('posts');
+                redirect('posts/myPosts/'.$idBand);
             }
         }
     }
 
     public function updatePost($id) {
+        if(!isset($id) || empty($id))
+            redirect('home', 'refresh');
+
         $this->Post->startDatabase();
         $this->post = $this->Post->getPost($id);
         $this->Post->closeDatabase();
@@ -127,6 +148,7 @@ class Posts extends CI_Controller {
                                 'date'              => $this->post->getDate(),
                                 'status'            => $this->post->getStatus()
                             );
+                $data['idBand'] = $this->post->getIdBand();
                 $this->load->view('post/post_update_view', $data);
             }
             else {
@@ -146,11 +168,11 @@ class Posts extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('posts');
+                    redirect('posts/myPosts/'.$this->post->getIdBand());
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('posts');
+                    redirect('posts/myPosts/'.$this->post->getIdBand());
                 }
             }
         }

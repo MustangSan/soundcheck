@@ -89,7 +89,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Members</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('members/createMember'); ?>">Create Member</a></p>
+      <p><a href="<?php echo base_url('members/createMember/'.$idBand); ?>">Create Member</a></p>
+      <p><a href="<?php echo base_url('members/insertMember/'.$idBand); ?>">Insert Member</a></p>
       <table>
          <tr>
             <th>Photo</th>
@@ -100,17 +101,27 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <th></th>
          </tr>
             <?php 
-            if(!empty($members))
-               foreach ($members as $key) {
-                  echo "<tr><td>{$key->getPhoto()}</td>";
-                  echo "<td>{$key->getIdMember()}</td>";
-                  echo "<td>{$key->getIdBand()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getInstrument()}</td>";
-                  echo "<td><a href=\"".base_url('members/updateMember/'.$key->getIdMember())."\">Update</a></td></tr>";
-               }
-               else
-                  echo "<tr><td colspan=11>No data found</td></tr>"
+            if(empty($members) && empty($membersSignup))
+               echo "<tr><td colspan=11>No data found</td></tr>";
+            else {
+               if(!empty($members))
+                  foreach ($members as $key) {
+                     echo "<tr><td>{$key->getPhoto()}</td>";
+                     echo "<td>{$key->getIdMember()}</td>";
+                     echo "<td>{$key->getIdBand()}</td>";
+                     echo "<td>{$key->getName()}</td>";
+                     echo "<td>{$key->getInstrument()}</td>";
+                     echo "<td><a href=\"".base_url('members/updateMember/'.$key->getIdMember())."\">Update</a></td></tr>";
+                  }
+               if(!empty($membersSignup))
+                  foreach ($membersSignup as $key) {
+                     echo "<tr><td>{$key['photo']}</td>";
+                     echo "<td>{$key['idUser']}</td>";
+                     echo "<td>{$idBand}</td>";
+                     echo "<td>{$key['name']}</td>";
+                     echo "<td>Fazer</td></tr>";
+                  }
+            }
             ?>
       </table>
       <pre><code>

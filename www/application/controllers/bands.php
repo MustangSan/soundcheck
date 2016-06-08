@@ -63,8 +63,16 @@ class Bands extends CI_Controller {
     }
 
     public function index() {
-        $this->Band->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Band->startDatabase();
         $data['bands'] = $this->Band->readBands();
+        $this->Band->closeDatabase();
+        $this->load->view('band/band_list_view', $data);*/
+    }//*/
+
+    public function myBands() {
+        $this->Band->startDatabase();
+        $data['bands'] = $this->Band->readBands($this->session->userdata('user')['idUser']);
         $this->Band->closeDatabase();
         $this->load->view('band/band_list_view', $data);
     }

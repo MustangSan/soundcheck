@@ -28,13 +28,30 @@ class Studios extends CI_Controller {
     }
 
     public function index() {
-        $this->Studio->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Studio->startDatabase();
         $data['studios'] = $this->Studio->readStudios();
+        $this->Studio->closeDatabase();
+        $this->load->view('studio/studio_list_view', $data);*/
+    }
+
+    public function myStudios() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+        
+        $data['idUser'] = $idUser;
+        $this->Studio->startDatabase();
+        $data['studios'] = $this->Studio->readStudios($idUser);
         $this->Studio->closeDatabase();
         $this->load->view('studio/studio_list_view', $data);
     }
 
     public function createStudio() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('about', 'About', 'trim|required');
         $this->form_validation->set_rules('website', 'Website', 'trim');
@@ -72,10 +89,12 @@ class Studios extends CI_Controller {
                             'phoneAuxiliar'     => $this->input->post('phoneAuxiliar'),
                             'contactEmail'      => $this->input->post('contactEmail')
                         );
+            $data['idUser'] = $idUser;
             $this->load->view('studio/studio_create_view', $data);
         }
         else {
-            $data = new Studio ([   NULL,1,
+            $data = new Studio ([   NULL,
+                                    $idUser,
                                     $this->input->post('name'),
                                     $this->input->post('about'),
                                     $this->input->post('website'),
@@ -100,11 +119,11 @@ class Studios extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('studios');
+                redirect('studios/myStudios/'.$idUser);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('studios');
+                redirect('studios/myStudios/'.$idUser);
             }
         }
     }
@@ -152,6 +171,7 @@ class Studios extends CI_Controller {
                                 'phoneAuxiliar'     => $studio->getPhoneAuxiliar(),
                                 'contactEmail'      => $studio->getContactEmail()
                             );
+                $data['idUser'] = $studio->getIdUser();
                 $this->load->view('studio/studio_update_view', $data);
             }
             else {
@@ -181,11 +201,11 @@ class Studios extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('studios');
+                    redirect('studios/myStudios/'.$this->session->userdata('user')['idUser']);
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('studios');
+                    redirect('studios/myStudios/'.$this->session->userdata('user')['idUser']);
                 }
             }
         }

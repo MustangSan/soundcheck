@@ -28,13 +28,30 @@ class Venues extends CI_Controller {
     }
 
     public function index() {
-        $this->Venue->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Venue->startDatabase();
         $data['venues'] = $this->Venue->readVenues();
+        $this->Venue->closeDatabase();
+        $this->load->view('venue/venue_list_view', $data);*/
+    }
+
+    public function myVenues() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+        
+        $data['idUser'] = $idUser;
+        $this->Venue->startDatabase();
+        $data['venues'] = $this->Venue->readVenues($idUser);
         $this->Venue->closeDatabase();
         $this->load->view('venue/venue_list_view', $data);
     }
 
     public function createVenue() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('about', 'About', 'trim|required');
         $this->form_validation->set_rules('website', 'Website', 'trim');
@@ -72,10 +89,12 @@ class Venues extends CI_Controller {
                             'phoneAuxiliar'     => $this->input->post('phoneAuxiliar'),
                             'contactEmail'      => $this->input->post('contactEmail')
                         );
+            $data['idUser'] = $idUser;
             $this->load->view('venue/venue_create_view', $data);
         }
         else {
-            $data = new Venue ([NULL,1,
+            $data = new Venue ([NULL,
+                                $idUser,
                                 $this->input->post('name'),
                                 $this->input->post('about'),
                                 $this->input->post('website'),
@@ -100,11 +119,11 @@ class Venues extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('venues');
+                redirect('venues/myVenues/'.$idUser);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('venues');
+                redirect('venues/myVenues/'.$idUser);
             }
         }
     }
@@ -152,6 +171,7 @@ class Venues extends CI_Controller {
                                 'phoneAuxiliar'     => $venue->getPhoneAuxiliar(),
                                 'contactEmail'      => $venue->getContactEmail()
                             );
+                $data['idUser'] = $venue->getIdUser();
                 $this->load->view('venue/venue_update_view', $data);
             }
             else {
@@ -181,11 +201,11 @@ class Venues extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('venues');
+                    redirect('venues/myVenues/'.$this->session->userdata('user')['idUser']);
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('venues');
+                    redirect('venues/myVenues/'.$this->session->userdata('user')['idUser']);
                 }
             }
         }

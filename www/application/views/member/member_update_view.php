@@ -95,7 +95,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'style' => 'width: 275px;',
       'value' => $instrument
       );       
-      echo '<div class="input-prepend"> <span class="add-on">Listening Link</span>'.form_input($data);
+      echo '<div class="input-prepend"> <span class="add-on">Instrument</span>'.form_input($data);
       echo form_error('instrument', '<div class="error">', '</div>');
       echo '</div><br>';
 
@@ -103,7 +103,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       'name' => 'photo',
       'style' => 'width: 275px;',
       );       
-      echo '<div class="input-prepend"> <span class="add-on">Cover Art</span>'.form_upload($data);
+      echo '<div class="input-prepend"> <span class="add-on">Photo</span>'.form_upload($data);
       echo form_error('photo', '<div class="error">', '</div>');
       echo '</div><br>';
 

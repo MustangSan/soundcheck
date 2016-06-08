@@ -22,16 +22,36 @@ class Gigs extends CI_Controller {
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
+
+        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
+            redirect('home', 'refresh');
     }
 
     public function index() {
-        $this->Gig->startDatabase();
+        redirect('home', 'refresh');
+        /*$this->Gig->startDatabase();
         $data['gigs'] = $this->Gig->readGigs();
+        $this->Gig->closeDatabase();
+        $this->load->view('gig/gig_list_view', $data);*/
+    }
+
+    public function myGigs() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+
+        $data['idUser'] = $idUser;
+        $this->Gig->startDatabase();
+        $data['gigs'] = $this->Gig->readGigs($idUser);
         $this->Gig->closeDatabase();
         $this->load->view('gig/gig_list_view', $data);
     }
 
     public function createGig() {
+        $idUser = $this->session->userdata('user')['idUser'];
+        if(!isset($idUser) || empty($idUser))
+            redirect('home', 'refresh');
+
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('place', 'Place', 'trim|required');
@@ -66,7 +86,8 @@ class Gigs extends CI_Controller {
             $this->load->view('gig/gig_create_view', $data);
         }
         else {
-            $data = new Gig ([  NULL,1,
+            $data = new Gig ([  NULL,
+                                $idUser,
                                 $this->input->post('description'),
                                 $this->input->post('status'),
                                 $this->input->post('place'),
@@ -88,11 +109,11 @@ class Gigs extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('gigs');
+                redirect('gigs/myGigs/'.$idUser);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('gigs');
+                redirect('gigs/myGigs/'.$idUser);
             }
         }
     }
@@ -160,11 +181,11 @@ class Gigs extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('gigs');
+                    redirect('gigs/myGigs/'.$this->session->userdata('user')['idUser']);
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('gigs');
+                    redirect('gigs/myGigs/'.$this->session->userdata('user')['idUser']);
                 }
             }
         }

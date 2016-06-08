@@ -66,14 +66,43 @@ class Member_model extends CI_Model {
         return FALSE;
     }
 
-    public function readMembers() {
+    public function readMembers($idBand = NULL) {
         $this->db->trans_start();
         $this->db->order_by('name ASC');
+        if(!is_null($idBand))
+            $this->db->where('idBand', $idBand);
         $query = $this->db->get('members');
         $this->db->trans_complete();
 
         if($query->num_rows() > 0) {
             return $query->custom_result_object('Member');
+        }
+        return FALSE;
+    }
+
+    public function readMembersSignup($idBand = NULL) {
+        $this->db->trans_start();
+        if(!is_null($idBand))
+            $this->db->where('idBand', $idBand);
+        $query = $this->db->get('band_members');
+        $this->db->trans_complete();
+
+        $users = array();
+        if($query->num_rows() > 0) {
+            $queryUsers = $query->custom_result_object('User');
+            foreach ($queryUsers as $row) {
+                $this->db->trans_start();
+                $this->db->order_by('name ASC');
+                $this->db->where('idUser', $row->getIdUser());
+                $query = $this->db->get('users');
+                $this->db->trans_complete();
+                $users[] = array(   'idUser' => $row->getIdUser(),
+                                    'idBand' => $idBand,
+                                    'name'   => $query->row()->name,
+                                    'photo'  => $query->row()->photo
+                                );
+            }
+            return $users;
         }
         return FALSE;
     }
@@ -87,6 +116,25 @@ class Member_model extends CI_Model {
         if($query->num_rows() == 1) {
             return $query->custom_result_object('Member')[0];
         }
+        return FALSE;
+    }
+
+    public function insertBandMember($username, $idBand) {
+        $this->db->trans_start();
+        $this->db->where('email', $username);
+        $query = $this->db->get('users');
+
+        if($query->num_rows() == 1) {
+            $data['idUser'] = $query->row()->idUser;
+            $data['idBand'] = $idBand;
+            $this->db->insert('band_members', $data);
+            $this->db->trans_complete();
+        }
+        else
+            return FALSE;
+
+        if($this->db->trans_status())
+            return TRUE;
         return FALSE;
     }
 }

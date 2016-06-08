@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Posts</title>
+   <title>Members</title>
 
    <style type="text/css">
 
@@ -46,23 +46,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       padding: 12px 10px 12px 10px;
    }
 
-   table {
-      /*border: 1px solid;*/
-      color: black;
-   }
-
-   th {
-      border-right: 1px solid;
-      color: black;
-      padding: 0px 10px;
-   }
-
-   td {
-      text-align: center;
-      padding: 10px 25px;
-      border-right: 1px solid;
-   }
-
    #body {
       margin: 0 15px 0 15px;
    }
@@ -81,54 +64,65 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       border: 1px solid #D0D0D0;
       box-shadow: 0 0 8px #D0D0D0;
    }
+
+   span {
+      margin-right: 15px;
+   }
    </style>
 </head>
 <body>
 
 <div id="container">
-   <h1>Posts</h1>
+   <h1>Insert Member</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('posts/createPost/'.$idBand); ?>">Create Post</a></p>
-      <table>
-         <tr>
-            <th>IdPost</th>
-            <th>IdBand</th>
-            <th>IdAuthor</th>
-            <th>Post Name</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Featured Image</th>
-            <th>Date</th>
-            <th>Status</th>
-            <th></th>
-         </tr>
-            <?php 
-            if(is_array($posts))
-               foreach ($posts as $key) {
-                  echo "<tr><td>{$key->getIdPost()}</td>";
-                  echo "<td>{$key->getIdBand()}</td>";
-                  echo "<td>{$key->getIdAuthor()}</td>";
-                  echo "<td>{$key->getPostName()}</td>";
-                  echo "<td>{$key->getTitle()}</td>";
-                  echo "<td>{$key->getContent()}</td>";
-                  echo "<td>{$key->getFeaturedImage()}</td>";
-                  echo "<td>{$key->getDate()}</td>";
-                  echo "<td>{$key->getStatus()}</td>";
-                  echo "<td><a href=\"".base_url('posts/updatePost/'.$key->getIdPost())."\">Update</a></td></tr>";
-               }
-               else
-                  echo "<tr><td colspan=10>No data found</td></tr>"
-            ?>
-      </table>
-      <pre><code>
-         <?php 
-            //var_dump($posts);
-         ?>
-      </code></pre>
+      <?php          
+      echo form_open_multipart();
+
+      $data = array(
+      'name' => 'username',
+      'type' => 'text',
+      'style' => 'width: 275px;'
+      );       
+      echo '<div class="input-prepend" > <span class="add-on">Username</span>'.form_input($data);
+      echo form_error('username', '<div class="error">', '</div>');
+      echo '</div><br><br>';
+
+      /*$data = array(
+      'name' => 'instrument',
+      'type' => 'text',
+      'style' => 'width: 275px;',
+      'value' => $instrument
+      );       
+      echo '<div class="input-prepend"> <span class="add-on">Instrument</span>'.form_input($data);
+      echo form_error('instrument', '<div class="error">', '</div>');
+      echo '</div><br>';
+
+      $data = array(
+      'name' => 'photo',
+      'style' => 'width: 275px;',
+      );       
+      echo '<div class="input-prepend"> <span class="add-on">Photo</span>'.form_upload($data);
+      echo form_error('photo', '<div class="error">', '</div>');
+      echo '</div><br>';*/
+
+      $data = array(
+      'type' => 'submit',
+      'name' => 'submit',
+      'id' => 'submit',
+      'class' => 'btn btn-info',
+      'value' => 'Concluir',
+      'onclick' => 'setTimeout(twoClicks, 1);'
+      );
+      echo form_input($data);
+
+      form_close();
+
+      ?>
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
+
 </body>
 </html>
