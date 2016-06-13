@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Bands</title>
+   <title>Venues</title>
 
    <style type="text/css">
 
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    td {
       text-align: center;
-      padding: 5px 10px;
+      padding: 10px 25px;
       border-right: 1px solid;
    }
 
@@ -86,54 +86,59 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Bands</h1>
+   <h1>Venue</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('bands/createBand'); ?>">Create Band</a></p>
+   <?php 
+   if(!empty($venue)) {
+   ?>
+      <p><a href="<?php echo base_url('venues/followVenue/'.$venue->getIdVenue()); ?>">Follow Me</a></p>
       <table>
          <tr>
-            <th>Photo</th>
-            <th>IdBand</th>
             <th>Name</th>
             <th>About</th>
             <th>Website</th>
             <th>Facebook</th>
             <th>Twitter</th>
             <th>Youtube</th>
-            <th>Myspace</th>
             <th>Country</th>
             <th>Estate</th>
             <th>City</th>
+            <th>District</th>
+            <th>Street</th>
+            <th>Number</th>
+            <th>Complement</th>
+            <th>Zipcode</th>
             <th>Phone</th>
-            <th>Email</th>
-            <th></th>
+            <th>Phone Auxiliar</th>
+            <th>Contact Email</th>
          </tr>
-            <?php 
-            if(!empty($bands))
-               foreach ($bands as $key) {
-                  echo "<tr><td>{$key->getPhoto()}</td>";
-                  echo "<td>{$key->getIdBand()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getAbout()}</td>";
-                  echo "<td>{$key->getWebsite()}</td>";
-                  echo "<td>{$key->getFacebook()}</td>";
-                  echo "<td>{$key->getTwitter()}</td>";
-                  echo "<td>{$key->getYoutube()}</td>";
-                  echo "<td>{$key->getMyspace()}</td>";
-                  echo "<td>{$key->getCountry()}</td>";
-                  echo "<td>{$key->getEstate()}</td>";
-                  echo "<td>{$key->getCity()}</td>";
-                  echo "<td>{$key->getPhone()}</td>";
-                  echo "<td>{$key->getContactEmail()}</td>";
-                  echo "<td><a href=\"".base_url('bands/editProfile/'.$key->getIdBand())."\">Profile</a></td></tr>";
+            <?php
+                  echo "<tr><td>{$venue->getName()}</td>";
+                  echo "<td>{$venue->getAbout()}</td>";
+                  echo "<td>{$venue->getWebsite()}</td>";
+                  echo "<td>{$venue->getFacebook()}</td>";
+                  echo "<td>{$venue->getTwitter()}</td>";
+                  echo "<td>{$venue->getYoutube()}</td>";
+                  echo "<td>{$venue->getCountry()}</td>";
+                  echo "<td>{$venue->getEstate()}</td>";
+                  echo "<td>{$venue->getCity()}</td>";
+                  echo "<td>{$venue->getDistrict()}</td>";
+                  echo "<td>{$venue->getStreet()}</td>";
+                  echo "<td>{$venue->getNumber()}</td>";
+                  echo "<td>{$venue->getComplement()}</td>";
+                  echo "<td>{$venue->getZipcode()}</td>";
+                  echo "<td>{$venue->getPhone()}</td>";
+                  echo "<td>{$venue->getPhoneAuxiliar()}</td>";
+                  echo "<td>{$venue->getContactEmail()}</td></tr>";
                }
                else
-                  echo "<tr><td colspan=15>No data found</td></tr>";
+                  echo "<tr><td colspan=20>No data found</td></tr>"
             ?>
       </table>
       <pre><code>
          <?php 
-            //var_dump($bands);
+            //var_dump($venue);
          ?>
       </code></pre>
    </div>

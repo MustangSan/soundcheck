@@ -95,8 +95,10 @@ class User_model extends CI_Model {
             $this->db->insert('users', $this->dismountClass($data));
             
             if($this->db->trans_status()){
+                $fa['idUser'] = $this->db->insert_id();
+                $this->db->insert('fans', $fa);
                 $data = $this->dismountClass($musician);
-                $data['idUser'] = $this->db->insert_id();
+                $data['idUser'] = $fa['idUser'];
                 $this->db->insert('musicians', $data);
             }
             
@@ -140,8 +142,10 @@ class User_model extends CI_Model {
             $this->db->insert('users', $this->dismountClass($data));
             
             if($this->db->trans_status()){
+                $fa['idUser'] = $this->db->insert_id();
+                $this->db->insert('fans', $data);
                 $data = $this->dismountClass($manager);
-                $data['idUser'] = $this->db->insert_id();
+                $data['idUser'] = $fa['idUser'];
                 $this->db->insert('managers', $data);
             }
             

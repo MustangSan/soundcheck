@@ -1,10 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>SoundCheck</title>
+   <title>Bands</title>
 
    <style type="text/css">
 
@@ -45,6 +46,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       padding: 12px 10px 12px 10px;
    }
 
+   table {
+      /*border: 1px solid;*/
+      color: black;
+   }
+
+   th {
+      border-right: 1px solid;
+      color: black;
+      padding: 0px 10px;
+   }
+
+   td {
+      text-align: center;
+      padding: 5px 10px;
+      border-right: 1px solid;
+   }
+
    #body {
       margin: 0 15px 0 15px;
    }
@@ -68,30 +86,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h3>Welcome <?php echo $this->session->userdata('user')['name']; ?>!</h3>
+   <h1>Bands</h1>
 
    <div id="body">
-      <p>Menu</p>
-      <ul>
-         <li><a href="<?php echo base_url('bands'); ?>">Bands</a></li>
-         <!--li><a href="<?php echo base_url('events'); ?>">Events</a></li-->
-         <li><a href="<?php echo base_url('gigs'); ?>">Gigs</a></li>
-         <li><a href="<?php echo base_url('studios'); ?>">Studios</a></li>
-         <li><a href="<?php echo base_url('venues'); ?>">Venues</a></li>
-      </ul>
-      <p>Conteudo</p>
-      <ul>
-         <li><a href="<?php echo base_url('bands/myBands'); ?>">Bands</a></li>
-         <!--li><a href="<?php echo base_url('events'); ?>">Events</a></li-->
-         <li><a href="<?php echo base_url('gigs/myGigs'); ?>">Gigs</a></li>
-         <li><a href="<?php echo base_url('studios/myStudios'); ?>">Studios</a></li>
-         <li><a href="<?php echo base_url('venues/myVenues'); ?>">Venues</a></li>
-         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
-      </ul>
+      <table>
+         <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>About</th>
+            <th>Email</th>
+            <th></th>
+         </tr>
+            <?php 
+            if(!empty($bands))
+               foreach ($bands as $key) {
+                  echo "<tr><td>{$key->getPhoto()}</td>";
+                  echo "<td>{$key->getName()}</td>";
+                  echo "<td>{$key->getAbout()}</td>";
+                  echo "<td>{$key->getContactEmail()}</td>";
+                  echo "<td><a href=\"".base_url('bands/profile/'.$key->getIdBand())."\">Profile</a><br><a href=\"".base_url('bands/followBand/'.$key->getIdBand())."\">Follow Me</a></td></tr>";
+               }
+               else
+                  echo "<tr><td colspan=15>No data found</td></tr>";
+            ?>
+      </table>
+      <pre><code>
+         <?php 
+            //var_dump($bands);
+         ?>
+      </code></pre>
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
-
 </body>
 </html>

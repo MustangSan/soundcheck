@@ -1,10 +1,11 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>SoundCheck</title>
+   <title>Posts</title>
 
    <style type="text/css">
 
@@ -45,6 +46,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       padding: 12px 10px 12px 10px;
    }
 
+   table {
+      /*border: 1px solid;*/
+      color: black;
+   }
+
+   th {
+      border-right: 1px solid;
+      color: black;
+      padding: 0px 10px;
+   }
+
+   td {
+      text-align: center;
+      padding: 10px 25px;
+      border-right: 1px solid;
+   }
+
    #body {
       margin: 0 15px 0 15px;
    }
@@ -68,30 +86,38 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h3>Welcome <?php echo $this->session->userdata('user')['name']; ?>!</h3>
+   <h1>Posts</h1>
 
    <div id="body">
-      <p>Menu</p>
-      <ul>
-         <li><a href="<?php echo base_url('bands'); ?>">Bands</a></li>
-         <!--li><a href="<?php echo base_url('events'); ?>">Events</a></li-->
-         <li><a href="<?php echo base_url('gigs'); ?>">Gigs</a></li>
-         <li><a href="<?php echo base_url('studios'); ?>">Studios</a></li>
-         <li><a href="<?php echo base_url('venues'); ?>">Venues</a></li>
-      </ul>
-      <p>Conteudo</p>
-      <ul>
-         <li><a href="<?php echo base_url('bands/myBands'); ?>">Bands</a></li>
-         <!--li><a href="<?php echo base_url('events'); ?>">Events</a></li-->
-         <li><a href="<?php echo base_url('gigs/myGigs'); ?>">Gigs</a></li>
-         <li><a href="<?php echo base_url('studios/myStudios'); ?>">Studios</a></li>
-         <li><a href="<?php echo base_url('venues/myVenues'); ?>">Venues</a></li>
-         <li><a href="<?php echo base_url('logout'); ?>">Logout</a></li>
-      </ul>
+            <?php
+            if(is_array($posts))
+               foreach ($posts as $key) {
+                  $string = strip_tags($key->getContent());
+                  if (strlen($string) > 350) {
+                     // truncate string
+                     $stringCut = substr($string, 0, 350);
+                     // make sure it ends in a word so assassinate doesn't become ass...
+                     $string = substr($stringCut, 0, strrpos($stringCut, ' '))."...<p><a href=\"".base_url('posts/readPost/'.$key->getIdPost())."\">ReadMore</a></p>";
+                  }
+                  echo "<p>Featured Image: {$key->getFeaturedImage()}</p>";
+                  echo "<p>Title: {$key->getPostName()}</p>";
+                  echo "<p>Date: {$key->getDate()}</p>";
+                  echo "<p>Content: {$string}</p>";
+                  //echo "<p><a href=\"".base_url('posts/readPost/'.$key->getIdPost())."\">ReadMore</a></p>";
+                  echo "<br/>----------------------------<br/>";
+               }
+               else
+                  echo "<p><td colspan=10>No data found</td></p>";
+            ?>
+      </table>
+      <pre><code>
+         <?php
+            //var_dump($posts);
+         ?>
+      </code></pre>
    </div>
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
-
 </body>
 </html>

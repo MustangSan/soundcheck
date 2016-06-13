@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Band</title>
+   <title>Albuns</title>
 
    <style type="text/css">
 
@@ -86,60 +86,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Band</h1>
+   <h1>Albuns</h1>
 
    <div id="body">
-      <?php 
-      if(!empty($band)) {
-      ?>
-         <p><a href="<?php echo base_url('bands/followBand/'.$band->getIdBand()); ?>">Follow Me</a></p>
-         <table>
-            <tr>
-               <th>Photo</th>
-               <th>IdBand</th>
-               <th>Name</th>
-               <th>About</th>
-               <th>Website</th>
-               <th>Facebook</th>
-               <th>Twitter</th>
-               <th>Youtube</th>
-               <th>Myspace</th>
-               <th>Country</th>
-               <th>Estate</th>
-               <th>City</th>
-               <th>Phone</th>
-               <th>Email</th>
-            </tr>
             <?php 
-                  echo "<tr><td>{$band->getPhoto()}</td>";
-                  echo "<td>{$band->getIdBand()}</td>";
-                  echo "<td>{$band->getName()}</td>";
-                  echo "<td>{$band->getAbout()}</td>";
-                  echo "<td>{$band->getWebsite()}</td>";
-                  echo "<td>{$band->getFacebook()}</td>";
-                  echo "<td>{$band->getTwitter()}</td>";
-                  echo "<td>{$band->getYoutube()}</td>";
-                  echo "<td>{$band->getMyspace()}</td>";
-                  echo "<td>{$band->getCountry()}</td>";
-                  echo "<td>{$band->getEstate()}</td>";
-                  echo "<td>{$band->getCity()}</td>";
-                  echo "<td>{$band->getPhone()}</td>";
-                  echo "<td>{$band->getContactEmail()}</td>";
+            if(!empty($albuns))
+               foreach ($albuns as $key) {
+                  echo "<p>Cover Art: {$key['album']->getCoverArt()}</p>";
+                  echo "<p>Name: {$key['album']->getName()}</p>";
+                  echo "<p>Genre: {$key['album']->getGenre()}</p>";
+                  echo "<p>Release Date: {$key['album']->getReleaseDate()}</p>";
+                  echo "<p>Label: {$key['album']->getLabel()}</p>";
+                  echo "<p>Copyright Date: {$key['album']->getCopyrightDate()}</p>";
+                  echo "<p>Seller Link: {$key['album']->getSellerLink()}</p>";
+                  echo "<p>Listening Link: {$key['album']->getListeningLink()}</p>";
+                  ?>
+                  <table>
+                     <tr>
+                        <th>Name</th>
+                        <th>Track Number</th>
+                        <th>Genre</th>
+                     </tr>
+                        <?php 
+                        if(!empty($key['songs'])) 
+                           foreach ($key['songs'] as $song) {
+                              echo "<tr><td>{$song->getName()}</td>";
+                              echo "<td>{$song->getTrackNumber()}</td>";
+                              echo "<td>{$song->getGenre()}</td></tr>";
+                           }
+                           else
+                              echo "<tr><td colspan=7>No data found</td></tr>";
+                  echo "</table>";
+                  echo "<br/>-----------------------------------<br/>";
                }
                else
-                  echo "<p>No data found</p>"
+                  echo "<p>No data found</p>";
             ?>
-      </table>
-
-      <p><a href="<?php echo base_url('bands/albuns/'.$band->getIdBand()); ?>">Albuns</a></p>
-      <p><a href="<?php echo base_url('bands/shows/'.$band->getIdBand()); ?>">Shows</a></p>
-      <p><a href="<?php echo base_url('bands/tours/'.$band->getIdBand()); ?>">Tours</a></p>
-      <p><a href="<?php echo base_url('bands/members/'.$band->getIdBand()); ?>">Members</a></p>
-      <p><a href="<?php echo base_url('bands/blog/'.$band->getIdBand()); ?>">Blog</a>
-
       <pre><code>
          <?php 
-            //var_dump($bands);
+            //var_dump($albuns);
          ?>
       </code></pre>
    </div>

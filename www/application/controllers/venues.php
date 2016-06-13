@@ -23,19 +23,26 @@ class Venues extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
+        //if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
+            //redirect('home', 'refresh');
+    }
+
+    public function permissionTest() {
         if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
     }
 
     public function index() {
-        redirect('home', 'refresh');
-        /*$this->Venue->startDatabase();
+        //redirect('home', 'refresh');
+        $this->Venue->startDatabase();
         $data['venues'] = $this->Venue->readVenues();
         $this->Venue->closeDatabase();
-        $this->load->view('venue/venue_list_view', $data);*/
+        $this->load->view('venue/venue_search_view', $data);
     }
 
     public function myVenues() {
+        $this->permissionTest();
+
         $idUser = $this->session->userdata('user')['idUser'];
         if(!isset($idUser) || empty($idUser))
             redirect('home', 'refresh');
@@ -48,6 +55,8 @@ class Venues extends CI_Controller {
     }
 
     public function createVenue() {
+        $this->permissionTest();
+
         $idUser = $this->session->userdata('user')['idUser'];
         if(!isset($idUser) || empty($idUser))
             redirect('home', 'refresh');
@@ -129,6 +138,8 @@ class Venues extends CI_Controller {
     }
 
     public function updateVenue($id) {
+        $this->permissionTest();
+        
         $this->Venue->startDatabase();
         $venue = $this->Venue->getVenue($id);
         $this->Venue->closeDatabase();
@@ -211,5 +222,37 @@ class Venues extends CI_Controller {
         }
         else
             $this->load->view('errors/html/error_404');
+    }
+
+    public function profile($id) {
+        $this->Venue->startDatabase();
+        $venue = $this->Venue->getVenue($id);
+        $this->Venue->closeDatabase();
+
+        if(!empty($venue)) {
+            $data['venue'] = $venue;
+            $this->load->view('venue/venue_profile_view', $data);
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
+    public function followVenue($idVenue) {
+        if(!isset($idVenue) || empty($idVenue))
+            redirect('venues', 'refresh');
+
+        $this->Venue->startDatabase();
+        $result = $this->Venue->followVenue($idVenue, $this->session->userdata('user')['idUser']);
+        $this->Venue->closeDatabase();
+
+        if(isset($_SERVER['HTTP_REFERER']))
+        {
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        }
+        else
+        {
+            header('Location: http://'.$_SERVER['SERVER_NAME']);
+        }
+        exit;
     }
 }

@@ -20,6 +20,10 @@ class Home extends CI_Controller {
 
         $this->load->model('User_model', 'User');
         $this->load->model('Login_user_model', 'Login');
+        $this->load->model('Band_model', 'Band');
+        $this->load->model('Event_model', 'Event');
+        $this->load->model('Studio_model', 'Studio');
+        $this->load->model('Show_model', 'Show');
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');

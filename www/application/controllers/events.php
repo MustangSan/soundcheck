@@ -23,6 +23,11 @@ class Events extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
+        //if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
+            //redirect('home', 'refresh');
+    }
+
+    public function permissionTest() {
         if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
     }
@@ -35,6 +40,8 @@ class Events extends CI_Controller {
     }
 
     public function createEvent() {
+        $this->permissionTest();
+
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('about', 'About', 'trim|required');
         $this->form_validation->set_rules('website', 'Website', 'trim');
@@ -116,6 +123,8 @@ class Events extends CI_Controller {
     }
 
     public function updateEvent($id) {
+        $this->permissionTest();
+        
         $this->Event->startDatabase();
         $event = $this->Event->getEvent($id);
         $this->Event->closeDatabase();

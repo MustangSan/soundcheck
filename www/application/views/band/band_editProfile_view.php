@@ -92,11 +92,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       <?php 
       if(!empty($band)) {
       ?>
-         <p><a href="<?php echo base_url('bands/followBand/'.$band->getIdBand()); ?>">Follow Me</a></p>
+         <p><a href="<?php echo base_url('bands/updateBand/'.$band->getIdBand()); ?>">Uptade Band</a></p>
          <table>
             <tr>
                <th>Photo</th>
-               <th>IdBand</th>
                <th>Name</th>
                <th>About</th>
                <th>Website</th>
@@ -112,7 +111,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             </tr>
             <?php 
                   echo "<tr><td>{$band->getPhoto()}</td>";
-                  echo "<td>{$band->getIdBand()}</td>";
                   echo "<td>{$band->getName()}</td>";
                   echo "<td>{$band->getAbout()}</td>";
                   echo "<td>{$band->getWebsite()}</td>";
@@ -131,11 +129,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             ?>
       </table>
 
-      <p><a href="<?php echo base_url('bands/albuns/'.$band->getIdBand()); ?>">Albuns</a></p>
-      <p><a href="<?php echo base_url('bands/shows/'.$band->getIdBand()); ?>">Shows</a></p>
-      <p><a href="<?php echo base_url('bands/tours/'.$band->getIdBand()); ?>">Tours</a></p>
-      <p><a href="<?php echo base_url('bands/members/'.$band->getIdBand()); ?>">Members</a></p>
-      <p><a href="<?php echo base_url('bands/blog/'.$band->getIdBand()); ?>">Blog</a>
+      <p><a href="<?php echo base_url('albuns/myAlbuns/'.$band->getIdBand()); ?>">Albuns</a></p>
+      <p><a href="<?php echo base_url('shows/myShows/'.$band->getIdBand()); ?>">Shows</a></p>
+      <p><a href="<?php echo base_url('tours/myTours/'.$band->getIdBand()); ?>">Tours</a></p>
+      <p><a href="<?php echo base_url('members/bandMembers/'.$band->getIdBand()); ?>">Members</a></p>
+      <p><a href="<?php echo base_url('posts/myPosts/'.$band->getIdBand()); ?>">Blog</a>
 
       <pre><code>
          <?php 

@@ -179,4 +179,14 @@ class Posts extends CI_Controller {
         else
             $this->load->view('errors/html/error_404');
     }
+
+    public function readPost($idPost = NULL) {
+        if(!isset($idPost) || empty($idPost))
+            redirect('home', 'refresh');
+        
+        $this->Post->startDatabase();
+        $data['post'] = $this->Post->getPost($idPost);
+        $this->Post->closeDatabase();
+        $this->load->view('post/post_view', $data);
+    }
 }

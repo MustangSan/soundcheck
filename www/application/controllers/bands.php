@@ -20,13 +20,19 @@ class Bands extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Band_model', 'Band');
+        $this->load->model('Album_model', 'Album');
+        $this->load->model('Song_model', 'Song');
+        $this->load->model('Tour_model', 'Tour');
+        $this->load->model('Show_model', 'Show');
+        $this->load->model('Member_model', 'Member');
+        $this->load->model('Post_model', 'Post');
         $this->load->model('Login_user_model', 'Login');
 
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
-        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
-            redirect('home', 'refresh');
+        //if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
+            //redirect('home', 'refresh');        
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
@@ -34,6 +40,11 @@ class Bands extends CI_Controller {
         $config['max_width']        = 300;
         $config['max_height']       = 300;
         $this->load->library('upload', $config);
+    }
+
+    public function permissionTest() {
+        if($this->session->userdata('user')['permission'] !== 'musician' && $this->session->userdata('user')['permission'] !== 'M&M')
+            redirect('home', 'refresh');
     }
 
     public function handle_upload() {
@@ -63,14 +74,15 @@ class Bands extends CI_Controller {
     }
 
     public function index() {
-        redirect('home', 'refresh');
-        /*$this->Band->startDatabase();
+        //redirect('home', 'refresh');
+        $this->Band->startDatabase();
         $data['bands'] = $this->Band->readBands();
         $this->Band->closeDatabase();
-        $this->load->view('band/band_list_view', $data);*/
-    }//*/
+        $this->load->view('band/band_search_view', $data);
+    }
 
     public function myBands() {
+        $this->permissionTest();
         $this->Band->startDatabase();
         $data['bands'] = $this->Band->readBands($this->session->userdata('user')['idUser']);
         $this->Band->closeDatabase();
@@ -78,6 +90,7 @@ class Bands extends CI_Controller {
     }
 
     public function createBand() {
+        $this->permissionTest();
         $this->form_validation->set_rules('photo', 'Photo', 'callback_handle_upload');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('about', 'About', 'trim|required');
@@ -140,6 +153,7 @@ class Bands extends CI_Controller {
     }
 
     public function updateBand($id) {
+        $this->permissionTest();
         $this->Band->startDatabase();
         $this->band = $this->Band->getBand($id);
         $this->Band->closeDatabase();
@@ -209,6 +223,20 @@ class Bands extends CI_Controller {
             $this->load->view('errors/html/error_404');
     }
 
+    public function editProfile($id) {
+        $this->permissionTest();
+        $this->Band->startDatabase();
+        $this->band = $this->Band->getBand($id);
+        $this->Band->closeDatabase();
+
+        if(!empty($this->band)) {
+            $data['band'] = $this->band;
+            $this->load->view('band/band_editProfile_view', $data);
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
     public function profile($id) {
         $this->Band->startDatabase();
         $this->band = $this->Band->getBand($id);
@@ -220,5 +248,102 @@ class Bands extends CI_Controller {
         }
         else
             $this->load->view('errors/html/error_404');
+    }
+
+    public function followBand($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('bands', 'refresh');
+
+        $this->Band->startDatabase();
+        $result = $this->Band->followBand($idBand, $this->session->userdata('user')['idUser']);
+        $this->Band->closeDatabase();
+
+        if(isset($_SERVER['HTTP_REFERER']))
+        {
+            header('Location: '.$_SERVER['HTTP_REFERER']);
+        }
+        else
+        {
+            header('Location: http://'.$_SERVER['SERVER_NAME']);
+        }
+        exit;
+    }
+
+    public function albuns($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('bands', 'refresh');
+
+        $data['idBand'] = $idBand;
+        $this->Album->startDatabase();
+        $albuns = $this->Album->readAlbuns($idBand);
+        $this->Album->closeDatabase();
+
+        if(!empty($albuns))
+            foreach ($albuns as $album) {
+                $info['album'] = $album;
+                $this->Song->startDatabase();
+                $info['songs'] = $this->Song->readSongs($album->getIdAlbum());
+                $this->Song->closeDatabase();
+                $data['albuns'][] = $info;
+            }
+        $this->load->view('band/band_album_view', $data);
+    }
+
+    public function shows($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Show->startDatabase();
+        $data['shows'] = $this->Show->readShows($idBand);
+        $this->Show->closeDatabase();
+        $this->load->view('band/band_show_view', $data);
+    }
+
+    public function tours($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('bands', 'refresh');
+
+        $data['idBand'] = $idBand;
+        $this->Tour->startDatabase();
+        $tours = $this->Tour->readTours($idBand);
+        $this->Tour->closeDatabase();
+
+        if(!empty($tours))
+            foreach ($tours as $tour) {
+                $info['tour'] = $tour;
+                $this->Show->startDatabase();
+                $info['shows'] = $this->Show->readShows($idBand, $tour->getIdTour());
+                $this->Show->closeDatabase();
+                $data['tours'][] = $info;
+            }
+        /*echo "<pre><code>";
+        var_dump($data);
+        echo "</pre></code>";
+        exit();*/
+        $this->load->view('band/band_tour_view', $data);
+    }
+
+    public function members($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Member->startDatabase();
+        $data['members'] = $this->Member->readMembers($idBand);
+        $data['membersSignup'] = $this->Member->readMembersSignup($idBand);
+        $this->Member->closeDatabase();
+        $this->load->view('band/band_member_view', $data);
+    }
+
+    public function blog($idBand) {
+        if(!isset($idBand) || empty($idBand))
+            redirect('home', 'refresh');
+        
+        $data['idBand'] = $idBand;
+        $this->Post->startDatabase();
+        $data['posts'] = $this->Post->readPosts($idBand);
+        $this->Post->closeDatabase();
+        $this->load->view('band/band_blog_view', $data);
     }
 }

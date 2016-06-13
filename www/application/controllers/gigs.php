@@ -28,11 +28,11 @@ class Gigs extends CI_Controller {
     }
 
     public function index() {
-        redirect('home', 'refresh');
-        /*$this->Gig->startDatabase();
+        //redirect('home', 'refresh');
+        $this->Gig->startDatabase();
         $data['gigs'] = $this->Gig->readGigs();
         $this->Gig->closeDatabase();
-        $this->load->view('gig/gig_list_view', $data);*/
+        $this->load->view('gig/gig_list_view', $data);
     }
 
     public function myGigs() {

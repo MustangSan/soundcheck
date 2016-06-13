@@ -43,7 +43,7 @@ class Tours extends CI_Controller {
         
         $data['idBand'] = $idBand;
         $this->Tour->startDatabase();
-        $data['tours'] = $this->Tour->readTours();
+        $data['tours'] = $this->Tour->readTours($idBand);
         $this->Tour->closeDatabase();
         $this->load->view('tour/tour_list_view', $data);
     }

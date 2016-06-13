@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Band</title>
+   <title>Tours</title>
 
    <style type="text/css">
 
@@ -86,60 +86,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Band</h1>
+   <h1>Tours</h1>
 
    <div id="body">
-      <?php 
-      if(!empty($band)) {
-      ?>
-         <p><a href="<?php echo base_url('bands/followBand/'.$band->getIdBand()); ?>">Follow Me</a></p>
-         <table>
-            <tr>
-               <th>Photo</th>
-               <th>IdBand</th>
-               <th>Name</th>
-               <th>About</th>
-               <th>Website</th>
-               <th>Facebook</th>
-               <th>Twitter</th>
-               <th>Youtube</th>
-               <th>Myspace</th>
-               <th>Country</th>
-               <th>Estate</th>
-               <th>City</th>
-               <th>Phone</th>
-               <th>Email</th>
-            </tr>
             <?php 
-                  echo "<tr><td>{$band->getPhoto()}</td>";
-                  echo "<td>{$band->getIdBand()}</td>";
-                  echo "<td>{$band->getName()}</td>";
-                  echo "<td>{$band->getAbout()}</td>";
-                  echo "<td>{$band->getWebsite()}</td>";
-                  echo "<td>{$band->getFacebook()}</td>";
-                  echo "<td>{$band->getTwitter()}</td>";
-                  echo "<td>{$band->getYoutube()}</td>";
-                  echo "<td>{$band->getMyspace()}</td>";
-                  echo "<td>{$band->getCountry()}</td>";
-                  echo "<td>{$band->getEstate()}</td>";
-                  echo "<td>{$band->getCity()}</td>";
-                  echo "<td>{$band->getPhone()}</td>";
-                  echo "<td>{$band->getContactEmail()}</td>";
+            if(!empty($tours))
+               foreach ($tours as $key) {
+                  echo "<p>Name: {$key['tour']->getName()}</p>";
+                  echo "<p>Description: {$key['tour']->getDescription()}</p>";
+                  echo "<p>Begin Date: {$key['tour']->getBeginDate()}</p>";
+                  echo "<p>End Date: {$key['tour']->getEndDate()}</p>";
+                  ?>
+                  <table>
+                     <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Date</th>
+                        <th>Timetable</th>
+                        <th>Place</th>
+                     </tr>
+                        <?php 
+                        if(!empty($key['shows'])) 
+                           foreach ($key['shows'] as $show) {
+                              echo "<tr><td>{$show->getName()}</td>";
+                              echo "<td>{$show->getDescription()}</td>";
+                              echo "<td>{$show->getDate()}</td>";
+                              echo "<td>{$show->getTimetable()}</td>";
+                              echo "<td>{$show->getPlace()}</td></tr>";
+                           }
+                           else
+                              echo "<tr><td colspan=7>No data found</td></tr>";
+                  echo "</table>";
+                  echo "<br/>-----------------------------------<br/>";
                }
                else
-                  echo "<p>No data found</p>"
+                  echo "<p>No data found</p>";
             ?>
-      </table>
-
-      <p><a href="<?php echo base_url('bands/albuns/'.$band->getIdBand()); ?>">Albuns</a></p>
-      <p><a href="<?php echo base_url('bands/shows/'.$band->getIdBand()); ?>">Shows</a></p>
-      <p><a href="<?php echo base_url('bands/tours/'.$band->getIdBand()); ?>">Tours</a></p>
-      <p><a href="<?php echo base_url('bands/members/'.$band->getIdBand()); ?>">Members</a></p>
-      <p><a href="<?php echo base_url('bands/blog/'.$band->getIdBand()); ?>">Blog</a>
-
       <pre><code>
          <?php 
-            //var_dump($bands);
+            //var_dump($albuns);
          ?>
       </code></pre>
    </div>

@@ -91,6 +91,19 @@ class Venue_model extends CI_Model {
         }
         return FALSE;
     }
+
+    public function followVenue($idVenue, $idUser) {
+        $this->db->trans_start();
+        //$data['idVenue'] = $idVenue;
+        $data['idVenues'] = $idVenue;
+        $data['idUser'] = $idVenue;
+        $this->db->insert('venue_followers', $data);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return TRUE;
+        return FALSE;
+    }
 }
 
 /* End of file venue_model.php */

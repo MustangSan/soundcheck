@@ -23,19 +23,26 @@ class Studios extends CI_Controller {
         if(!$this->Login->is_logged())
             redirect('login', 'refresh');
 
+        //if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
+            //redirect('home', 'refresh');
+    }
+
+    public function permissionTest() {
         if($this->session->userdata('user')['permission'] !== 'manager' && $this->session->userdata('user')['permission'] !== 'M&M')
             redirect('home', 'refresh');
     }
 
     public function index() {
-        redirect('home', 'refresh');
-        /*$this->Studio->startDatabase();
+        //redirect('home', 'refresh');
+        $this->Studio->startDatabase();
         $data['studios'] = $this->Studio->readStudios();
         $this->Studio->closeDatabase();
-        $this->load->view('studio/studio_list_view', $data);*/
+        $this->load->view('studio/studio_search_view', $data);
     }
 
     public function myStudios() {
+        $this->permissionTest();
+
         $idUser = $this->session->userdata('user')['idUser'];
         if(!isset($idUser) || empty($idUser))
             redirect('home', 'refresh');
@@ -48,6 +55,8 @@ class Studios extends CI_Controller {
     }
 
     public function createStudio() {
+        $this->permissionTest();
+
         $idUser = $this->session->userdata('user')['idUser'];
         if(!isset($idUser) || empty($idUser))
             redirect('home', 'refresh');
@@ -129,6 +138,8 @@ class Studios extends CI_Controller {
     }
 
     public function updateStudio($id) {
+        $this->permissionTest();
+        
         $this->Studio->startDatabase();
         $studio = $this->Studio->getStudio($id);
         $this->Studio->closeDatabase();

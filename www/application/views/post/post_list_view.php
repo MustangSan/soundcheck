@@ -118,7 +118,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td><a href=\"".base_url('posts/updatePost/'.$key->getIdPost())."\">Update</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=10>No data found</td></tr>"
+                  echo "<tr><td colspan=10>No data found</td></tr>";
             ?>
       </table>
       <pre><code>
