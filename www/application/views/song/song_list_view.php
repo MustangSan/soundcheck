@@ -112,7 +112,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td><a href=\"".base_url('albuns/updateSong/'.$key->getIdSong())."\">Update</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=7>No data found</td></tr>"
+                  echo "<tr><td colspan=7>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

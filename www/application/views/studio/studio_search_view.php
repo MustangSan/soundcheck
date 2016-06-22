@@ -131,7 +131,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getContactEmail()}</td></tr>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>"
+                  echo "<tr><td colspan=20>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

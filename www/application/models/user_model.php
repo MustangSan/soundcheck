@@ -143,7 +143,7 @@ class User_model extends CI_Model {
             
             if($this->db->trans_status()){
                 $fa['idUser'] = $this->db->insert_id();
-                $this->db->insert('fans', $data);
+                $this->db->insert('fans', $fa);
                 $data = $this->dismountClass($manager);
                 $data['idUser'] = $fa['idUser'];
                 $this->db->insert('managers', $data);

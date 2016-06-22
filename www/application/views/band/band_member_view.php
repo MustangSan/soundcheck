@@ -110,7 +110,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   foreach ($membersSignup as $key) {
                      echo "<tr><td>{$key['photo']}</td>";
                      echo "<td>{$key['name']}</td>";
-                     echo "<td>Fazer</td>";
+                     echo "<td>{$key['instrument']}</td>";
                      echo "<td><a href=\"".base_url('users/profile/'.$key['idUser'])."\">Profile</a></td></tr>";
                   }
             }

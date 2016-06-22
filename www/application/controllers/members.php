@@ -171,15 +171,49 @@ class Members extends CI_Controller {
             redirect('home', 'refresh');
 
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
-        //$this->form_validation->set_rules('instrument', 'Instrument', 'trim|required');
+        $this->form_validation->set_rules('instrument', 'Instrument', 'trim|required');
 
         if($this->form_validation->run() == FALSE) {
             $data['idBand'] = $idBand;
-            $this->load->view('member/member_insertMember_view');
+            $data['instrument'] = $this->input->post('instrument');
+            $this->load->view('member/member_insertMember_view', $data);
         }
         else {
             $this->Member->startDatabase();
-            $result = $this->Member->insertBandMember($this->input->post('username'), $idBand);
+            $result = $this->Member->insertBandMember($this->input->post('username'), $idBand, $this->input->post('instrument'));
+            $this->Member->closeDatabase();
+
+            if($result) {
+                $this->session->set_flashdata('result', 'createSuccess');
+                redirect('members/bandMembers/'.$idBand);
+            }
+            else {
+                $this->session->set_flashdata('result', 'createError');
+                redirect('members/bandMembers/'.$idBand);
+            }
+        }
+    }
+
+    public function updateInstrument($idBand = NULL, $idUser = NULL) {
+        if((!isset($idBand) || empty($idBand)) || (!isset($idUser) || empty($idUser)))
+            redirect('home', 'refresh');
+
+        $this->form_validation->set_rules('instrument', 'Instrument', 'trim|required');
+
+        $this->Member->startDatabase();
+        $data['instrument'] = $this->Member->getMemberInstrument($idBand,$idUser);
+        $this->Member->closeDatabase();
+
+        if($this->form_validation->run() == FALSE) {
+            $this->load->view('member/member_updateInstrument_view', $data);
+        }
+        else {
+            $data = array(  'idBand'     => $idBand,
+                            'idUser'     => $idUser,
+                            'instrument' => $this->input->post('instrument')
+                        );
+            $this->Member->startDatabase();
+            $result = $this->Member->uptadeSignUpMember($data);
             $this->Member->closeDatabase();
 
             if($result) {

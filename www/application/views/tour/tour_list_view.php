@@ -113,7 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<a href=\"".base_url('tours/myTourShows/'.$idBand.'/'.$key->getIdTour())."\">Tour Shows</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=8>No data found</td></tr>"
+                  echo "<tr><td colspan=8>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

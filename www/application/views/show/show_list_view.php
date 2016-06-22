@@ -123,7 +123,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                      echo "<td><a href=\"".base_url('tours/updateShow/'.$key->getIdShow())."\">Update</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=9>No data found</td></tr>"
+                  echo "<tr><td colspan=9>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

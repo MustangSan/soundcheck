@@ -92,14 +92,22 @@ class Member_model extends CI_Model {
             $queryUsers = $query->custom_result_object('User');
             foreach ($queryUsers as $row) {
                 $this->db->trans_start();
-                $this->db->order_by('name ASC');
+                /*$this->db->order_by('name ASC');
                 $this->db->where('idUser', $row->getIdUser());
-                $query = $this->db->get('users');
+                $query = $this->db->get('users');*/
+
+                $this->db->select('u.name, u.photo, bm.instrument');
+                $this->db->from('users as u, band_members as bm');
+                $this->db->where('u.idUser = bm.idUser and bm.idBand = '.$idBand.' and u.idUser = '.$row->getIdUser());
+                $query = $this->db->get();
+
+
                 $this->db->trans_complete();
-                $users[] = array(   'idUser' => $row->getIdUser(),
-                                    'idBand' => $idBand,
-                                    'name'   => $query->row()->name,
-                                    'photo'  => $query->row()->photo
+                $users[] = array(   'idUser'     => $row->getIdUser(),
+                                    'idBand'     => $idBand,
+                                    'name'       => $query->row()->name,
+                                    'photo'      => $query->row()->photo,
+                                    'instrument' => $query->row()->instrument
                                 );
             }
             return $users;
@@ -119,7 +127,7 @@ class Member_model extends CI_Model {
         return FALSE;
     }
 
-    public function insertBandMember($username, $idBand) {
+    public function insertBandMember($username, $idBand, $instrument) {
         $this->db->trans_start();
         $this->db->where('email', $username);
         $query = $this->db->get('users');
@@ -127,6 +135,7 @@ class Member_model extends CI_Model {
         if($query->num_rows() == 1) {
             $data['idUser'] = $query->row()->idUser;
             $data['idBand'] = $idBand;
+            $data['instrument'] = $instrument;
             $this->db->insert('band_members', $data);
             $this->db->trans_complete();
         }
@@ -135,6 +144,32 @@ class Member_model extends CI_Model {
 
         if($this->db->trans_status())
             return TRUE;
+        return FALSE;
+    }
+
+    public function uptadeSignUpMember($data) {
+        $this->db->trans_start();
+        $this->db->where('idUser', $data['idUser']);
+        $this->db->where('idBand', $data['idBand']);
+        $this->db->update('band_members', $data);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return TRUE;
+        return FALSE;
+    }
+
+    public function getMemberInstrument($idBand, $idUser) {
+        $this->db->trans_start();
+        $this->db->where('idUser', $idUser);
+        $this->db->where('idBand', $idBand);
+        $query = $this->db->get('band_members');
+        $this->db->trans_complete();
+
+        if($query->num_rows() == 1) {
+            return $query->row()->instrument;
+        }
+
         return FALSE;
     }
 }

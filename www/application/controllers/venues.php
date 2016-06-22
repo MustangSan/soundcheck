@@ -18,6 +18,7 @@ class Venues extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('Venue_model', 'Venue');
+        $this->load->model('Event_model', 'Event');
         $this->load->model('Login_user_model', 'Login');
 
         if(!$this->Login->is_logged())
@@ -237,6 +238,21 @@ class Venues extends CI_Controller {
             $this->load->view('errors/html/error_404');
     }
 
+    public function editProfile($id) {
+        $this->permissionTest();
+
+        $this->Venue->startDatabase();
+        $venue = $this->Venue->getVenue($id);
+        $this->Venue->closeDatabase();
+
+        if(!empty($venue)) {
+            $data['venue'] = $venue;
+            $this->load->view('venue/venue_editProfile_view', $data);
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
     public function followVenue($idVenue) {
         if(!isset($idVenue) || empty($idVenue))
             redirect('venues', 'refresh');
@@ -254,5 +270,16 @@ class Venues extends CI_Controller {
             header('Location: http://'.$_SERVER['SERVER_NAME']);
         }
         exit;
+    }
+
+    public function events($idVenue) {
+        if(!isset($idVenue) || empty($idVenue))
+            redirect('home', 'refresh');
+        
+        $data['idVenue'] = $idVenue;
+        $this->Event->startDatabase();
+        $data['events'] = $this->Event->readEvents($idVenue);
+        $this->Event->closeDatabase();
+        $this->load->view('venue/venue_event_view', $data);
     }
 }

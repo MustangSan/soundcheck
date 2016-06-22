@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Users</title>
+   <title>Gigs</title>
 
    <style type="text/css">
 
@@ -86,48 +86,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Users</h1>
+   <h1>Gigs</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('sign_up/registration'); ?>">Sing Up</a></p>
       <table>
          <tr>
-            <th>IdUser</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Name</th>
-            <th>Photo</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Place</th>
+            <th>Date</th>
             <th>Country</th>
             <th>Estate</th>
-            <th>City</th>
-            <th>Zipcode</th>
-            <th>Registered Date</th>
-            <th>Status</th>
             <th></th>
          </tr>
             <?php 
-            if(is_array($users))
-               foreach ($users as $key) {
-                  echo "<tr><td>{$key->getIdUser()}</td>";
-                  echo "<td>{$key->getEmail()}</td>";
-                  echo "<td>{$key->getPassword()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getPhoto()}</td>";
+            if(is_array($gigs))
+               foreach ($gigs as $key) {
+                  echo "<tr><td>{$key->getDescription()}</td>";
+                  echo "<td>{$key->getStatus()}</td>";
+                  echo "<td>{$key->getPlace()}</td>";
+                  echo "<td>{$key->getDate()}</td>";
                   echo "<td>{$key->getCountry()}</td>";
                   echo "<td>{$key->getEstate()}</td>";
-                  echo "<td>{$key->getCity()}</td>";
-                  echo "<td>{$key->getZipcode()}</td>";
-                  echo "<td>{$key->getRegisteredDate()}</td>";
-                  echo "<td>{$key->getStatus()}</td>";
-                  echo "<td><a href=\"".base_url('sign_up/updateUser/'.$key->getIdUser())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('gigs/details/'.$key->getIdGig())."\">More Details</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>";
+                  echo "<tr><td colspan=17>No data found</td></tr>";
             ?>
       </table>
       <pre><code>
          <?php 
-            //var_dump($users);
+            //var_dump($gigs);
          ?>
       </code></pre>
    </div>

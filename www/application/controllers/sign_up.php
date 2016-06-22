@@ -78,7 +78,6 @@ class Sign_up extends CI_Controller {
 
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
-                            'password'          => $this->input->post('password'),
                             'name'              => $this->input->post('name'),
                             'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),
@@ -149,7 +148,6 @@ class Sign_up extends CI_Controller {
 
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
-                            'password'          => $this->input->post('password'),
                             'name'              => $this->input->post('name'),
                             'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),
@@ -235,7 +233,6 @@ class Sign_up extends CI_Controller {
 
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
-                            'password'          => $this->input->post('password'),
                             'name'              => $this->input->post('name'),
                             'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),

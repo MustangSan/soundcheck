@@ -15,7 +15,7 @@ class Event {
      *-------------------------
      */
     private $idEvent;
-    private $idUser;
+    private $idVenue;
     private $name;
     private $about;
     private $website;
@@ -45,7 +45,7 @@ class Event {
     public function __construct($data = NULL) {
         if(is_array($data)) {
             $this->setIdEvent($data[0]);
-            $this->setIdUser($data[1]);
+            $this->setIdVenue($data[1]);
             $this->setName($data[2]);
             $this->setAbout($data[3]);
             $this->setWebsite($data[4]);
@@ -68,11 +68,11 @@ class Event {
         }
     }
     /*
-    public function __construct($idEvent, $idUser, $name, $about, $website, $facebook, 
+    public function __construct($idEvent, $idVenue, $name, $about, $website, $facebook, 
         $twitter, $youtube, $place, $date, $country, $estate, $city, $district, $street,
         $number, $complement, $zipcode, $phone, $phoneAuxiliar, $contactEmail) {
         $this->setIdEvent($idEvent);
-        $this->setIdUser($idUser);
+        $this->setIdVenue($idVenue);
         $this->setName($name);
         $this->setAbout($about);
         $this->setWebsite($website);
@@ -100,8 +100,8 @@ class Event {
         $this->idEvent = $newValue;
     }
 
-    public function setIdUser($newValue) {
-        $this->idUser = $newValue;
+    public function setIdVenue($newValue) {
+        $this->idVenue = $newValue;
     }
 
     public function setName($newValue) {
@@ -185,8 +185,8 @@ class Event {
         return $this->idEvent;
     }
 
-    public function getIdUser() {
-        return $this->idUser;
+    public function getIdVenue() {
+        return $this->idVenue;
     }
 
     public function getName() {

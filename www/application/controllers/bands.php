@@ -143,11 +143,11 @@ class Bands extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('bands');
+                redirect('bands/myBands');
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('bands');
+                redirect('bands/myBands');
             }
         }
     }
@@ -211,11 +211,11 @@ class Bands extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('bands');
+                    redirect('bands/editProfile/'.$id);
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('bands');
+                    redirect('bands/editProfile/'.$id);
                 }
             }
         }

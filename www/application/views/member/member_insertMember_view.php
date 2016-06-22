@@ -88,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo form_error('username', '<div class="error">', '</div>');
       echo '</div><br><br>';
 
-      /*$data = array(
+      $data = array(
       'name' => 'instrument',
       'type' => 'text',
       'style' => 'width: 275px;',
@@ -98,7 +98,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo form_error('instrument', '<div class="error">', '</div>');
       echo '</div><br>';
 
-      $data = array(
+      /*$data = array(
       'name' => 'photo',
       'style' => 'width: 275px;',
       );       

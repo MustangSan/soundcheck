@@ -36,11 +36,25 @@ class Events extends CI_Controller {
         $this->Event->startDatabase();
         $data['events'] = $this->Event->readEvents();
         $this->Event->closeDatabase();
+        $this->load->view('event/event_search_view', $data);
+    }
+
+    public function myEvents($idVenue = NULL) {
+        $this->permissionTest();
+        if(!isset($idVenue) || empty($idVenue))
+            redirect('home', 'refresh');
+
+        $data['idVenue'] = $idVenue;
+        $this->Event->startDatabase();
+        $data['events'] = $this->Event->readEvents($idVenue);
+        $this->Event->closeDatabase();
         $this->load->view('event/event_list_view', $data);
     }
 
-    public function createEvent() {
+    public function createEvent($idVenue = NULL) {
         $this->permissionTest();
+        if(!isset($idVenue) || empty($idVenue))
+            redirect('home', 'refresh');
 
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
         $this->form_validation->set_rules('about', 'About', 'trim|required');
@@ -83,10 +97,12 @@ class Events extends CI_Controller {
                             'phoneAuxiliar'     => $this->input->post('phoneAuxiliar'),
                             'contactEmail'      => $this->input->post('contactEmail')
                         );
+            $data['idVenue'] = $idVenue;
             $this->load->view('event/event_create_view', $data);
         }
         else {
-            $data = new Event ([NULL,1,
+            $data = new Event ([NULL,
+                                $idVenue,
                                 $this->input->post('name'),
                                 $this->input->post('about'),
                                 $this->input->post('website'),
@@ -113,17 +129,19 @@ class Events extends CI_Controller {
 
             if($result) {
                 $this->session->set_flashdata('result', 'createSuccess');
-                redirect('events');
+                redirect('events/myEvents/'.$idVenue);
             }
             else {
                 $this->session->set_flashdata('result', 'createError');
-                redirect('events');
+                redirect('events/myEvents/'.$idVenue);
             }
         }
     }
 
     public function updateEvent($id) {
         $this->permissionTest();
+        if(!isset($id) || empty($id))
+            redirect('home', 'refresh');
         
         $this->Event->startDatabase();
         $event = $this->Event->getEvent($id);
@@ -171,11 +189,12 @@ class Events extends CI_Controller {
                                 'phoneAuxiliar'     => $event->getPhoneAuxiliar(),
                                 'contactEmail'      => $event->getContactEmail()
                             );
+                $data['idVenue'] = $event->getIdVenue();
                 $this->load->view('event/event_update_view', $data);
             }
             else {
                 $data = new Event ([$event->getIdEvent(),
-                                    $event->getIdUser(),
+                                    $event->getIdVenue(),
                                     $this->input->post('name'),
                                     $this->input->post('about'),
                                     $this->input->post('website'),
@@ -202,13 +221,26 @@ class Events extends CI_Controller {
 
                 if($result) {
                     $this->session->set_flashdata('result', 'updateSuccess');
-                    redirect('events');
+                    redirect('events/myEvents/'.$event->getIdVenue());
                 }
                 else {
                     $this->session->set_flashdata('result', 'updateError');
-                    redirect('events');
+                    redirect('events/myEvents/'.$event->getIdVenue());
                 }
             }
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
+    public function profile($id) {
+        $this->Event->startDatabase();
+        $event = $this->Event->getEvent($id);
+        $this->Event->closeDatabase();
+
+        if(!empty($event)) {
+            $data['event'] = $event;
+            $this->load->view('event/event_profile_view', $data);
         }
         else
             $this->load->view('errors/html/error_404');

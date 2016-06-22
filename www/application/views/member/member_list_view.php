@@ -119,7 +119,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                      echo "<td>{$key['idUser']}</td>";
                      echo "<td>{$idBand}</td>";
                      echo "<td>{$key['name']}</td>";
-                     echo "<td>Fazer</td></tr>";
+                     echo "<td>{$key['instrument']}</td>";
+                     echo "<td><a href=\"".base_url('members/updateInstrument/'.$idBand.'/'.$key['idUser'])."\">Update</a></td></tr>";
                   }
             }
             ?>

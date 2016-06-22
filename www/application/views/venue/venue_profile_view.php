@@ -133,9 +133,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$venue->getContactEmail()}</td></tr>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>"
+                  echo "<tr><td colspan=20>No data found</td></tr>";
             ?>
       </table>
+
+      <p><a href="<?php echo base_url('venues/events/'.$venue->getIdVenue()); ?>">Events</a></p>
+
       <pre><code>
          <?php 
             //var_dump($venue);

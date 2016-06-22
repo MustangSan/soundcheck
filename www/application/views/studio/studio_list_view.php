@@ -138,7 +138,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td><a href=\"".base_url('studios/updateStudio/'.$key->getIdStudio())."\">Update</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>"
+                  echo "<tr><td colspan=20>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

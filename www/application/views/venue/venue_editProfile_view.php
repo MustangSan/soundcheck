@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Users</title>
+   <title>Venues</title>
 
    <style type="text/css">
 
@@ -86,48 +86,62 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Users</h1>
+   <h1>Venue</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('sign_up/registration'); ?>">Sing Up</a></p>
+   <?php 
+   if(!empty($venue)) {
+   ?>
+      <p><a href="<?php echo base_url('venues/updateVenue/'.$venue->getIdVenue()); ?>">Update</a></p>
       <table>
          <tr>
-            <th>IdUser</th>
-            <th>Email</th>
-            <th>Password</th>
             <th>Name</th>
-            <th>Photo</th>
+            <th>About</th>
+            <th>Website</th>
+            <th>Facebook</th>
+            <th>Twitter</th>
+            <th>Youtube</th>
             <th>Country</th>
             <th>Estate</th>
             <th>City</th>
+            <th>District</th>
+            <th>Street</th>
+            <th>Number</th>
+            <th>Complement</th>
             <th>Zipcode</th>
-            <th>Registered Date</th>
-            <th>Status</th>
-            <th></th>
+            <th>Phone</th>
+            <th>Phone Auxiliar</th>
+            <th>Contact Email</th>
          </tr>
-            <?php 
-            if(is_array($users))
-               foreach ($users as $key) {
-                  echo "<tr><td>{$key->getIdUser()}</td>";
-                  echo "<td>{$key->getEmail()}</td>";
-                  echo "<td>{$key->getPassword()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getPhoto()}</td>";
-                  echo "<td>{$key->getCountry()}</td>";
-                  echo "<td>{$key->getEstate()}</td>";
-                  echo "<td>{$key->getCity()}</td>";
-                  echo "<td>{$key->getZipcode()}</td>";
-                  echo "<td>{$key->getRegisteredDate()}</td>";
-                  echo "<td>{$key->getStatus()}</td>";
-                  echo "<td><a href=\"".base_url('sign_up/updateUser/'.$key->getIdUser())."\">Update</a></td></tr>";
+            <?php
+                  echo "<tr><td>{$venue->getName()}</td>";
+                  echo "<td>{$venue->getAbout()}</td>";
+                  echo "<td>{$venue->getWebsite()}</td>";
+                  echo "<td>{$venue->getFacebook()}</td>";
+                  echo "<td>{$venue->getTwitter()}</td>";
+                  echo "<td>{$venue->getYoutube()}</td>";
+                  echo "<td>{$venue->getCountry()}</td>";
+                  echo "<td>{$venue->getEstate()}</td>";
+                  echo "<td>{$venue->getCity()}</td>";
+                  echo "<td>{$venue->getDistrict()}</td>";
+                  echo "<td>{$venue->getStreet()}</td>";
+                  echo "<td>{$venue->getNumber()}</td>";
+                  echo "<td>{$venue->getComplement()}</td>";
+                  echo "<td>{$venue->getZipcode()}</td>";
+                  echo "<td>{$venue->getPhone()}</td>";
+                  echo "<td>{$venue->getPhoneAuxiliar()}</td>";
+                  echo "<td>{$venue->getContactEmail()}</td></tr>";
                }
                else
                   echo "<tr><td colspan=20>No data found</td></tr>";
             ?>
       </table>
+
+      <p><a href="<?php echo base_url('events/myEvents/'.$venue->getIdVenue()); ?>">Events</a></p>
+
       <pre><code>
          <?php 
-            //var_dump($users);
+            //var_dump($venue);
          ?>
       </code></pre>
    </div>

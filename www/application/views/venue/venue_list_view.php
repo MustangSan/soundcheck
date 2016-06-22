@@ -135,10 +135,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getPhone()}</td>";
                   echo "<td>{$key->getPhoneAuxiliar()}</td>";
                   echo "<td>{$key->getContactEmail()}</td>";
-                  echo "<td><a href=\"".base_url('venues/updateVenue/'.$key->getIdVenue())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('venues/updateVenue/'.$key->getIdVenue())."\">Update</a><br/><a href=\"".base_url('venues/editProfile/'.$key->getIdVenue())."\">Profile</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>"
+                  echo "<tr><td colspan=20>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

@@ -104,7 +104,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td><a href=\"".base_url('music_genres/updateMusicGenre/'.$key->getIdMusicGenre())."\">Update</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=3>No data found</td></tr>"
+                  echo "<tr><td colspan=3>No data found</td></tr>";
             ?>
       </table>
       <pre><code>

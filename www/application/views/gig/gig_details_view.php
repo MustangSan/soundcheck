@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <title>Users</title>
+   <title>Gigs</title>
 
    <style type="text/css">
 
@@ -86,48 +86,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <body>
 
 <div id="container">
-   <h1>Users</h1>
+   <h1>Gigs</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('sign_up/registration'); ?>">Sing Up</a></p>
-      <table>
-         <tr>
-            <th>IdUser</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>Name</th>
-            <th>Photo</th>
-            <th>Country</th>
-            <th>Estate</th>
-            <th>City</th>
-            <th>Zipcode</th>
-            <th>Registered Date</th>
-            <th>Status</th>
-            <th></th>
-         </tr>
-            <?php 
-            if(is_array($users))
-               foreach ($users as $key) {
-                  echo "<tr><td>{$key->getIdUser()}</td>";
-                  echo "<td>{$key->getEmail()}</td>";
-                  echo "<td>{$key->getPassword()}</td>";
-                  echo "<td>{$key->getName()}</td>";
-                  echo "<td>{$key->getPhoto()}</td>";
-                  echo "<td>{$key->getCountry()}</td>";
-                  echo "<td>{$key->getEstate()}</td>";
-                  echo "<td>{$key->getCity()}</td>";
-                  echo "<td>{$key->getZipcode()}</td>";
-                  echo "<td>{$key->getRegisteredDate()}</td>";
-                  echo "<td>{$key->getStatus()}</td>";
-                  echo "<td><a href=\"".base_url('sign_up/updateUser/'.$key->getIdUser())."\">Update</a></td></tr>";
+            <?php
+            if(!empty($gig)) {
+                  echo "<p>IdGig: {$gig->getIdGig()}</p>";
+                  echo "<p>IdUser: {$gig->getIdUser()}</p>";
+                  echo "<p>Description: {$gig->getDescription()}</p>";
+                  echo "<p>Status: {$gig->getStatus()}</p>";
+                  echo "<p>Place: {$gig->getPlace()}</p>";
+                  echo "<p>Date: {$gig->getDate()}</p>";
+                  echo "<p>Country: {$gig->getCountry()}</p>";
+                  echo "<p>Estate: {$gig->getEstate()}</p>";
+                  echo "<p>City: {$gig->getCity()}</p>";
+                  echo "<p>District: {$gig->getDistrict()}</p>";
+                  echo "<p>Street: {$gig->getStreet()}</p>";
+                  echo "<p>Number: {$gig->getNumber()}</p>";
+                  echo "<p>Complement: {$gig->getComplement()}</p>";
+                  echo "<p>Zipcode: {$gig->getZipcode()}</p>";
+                  echo "<p>Phone: {$gig->getPhone()}</p>";
+                  echo "<p>Contact Email: {$gig->getContactEmail()}</p>";
                }
                else
-                  echo "<tr><td colspan=20>No data found</td></tr>";
+                  echo "<p>No data found</p>";
             ?>
       </table>
       <pre><code>
          <?php 
-            //var_dump($users);
+            //var_dump($gigs);
          ?>
       </code></pre>
    </div>

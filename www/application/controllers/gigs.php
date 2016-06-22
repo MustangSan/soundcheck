@@ -32,7 +32,7 @@ class Gigs extends CI_Controller {
         $this->Gig->startDatabase();
         $data['gigs'] = $this->Gig->readGigs();
         $this->Gig->closeDatabase();
-        $this->load->view('gig/gig_list_view', $data);
+        $this->load->view('gig/gig_search_view', $data);
     }
 
     public function myGigs() {
@@ -188,6 +188,19 @@ class Gigs extends CI_Controller {
                     redirect('gigs/myGigs/'.$this->session->userdata('user')['idUser']);
                 }
             }
+        }
+        else
+            $this->load->view('errors/html/error_404');
+    }
+
+    public function details($id) {
+        $this->Gig->startDatabase();
+        $gig = $this->Gig->getGig($id);
+        $this->Gig->closeDatabase();
+
+        if(!empty($gig)) {
+            $data['gig'] = $gig;
+            $this->load->view('gig/gig_details_view', $data);
         }
         else
             $this->load->view('errors/html/error_404');

@@ -89,11 +89,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
    <h1>Events</h1>
 
    <div id="body">
-      <p><a href="<?php echo base_url('events/createEvent'); ?>">Create Event</a></p>
+      <p><a href="<?php echo base_url('events/createEvent/'.$idVenue); ?>">Create Event</a></p>
       <table>
          <tr>
             <th>IdEvent</th>
-            <th>IdUser</th>
+            <th>IdVenue</th>
             <th>Name</th>
             <th>About</th>
             <th>Website</th>
@@ -119,7 +119,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             if(is_array($events))
                foreach ($events as $key) {
                   echo "<tr><td>{$key->getIdEvent()}</td>";
-                  echo "<td>{$key->getIdUser()}</td>";
+                  echo "<td>{$key->getIdVenue()}</td>";
                   echo "<td>{$key->getName()}</td>";
                   echo "<td>{$key->getAbout()}</td>";
                   echo "<td>{$key->getWebsite()}</td>";
@@ -139,10 +139,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                   echo "<td>{$key->getPhone()}</td>";
                   echo "<td>{$key->getPhoneAuxiliar()}</td>";
                   echo "<td>{$key->getContactEmail()}</td>";
-                  echo "<td><a href=\"".base_url('events/updateEvent/'.$key->getIdEvent())."\">Update</a></td></tr>";
+                  echo "<td><a href=\"".base_url('events/updateEvent/'.$key->getIdEvent())."\">Update</a><br/><a href=\"".base_url('events/editProfile/'.$key->getIdEvent())."\">Profile</a></td></tr>";
                }
                else
-                  echo "<tr><td colspan=22>No data found</td></tr>"
+                  echo "<tr><td colspan=22>No data found</td></tr>";
             ?>
       </table>
       <pre><code>
