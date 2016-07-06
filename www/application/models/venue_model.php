@@ -94,8 +94,7 @@ class Venue_model extends CI_Model {
 
     public function followVenue($idVenue, $idUser) {
         $this->db->trans_start();
-        //$data['idVenue'] = $idVenue;
-        $data['idVenues'] = $idVenue;
+        $data['idVenue'] = $idVenue;
         $data['idUser'] = $idVenue;
         $this->db->insert('venue_followers', $data);
         $this->db->trans_complete();

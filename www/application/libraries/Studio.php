@@ -33,6 +33,8 @@ class Studio {
     private $phone;
     private $phoneAuxiliar;
     private $contactEmail;
+    private $latitude;
+    private $longitude;
 
     /*
      *-------------------------
@@ -61,6 +63,8 @@ class Studio {
             $this->setPhone($data[16]);
             $this->setPhoneAuxiliar($data[17]);
             $this->setContactEmail($data[18]);
+            $this->setLatitude($data[19]);
+            $this->setLongitude($data[20]);
         }
     }
     /*
@@ -166,6 +170,14 @@ class Studio {
         $this->contactEmail = $newValue;
     }
 
+    public function setLatitude($newValue) {
+        $this->latitude = $newValue;
+    }
+
+    public function setLongitude($newValue) {
+        $this->longitude = $newValue;
+    }
+
     // Getters
     public function getIdStudio() {
         return $this->idStudio;
@@ -241,6 +253,14 @@ class Studio {
 
     public function getContactEmail() {
         return $this->contactEmail;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
     }
 }
 

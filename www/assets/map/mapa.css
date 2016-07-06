@@ -1,0 +1,310 @@
+@import url(http://fonts.googleapis.com/css?family=Josefin+Sans);
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400);
+
+html,body { width: 100%; height: 100%; margin: 0; padding: 0; font-family: 'Open Sans', sans-serif; }
+
+#mapa {
+    height:89%;
+    bottom:0;
+    top:0;
+    left:0;
+    right:0;
+}
+
+#status_bar {
+  display: none;
+  background-color: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 0px solid #ADADAE
+}
+
+#status_bar p {
+  font-size: 10px;
+  margin: 5px 10px;
+}
+
+#upper_head, #lower_head  {
+  background-color: #F7F7F8;
+  text-align: center;
+  border: 1px solid #ADADAE
+  border-bottom: 0px solid #ADADAE;
+  padding: 0.5em 0 1em 0;
+  margin-bottom: 0px;
+}
+
+#upper_head {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+#local_check {
+  text-align: left;
+  float: left;
+}
+
+.busca label {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 20px;
+  color: #606066;
+}
+
+.busca #busca_input, .busca #busca_end_input, .busca #busca_dropdown {
+  max-height: 40px;
+  padding: 20px 17px;
+  border: 1px solid #cbcbcb;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.busca #busca_dropdown {
+  text-align: center;
+  background: #fff;
+  color: #000;
+  padding: 5px;
+}
+
+.busca #busca_input, .busca #busca_end_input {
+  width: 50%;
+}
+
+.busca #busca_end_input {
+  display: none;
+}
+
+.busca #busca_button {
+  width: 90px;
+  min-width: 70px;
+  max-width: 90px;
+  height: 40px;
+  min-height: 30px;
+  max-height: 40px;
+  margin-top: 0.5em;
+}
+
+#mostrar_todos, #para_local {
+  min-height: 30px;
+  max-height: 30px;
+  margin: 0px 0px 0px 0px;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+}
+
+#mostrar_todos {
+  margin-left: 5%;
+  margin-top: 0.5em;
+}
+
+#para_local {
+  min-width: 160px;
+}
+
+#left_msg {float: left;}
+#right_msg {float: right;}
+
+.theContent {
+  padding: 10px;
+}
+
+.blink {
+    background: #80CC6E !important;
+}
+
+.infoTab {
+  background-color: rgb(240, 247, 240);
+  font-weight: 500;
+}
+.infoTab:hover {
+  background-color: #80CC6E;
+  color: 4B5753;
+}
+.infoTab:active {
+  background-color: #5DB336;
+}
+
+.infoBox { 
+  font-family: Arial, Helvetica, sans-serif; 
+  font-size: 14px;
+  margin: 0;
+}
+
+.infoBox #info_header {
+  font-family: 'Josefin Sans', sans-serif;
+}
+.infoBox #info_content {
+  padding: 0px 5px 
+}
+.infoBox #info_img {
+  float: left;
+}
+.infoBox #info_logo {
+  position: absolute;
+  bottom: 0;
+  padding: 20px 12px;
+}
+.infoBox #info_text {
+  float: center;
+  margin-left: 220px;
+}
+
+.infoBox:before { 
+  border-left: 10px solid transparent; 
+  border-right: 10px solid transparent; 
+  border-bottom: 10px solid #3fa7d8; 
+  top: -10px; content: ""; 
+  height: 0; position: absolute; 
+  width: 0; left: 138px 
+}
+
+.blue_button {
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  
+  background: rgb(132,210,214);
+  
+  background: -moz-linear-gradient(top,  rgba(132,210,214,1) 0%, rgba(98,194,200,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(132,210,214,1)), color-stop(100%,rgba(98,194,200,1)));
+  background: -webkit-linear-gradient(top,  rgba(132,210,214,1) 0%,rgba(98,194,200,1) 100%);
+  background: -o-linear-gradient(top,  rgba(132,210,214,1) 0%,rgba(98,194,200,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(132,210,214,1) 0%,rgba(98,194,200,1) 100%);
+  background: linear-gradient(top,  rgba(132,210,214,1) 0%,rgba(98,194,200,1) 100%);
+  
+  -webkit-transition: background .2s ease-in;
+    -moz-transition: background .2s ease-in;
+    -ms-transition: background .2s ease-in;
+    -o-transition: background .2s ease-in;
+    transition: background .2s ease-in;
+}
+
+
+.blue_button:hover {
+  background: rgb(52,186,201);
+  
+  background: -moz-linear-gradient(top,  rgba(52,186,201,1) 0%, rgba(38,162,182,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(52,186,201,1)), color-stop(100%,rgba(38,162,182,1)));
+  background: -webkit-linear-gradient(top,  rgba(52,186,201,1) 0%,rgba(38,162,182,1) 100%);
+  background: -o-linear-gradient(top,  rgba(52,186,201,1) 0%,rgba(38,162,182,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(52,186,201,1) 0%,rgba(38,162,182,1) 100%);
+  background: linear-gradient(top,  rgba(52,186,201,1) 0%,rgba(38,162,182,1) 100%);
+}
+
+.red_button {
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  
+  background: rgb(214, 132, 142);
+  
+  background: -moz-linear-gradient(top, rgba(214, 132, 142) 0%, rgba(200, 98, 106, 1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(214, 132, 142, 1)), color-stop(100%,rgba(200, 98, 106, 1)));
+  background: -webkit-linear-gradient(top, rgba(214, 132, 142) 0%, rgba(200, 98, 106, 1) 100%);
+  background: -o-linear-gradient(top, rgba(214, 132, 142) 0%, rgba(200, 98, 106, 1) 100%);
+  background: -ms-linear-gradient(top, rgba(214, 132, 142) 0%, rgba(200, 98, 106, 1) 100%);
+  background: linear-gradient(top, rgba(214, 132, 142) 0%, rgba(200, 98, 106, 1) 100%);
+  
+  -webkit-transition: background .2s ease-in;
+    -moz-transition: background .2s ease-in;
+    -ms-transition: background .2s ease-in;
+    -o-transition: background .2s ease-in;
+    transition: background .2s ease-in;
+}
+
+.red_button:hover {
+  background: rgb(201,52,67);
+  
+  background: -moz-linear-gradient(top,  rgba(201,52,67,1) 0%, rgba(182,38,45,1) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(201,52,67,1)), color-stop(100%,rgba(182,38,45,1)));
+  background: -webkit-linear-gradient(top,  rgba(201,52,67,1) 0%,rgba(182,38,45,1) 100%);
+  background: -o-linear-gradient(top,  rgba(201,52,67,1) 0%,rgba(182,38,45,1) 100%);
+  background: -ms-linear-gradient(top,  rgba(201,52,67,1) 0%,rgba(182,38,45,1) 100%);
+  background: linear-gradient(top,  rgba(201,52,67,1) 0%,rgba(182,38,45,1) 100%);
+}
+
+.green_button {
+  border-radius: 6px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  
+  background: rgb(43, 138, 21);
+  
+  background: -moz-linear-gradient(top, rgba(93, 179, 54) 0%, rgba(73, 152, 34) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(93, 179, 54)), color-stop(100%,rgba(73, 152, 34)));
+  background: -webkit-linear-gradient(top, rgba(93, 179, 54) 0%, rgba(73, 152, 34) 100%);
+  background: -o-linear-gradient(top, rgba(93, 179, 54) 0%, rgba(73, 152, 34) 100%);
+  background: -ms-linear-gradient(top, rgba(93, 179, 54) 0%, rgba(73, 152, 34) 100%);
+  background: linear-gradient(top, rgba(93, 179, 54) 0%, rgba(73, 152, 34) 100%);
+  
+  -webkit-transition: background .2s ease-in;
+    -moz-transition: background .2s ease-in;
+    -ms-transition: background .2s ease-in;
+    -o-transition: background .2s ease-in;
+    transition: background .2s ease-in;
+}
+
+.green_button:hover {
+  background: rgb(36, 92, 22);
+  
+  background: -moz-linear-gradient(top, rgba(36, 92, 22) 0%, rgba(38, 201, 50) 100%);
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(36, 92, 22)), color-stop(100%,rgba(38, 201, 50)));
+  background: -webkit-linear-gradient(top, rgba(36, 92, 22) 0%, rgba(38, 201, 50) 100%);
+  background: -o-linear-gradient(top, rgba(36, 92, 22) 0%, rgba(38, 201, 50) 100%);
+  background: -ms-linear-gradient(top, rgba(36, 92, 22) 0%, rgba(38, 201, 50) 100%);
+  background: linear-gradient(top, rgba(36, 92, 22) 0%, rgba(38, 201, 50) 100%);
+}
+
+/* autocomplete results */
+.ui-autocomplete {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  display: none;
+  min-width: 160px;
+  width: 160px;
+  padding: 4px 0;
+  margin: 2px 0 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border-color: #ccc;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  -webkit-border-bottom-right-radius: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+  background-clip: padding-box;
+  *border-right-width: 2px;
+  *border-bottom-width: 2px;
+  
+  max-height: 200px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+  /* add padding for vertical scrollbar */
+  padding-right: 5px;
+}
+.ui-autocomplete .ui-menu-item {font-size: 14px;}
+.ui-autocomplete .ui-menu-item:hover {background-color: #f7f7f7; border: none; font-weight: 800;}
+ 
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+    height: 200px;
+}
+
+img[src="http://maps.gstatic.com/intl/en_us/mapfiles/iw_close.gif"] 
+{ content:url("http://www.google.com/intl/en_us/mapfiles/close.gif"); margin-right: 5px;}

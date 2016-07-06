@@ -28,6 +28,8 @@ class Band {
     private $city;
     private $phone;
     private $contactEmail;
+    private $latitude;
+    private $longitude;
     
 
     /*
@@ -52,6 +54,8 @@ class Band {
             $this->setCity($data[11]);
             $this->setPhone($data[12]);
             $this->setContactEmail($data[13]);
+            $this->setLatitude($data[14]);
+            $this->setLongitude($data[15]);
         }
     }
     /*
@@ -131,6 +135,14 @@ class Band {
         $this->contactEmail = $newValue;
     }
 
+    public function setLatitude($newValue) {
+        $this->latitude = $newValue;
+    }
+
+    public function setLongitude($newValue) {
+        $this->longitude = $newValue;
+    }
+
     // Getters
     public function getIdBand() {
         return $this->idBand;
@@ -186,6 +198,14 @@ class Band {
 
     public function getContactEmail() {
         return $this->contactEmail;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
     }
 }
 

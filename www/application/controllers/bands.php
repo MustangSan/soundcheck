@@ -135,7 +135,9 @@ class Bands extends CI_Controller {
                                 $this->input->post('estate'),
                                 $this->input->post('city'),
                                 $this->input->post('phone'),
-                                $this->input->post('contactEmail')
+                                $this->input->post('contactEmail'),
+                                $this->input->post('latitude'),
+                                $this->input->post('longitude')
                             ]);
             $this->Band->startDatabase();
             $result = $this->Band->createBand($data);
@@ -185,7 +187,9 @@ class Bands extends CI_Controller {
                                 'estate'        => $this->band->getEstate(),
                                 'city'          => $this->band->getCity(),
                                 'phone'         => $this->band->getPhone(),
-                                'contactEmail'  => $this->band->getContactEmail()
+                                'contactEmail'  => $this->band->getContactEmail(),
+                                'latitude'      => $this->band->getLatitude(),
+                                'longitude'     => $this->band->getLongitude()
                             );
                 $this->load->view('band/band_update_view', $data);
             }
@@ -203,7 +207,9 @@ class Bands extends CI_Controller {
                                     $this->input->post('estate'),
                                     $this->input->post('city'),
                                     $this->input->post('phone'),
-                                    $this->input->post('contactEmail')
+                                    $this->input->post('contactEmail'),
+                                    $this->input->post('latitude'),
+                                    $this->input->post('longitude')
                                 ]);
                 $this->Band->startDatabase();
                 $result = $this->Band->updateBand($data);

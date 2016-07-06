@@ -35,6 +35,8 @@ class Event {
     private $phone;
     private $phoneAuxiliar;
     private $contactEmail;
+    private $latitude;
+    private $longitude;
 
     /*
      *-------------------------
@@ -65,6 +67,8 @@ class Event {
             $this->setPhone($data[18]);
             $this->setPhoneAuxiliar($data[19]);
             $this->setContactEmail($data[20]);
+            $this->setLatitude($data[21]);
+            $this->setLongitude($data[22]);
         }
     }
     /*
@@ -180,6 +184,14 @@ class Event {
         $this->contactEmail = $newValue;
     }
 
+    public function setLatitude($newValue) {
+        $this->latitude = $newValue;
+    }
+
+    public function setLongitude($newValue) {
+        $this->longitude = $newValue;
+    }
+
     // Getters
     public function getIdEvent() {
         return $this->idEvent;
@@ -263,6 +275,14 @@ class Event {
 
     public function getContactEmail() {
         return $this->contactEmail;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
     }
 }
 

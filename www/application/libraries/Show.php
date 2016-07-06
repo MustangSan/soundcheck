@@ -22,6 +22,8 @@ class Show {
     private $date;
     private $timetable;
     private $place;
+    private $latitude;
+    private $longitude;
 
     /*
      *-------------------------
@@ -39,6 +41,8 @@ class Show {
             $this->setDate($data[5]);
             $this->setTimetable($data[6]);
             $this->setPlace($data[7]);
+            $this->setLatitude($data[8]);
+            $this->setLongitude($data[9]);
         }
     }
     /*
@@ -88,6 +92,14 @@ class Show {
         $this->place = $newValue;
     }
 
+    public function setLatitude($newValue) {
+        $this->latitude = $newValue;
+    }
+
+    public function setLongitude($newValue) {
+        $this->longitude = $newValue;
+    }
+
     // Getters
     public function getIdShow() {
         return $this->idShow;
@@ -119,6 +131,14 @@ class Show {
 
     public function getPlace() {
         return $this->place;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
     }
 }
 

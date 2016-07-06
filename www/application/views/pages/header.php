@@ -1,69 +1,108 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 ?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-   <meta charset="utf-8">
-   <title>Soundcheck</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soundcheck</title>
+    <!-- Core CSS - Include with every page -->
+    <link href="<?php echo base_url(); ?>assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/css/main-style.css" rel="stylesheet" />
+    <!-- Page-Level CSS -->
+    <link href="<?php echo base_url(); ?>assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
 
-   <style type="text/css">
+    <style type="text/css">
+        .fieldErrorLogin {
+            width: 16px;
+            height: 13px;
+            float: right;
+            left: -12px;
+            top: -26px;
+            margin-bottom: -13px;
+            position: relative;
+            z-index: 1000;
+            cursor: help;
+        }
 
-   ::selection { background-color: #E13300; color: white; }
-   ::-moz-selection { background-color: #E13300; color: white; }
+        .alert {
+            top: -22px;
+            right: 0 !important;
+            margin: 15px 40px;
+            max-width: 300px;
+            position: absolute;
+            z-index: 100000;
+            -webkit-box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow:    0px 0px 40px rgba(0, 0, 0, 0.75);
+            box-shadow:         0px 0px 40px rgba(0, 0, 0, 0.75);
 
-   body {
-      background-color: #fff;
-      margin: 40px;
-      font: 13px/20px normal Helvetica, Arial, sans-serif;
-      color: #4F5155;
-   }
+            -webkit-animation-name: shake;
+            -webkit-animation-fill-mode: both;
+            -webkit-animation-duration: 1s;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-timing-function: linear;
 
-   a {
-      color: #003399;
-      background-color: transparent;
-      font-weight: normal;
-   }
+            -moz-animation-name: shake;
+            -moz-animation-fill-mode: both;
+            -moz-animation-duration: 1s;
+            -moz-animation-iteration-count: 1;
+            -moz-animation-timing-function: linear;
 
-   h1 {
-      color: #444;
-      background-color: transparent;
-      border-bottom: 1px solid #D0D0D0;
-      font-size: 19px;
-      font-weight: normal;
-      margin: 0 0 14px 0;
-      padding: 14px 15px 10px 15px;
-   }
+            animation-name: shake;
+            animation-fill-mode: both;
+            animation-duration: 1s;
+            animation-iteration-count: 1;
+            animation-timing-function: linear;
+        }
 
-   code {
-      font-family: Consolas, Monaco, Courier New, Courier, monospace;
-      font-size: 12px;
-      background-color: #f9f9f9;
-      border: 1px solid #D0D0D0;
-      color: #002166;
-      display: block;
-      margin: 14px 0 14px 0;
-      padding: 12px 10px 12px 10px;
-   }
+        .sign-upClass {
+            float: right;
+            margin-top: -21px;
+            border-radius: 5px;
+            padding: 3px 6px;
+        }
 
-   #body {
-      margin: 0 15px 0 15px;
-   }
+        .logo-margin-10 {
+            margin-top: 15px;
+        }
 
-   p.footer {
-      text-align: right;
-      font-size: 11px;
-      border-top: 1px solid #D0D0D0;
-      line-height: 32px;
-      padding: 0 10px 0 10px;
-      margin: 20px 0 0 0;
-   }
+        .singup-panel {
+            margin-top: 5%;
+        }
 
-   #container {
-      margin: 10px;
-      border: 1px solid #D0D0D0;
-      box-shadow: 0 0 8px #D0D0D0;
-   }
-   </style>
+        .perfil-photo {
+            width: 110px;
+            height: 110px;
+        }
+
+        .perfil-photo img {
+            width: 110px;
+            height: auto;
+        }
+
+        .user-section-inner {
+            float: none;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            border-radius: 7px;
+        }
+
+        .user-section-inner img {
+            margin-left: 0;
+        }
+
+        .photo-center {
+            margin-left: 71px;
+        }
+
+        .submenu {
+            margin-left: 17px;
+        }
+    </style>
 </head>
-<body>
+

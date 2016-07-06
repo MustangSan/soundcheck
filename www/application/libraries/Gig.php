@@ -30,6 +30,8 @@ class Gig {
     private $zipcode;
     private $phone;
     private $contactEmail;
+    private $latitude;
+    private $longitude;
 
     /*
      *-------------------------
@@ -55,6 +57,8 @@ class Gig {
             $this->setZipcode($data[13]);
             $this->setPhone($data[14]);
             $this->setContactEmail($data[15]);
+            $this->setLatitude($data[16]);
+            $this->setLongitude($data[17]);
         }
     }
     /*
@@ -145,6 +149,14 @@ class Gig {
         $this->contactEmail = $newValue;
     }
 
+    public function setLatitude($newValue) {
+        $this->latitude = $newValue;
+    }
+
+    public function setLongitude($newValue) {
+        $this->longitude = $newValue;
+    }
+
     // Getters
     public function getIdGig() {
         return $this->idGig;
@@ -208,6 +220,14 @@ class Gig {
 
     public function getContactEmail() {
         return $this->contactEmail;
+    }
+
+    public function getLatitude() {
+        return $this->latitude;
+    }
+
+    public function getLongitude() {
+        return $this->longitude;
     }
 }
 

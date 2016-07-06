@@ -18,6 +18,39 @@ class Sign_up extends CI_Controller {
         $this->load->library('form_validation');
 
         $this->load->model('User_model', 'User');
+
+        $config['upload_path']      = './content-uploaded/';
+        $config['allowed_types']    = 'gif|jpg|png';
+        $config['max_size']         = 900;
+        $config['max_width']        = 300;
+        $config['max_height']       = 300;
+        $this->load->library('upload', $config);
+    }
+
+    public function handle_upload() {
+        if (isset($_FILES['photo']) && !empty($_FILES['photo']['name'])) {
+            if ($this->upload->do_upload('photo')) {
+                if(!empty($this->band))
+                    unlink('./content-uploaded/'.$this->band->getPhoto());
+                
+                $upload_data    = $this->upload->data();
+                $_POST['photo'] = $upload_data['file_name'];
+                return TRUE;
+            }
+            else {
+                $this->form_validation->set_message('handle_upload', $this->upload->display_errors());
+                return FALSE;
+            }
+            return TRUE;
+        }
+        else {
+            if(empty($this->band)) {
+                $this->form_validation->set_message('handle_upload', "You must upload an image!");
+                return FALSE;
+            }
+            else
+                $_POST['photo'] = $this->band->getPhoto();
+        }
     }
 
     public function index() {
@@ -64,17 +97,16 @@ class Sign_up extends CI_Controller {
 
             $this->session->unset_userdata(['name', 'email']);
         }
-
+        
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|md5');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules('photo', 'Photo', 'trim|required');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_handle_upload');
         $this->form_validation->set_rules('country', 'Country', 'trim|required');
         $this->form_validation->set_rules('estate', 'Estate', 'trim|required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('zipcode', 'Zipcode', 'trim|required');
         $this->form_validation->set_rules('registeredDate', 'Registered Date', 'trim|required');
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');
 
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
@@ -84,10 +116,9 @@ class Sign_up extends CI_Controller {
                             'estate'            => $this->input->post('estate'),
                             'city'              => $this->input->post('city'),
                             'zipcode'           => $this->input->post('zipcode'),
-                            'registeredDate'    => $this->input->post('registeredDate'),
-                            'status'            => $this->input->post('status')
+                            'registeredDate'    => $this->input->post('registeredDate')
                         );
-            $this->load->view('user/fa_create_view', $data);
+            $this->load->view('signup/fa_create_view', $data);
         }
         else {
             $data = new Fa ([   NULL,
@@ -101,7 +132,7 @@ class Sign_up extends CI_Controller {
                                 $this->input->post('zipcode'),
                                 $this->input->post('registeredDate'),
                                 'fa',
-                                $this->input->post('status')
+                                'Active'
                             ]);
             $this->User->startDatabase();
             $result = $this->User->createFa($data);
@@ -132,13 +163,12 @@ class Sign_up extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|md5');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules('photo', 'Photo', 'trim|required');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_handle_upload');
         $this->form_validation->set_rules('country', 'Country', 'trim|required');
         $this->form_validation->set_rules('estate', 'Estate', 'trim|required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('zipcode', 'Zipcode', 'trim|required');
         $this->form_validation->set_rules('registeredDate', 'Registered Date', 'trim|required');
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('biography', 'Biography', 'trim|required');
         $this->form_validation->set_rules('website', 'Website', 'trim');
         $this->form_validation->set_rules('facebook', 'Facebook', 'trim');
@@ -155,7 +185,6 @@ class Sign_up extends CI_Controller {
                             'city'              => $this->input->post('city'),
                             'zipcode'           => $this->input->post('zipcode'),
                             'registeredDate'    => $this->input->post('registeredDate'),
-                            'status'            => $this->input->post('status'),
                             'biography'         => $this->input->post('biography'),
                             'website'           => $this->input->post('website'),
                             'facebook'          => $this->input->post('facebook'),
@@ -163,7 +192,7 @@ class Sign_up extends CI_Controller {
                             'youtube'           => $this->input->post('youtube'),
                             'myspace'           => $this->input->post('myspace')
                         );
-            $this->load->view('user/musician_create_view', $data);
+            $this->load->view('signup/musician_create_view', $data);
         }
         else {
             $data = new Musician ([ NULL,
@@ -177,7 +206,7 @@ class Sign_up extends CI_Controller {
                                     $this->input->post('zipcode'),
                                     $this->input->post('registeredDate'),
                                     'musician',
-                                    $this->input->post('status'),
+                                    'Active',
                                     $this->input->post('biography'),
                                     $this->input->post('website'),
                                     $this->input->post('facebook'),
@@ -214,13 +243,12 @@ class Sign_up extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]|md5');
         $this->form_validation->set_rules('name', 'Name', 'trim|required');
-        $this->form_validation->set_rules('photo', 'Photo', 'trim|required');
+        $this->form_validation->set_rules('photo', 'Photo', 'callback_handle_upload');
         $this->form_validation->set_rules('country', 'Country', 'trim|required');
         $this->form_validation->set_rules('estate', 'Estate', 'trim|required');
         $this->form_validation->set_rules('city', 'City', 'trim|required');
         $this->form_validation->set_rules('zipcode', 'Zipcode', 'trim|required');
         $this->form_validation->set_rules('registeredDate', 'Registered Date', 'trim|required');
-        $this->form_validation->set_rules('status', 'Status', 'trim|required');
         $this->form_validation->set_rules('agencyName', 'Agency Name', 'trim');
         $this->form_validation->set_rules('description', 'Description', 'trim|required');
         $this->form_validation->set_rules('website', 'Website', 'trim');
@@ -240,7 +268,6 @@ class Sign_up extends CI_Controller {
                             'city'              => $this->input->post('city'),
                             'zipcode'           => $this->input->post('zipcode'),
                             'registeredDate'    => $this->input->post('registeredDate'),
-                            'status'            => $this->input->post('status'),
                             'agencyName'        => $this->input->post('agencyName'),
                             'description'       => $this->input->post('description'),
                             'website'           => $this->input->post('website'),
@@ -251,7 +278,7 @@ class Sign_up extends CI_Controller {
                             'phone'             => $this->input->post('phone'),
                             'contactEmail'      => $this->input->post('contactEmail')
                         );
-            $this->load->view('user/manager_create_view', $data);
+            $this->load->view('signup/manager_create_view', $data);
         }
         else {
             $data = new Manager ([ NULL,
@@ -265,7 +292,7 @@ class Sign_up extends CI_Controller {
                                     $this->input->post('zipcode'),
                                     $this->input->post('registeredDate'),
                                     'manager',
-                                    $this->input->post('status'),
+                                    'Active',
                                     $this->input->post('agencyName'),
                                     $this->input->post('description'),
                                     $this->input->post('website'),

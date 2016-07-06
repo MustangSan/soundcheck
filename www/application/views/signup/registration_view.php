@@ -1,126 +1,79 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+    defined('BASEPATH') OR exit('No direct script access allowed');
+    $this->load->view('pages/header');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="utf-8">
-   <title>Sign Up</title>
 
-   <style type="text/css">
+<body class="body-Login-back">
 
-   ::selection { background-color: #E13300; color: white; }
-   ::-moz-selection { background-color: #E13300; color: white; }
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4 text-center logo-margin ">
+                <!--img src="assets/img/logo.png" alt=""/-->
+                <h1>Soundcheck</h1>
+            </div>
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">                  
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                        <a class="sign-upClass btn btn-default btn-sm" href="<?php echo base_url('login'); ?>">Sign in</a>
+                    </div>
+                    <div class="panel-body">
+                        <div role="form">
+                            <?php          
+                                echo form_open();
 
-   body {
-      background-color: #fff;
-      margin: 40px;
-      font: 13px/20px normal Helvetica, Arial, sans-serif;
-      color: #4F5155;
-   }
+                                $data = array(
+                                'name' => 'name',
+                                'type' => 'text',
+                                'class' => 'form-control',
+                                'placeholder' => 'Name',
+                                'value' => $name
+                                );       
+                                echo '<div class="form-group">'.form_input($data);
+                                echo form_error('name', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                                echo '</div>';
 
-   a {
-      color: #003399;
-      background-color: transparent;
-      font-weight: normal;
-   }
+                                $data = array(
+                                'name' => 'email',
+                                'type' => 'email',
+                                'class' => 'form-control',
+                                'placeholder' => 'E-Mail',
+                                'value' => $email
+                                );       
+                                echo '<div class="form-group">'.form_input($data);
+                                echo form_error('email', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                                echo '</div>';
 
-   h1 {
-      color: #444;
-      background-color: transparent;
-      border-bottom: 1px solid #D0D0D0;
-      font-size: 19px;
-      font-weight: normal;
-      margin: 0 0 14px 0;
-      padding: 14px 15px 10px 15px;
-   }
+                                $options = array(
+                                NULL => 'Select an Account Type',
+                                'Fa' => 'Fa',
+                                'Musician' => 'Musician',
+                                'Manager' => 'Manager'
+                                );
+                                $js = 'id="accountType" class="form-control"';
+                                echo '<div class="form-group">'.form_dropdown('accountType', $options, $accountType, $js);
+                                echo form_error('accountType', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                                echo '</div>';
 
-   code {
-      font-family: Consolas, Monaco, Courier New, Courier, monospace;
-      font-size: 12px;
-      background-color: #f9f9f9;
-      border: 1px solid #D0D0D0;
-      color: #002166;
-      display: block;
-      margin: 14px 0 14px 0;
-      padding: 12px 10px 12px 10px;
-   }
+                                $data = array(
+                                'type' => 'submit',
+                                'name' => 'submit',
+                                'id' => 'submit',
+                                'class' => 'btn btn-lg btn-success btn-block',
+                                'value' => 'Sing Up',
+                                'onclick' => 'setTimeout(twoClicks, 1);'
+                                );
+                                echo form_input($data);
 
-   #body {
-      margin: 0 15px 0 15px;
-   }
+                                form_close();
+                            ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-   p.footer {
-      text-align: right;
-      font-size: 11px;
-      border-top: 1px solid #D0D0D0;
-      line-height: 32px;
-      padding: 0 10px 0 10px;
-      margin: 20px 0 0 0;
-   }
-
-   #container {
-      margin: 10px;
-      border: 1px solid #D0D0D0;
-      box-shadow: 0 0 8px #D0D0D0;
-   }
-   </style>
-</head>
-<body>
-
-<div id="container">
-   <h1>Sign Up</h1>
-
-   <div id="body">
-      <?php          
-      echo form_open();
-
-      $data = array(
-      'name' => 'name',
-      'type' => 'text',
-      'style' => 'width: 210px;',
-      'value' => $name
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Name</span>'.form_input($data);
-      echo form_error('name', '<div class="error">', '</div>');
-      echo '</div><br>';
-
-      $data = array(
-      'name' => 'email',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $email
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">E-mail</span>'.form_input($data);
-      echo form_error('email', '<div class="error">', '</div>');
-      echo '</div><br>';
-
-      $options = array(
-      'Fa' => 'Fa',
-      'Musician' => 'Musician',
-      'Manager' => 'Manager'
-      );
-      $js = 'id="accountType" class="input"';
-      echo '<div class="input-prepend"> <span class="add-on">Account Type</span>'.form_dropdown('accountType', $options, $accountType, $js);
-      echo '</div><br>';
-
-      $data = array(
-      'type' => 'submit',
-      'name' => 'submit',
-      'id' => 'submit',
-      'class' => 'btn btn-info',
-      'value' => 'Concluir',
-      'onclick' => 'setTimeout(twoClicks, 1);'
-      );
-      echo form_input($data);
-
-      form_close();
-
-      ?>
-   </div>
-
-   <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
-
-</body>
-</html>
+<?php
+    $this->load->view('pages/footer');
+?>

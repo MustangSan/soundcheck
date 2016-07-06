@@ -69,6 +69,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       margin-right: 15px;
    }
    </style>
+
+
+
+    <!-- Core Scripts -->
+    <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.10.2.js"></script>
+
+
+
 </head>
 <body>
 
@@ -206,6 +214,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
       echo form_error('photo', '<div class="error">', '</div>');
       echo '</div><br>';
 
+      ?>
+
+      <label>Localização</label>
+      <fieldset class="gllpLatlonPicker">
+         <div class="form-group input-group">
+            <input type="text" class="form-control gllpSearchField">
+            <span class="input-group-btn">
+               <input type="button" class="btn btn-default gllpSearchButton" value="Pesquisar">
+            </span>
+         </div>                                     
+         <div class="gllpMap">Google Maps</div>
+
+         <div class="row">
+         <div class="col-md-6">
+            <input type="text" name="latitude" class="gllpLatitude form-control" value="-15.7941454" readonly="readonly" />
+         </div>
+         <div class="col-md-6">
+            <input type="text" name="longitude" class="gllpLongitude form-control" value="-47.88254789999996" readonly="readonly" />
+            <input type="hidden" class="gllpZoom" value="8"/>
+         </div>
+         </div>
+      </fieldset>
+
+      <?php
+
       $data = array(
       'type' => 'submit',
       'name' => 'submit',
@@ -223,6 +256,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
    <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
 </div>
+
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC6HIt-7BKNGCCQVBE09zZPZzLiujz5Klc&sensor=false&libraries=places"></script>
+<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/map/jquery-gmaps-latlon-picker.css"/>
+<script src="<?php echo base_url(); ?>assets/map/jquery-gmaps-latlon-picker.js"></script>
+<script type="text/javascript">
+   function stopRKey(evt) { 
+      var evt = (evt) ? evt : ((event) ? event : null); 
+      var node = (evt.target) ? evt.target : ((evt.srcElement) ? evt.srcElement : null); 
+      if ((evt.keyCode == 13) && (node.type=="text"))  {return false;} 
+   }
+   document.onkeypress = stopRKey;
+
+   $(function() {
+      var autocomplete = new google.maps.places.Autocomplete((document.getElementsByClassName('gllpSearchField')[0]), {types: ['geocode']});
+   });
+</script>
 
 </body>
 </html>
