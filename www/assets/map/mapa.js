@@ -7,7 +7,7 @@ function MapHandler() {
     me.initialize();
     me.loadMarkers();
   });
-  
+
 }
 
 MapHandler.prototype.initialize = function() {
@@ -20,15 +20,15 @@ MapHandler.prototype.initialize = function() {
   this.infoBox = []; //Vetor de InfoBox
   this.markers = []; //Vetor usado para agrupar os marcadores
   this.markerCluster = "" //Cluster que agrupa marcadores 
-  this.empresas_nomes = []; //Vetor que armazena nomes das empresas (para autocomplete na busca por nomes)
+  this.bands_nomes = []; //Vetor que armazena nomes das bands (para autocomplete na busca por nomes)
   this.sysImgPath = "assets/images/"; //Caminho para as imagens do sistema
-  this.uploadPath = "uploads/"; //Caminho para as imagens do usuário(uploads)
-  this.imgPadrao = "no-image.png" //Imagem padrao de empresa
+  this.uploadPath = "content-uploaded/"; //Caminho para as imagens do usuário(uploads)
+  this.imgPadrao = "no-image.png" //Imagem padrao de band
   this.logo = "logo.png" //Logo do Contato Ambiental
   this.icon = "icon_padrao.png"; //Icone dos marcadores
   this.searchLocationIcon = "zoom.png"; //Icone que aparece na busca
   this.currLocationIcon = "male-2.png"; //Icone que aparece na localizacao atual
-  this.JsonPath = ""; //Caminho para o arquivo Json
+  this.JsonPath = "json-data/"; //Caminho para o arquivo Json
   this.has_geolocation = false;
   this.geolocation = new google.maps.LatLng(0, 0); //armazena latlng do usuario
   this.buscaRealizada = false //controla a busca
@@ -119,12 +119,12 @@ MapHandler.prototype.openInfoBox = function(id, marker) {
   var box = this.infoBox;
   
   //Incrementa contador de cliques
-  $.ajax({
+/*  $.ajax({
             type: "POST",
             url: "async/updateClicks",
             data: {id : id},
-            success: function(response) { /* ok! */ }
-        });
+            success: function(response) { /* ok! *//* }
+        });*/
 
     if (typeof(idOpen) == 'number' && typeof(box[idOpen]) == 'object') {
         box[idOpen].close();
@@ -146,84 +146,53 @@ MapHandler.prototype.updateStatus = function() {
   
   var status_right = document.getElementById('right_msg');
   status_right.innerHTML = '';
-  status_right.innerHTML += "Total de empresas: " + this.markers.length + " | ";
+  status_right.innerHTML += "Total de bandas: " + this.markers.length + " | ";
   status_right.innerHTML += "Zoom: " + this.map.getZoom();
 }
 
 //Desenha os pontos no mapa e cria seus respectivos infobox
-MapHandler.prototype.loadMarkers = function() {
+MapHandler.prototype.loadMarkers = function() { console.log("Entrei no loadMarkers");
   var me = this;
+  
+  console.log('localhost/soundcheck/www/'+me.JsonPath+'bands.json');
 
-    $.getJSON(me.JsonPath+'empresas.json', function(empresas) {
-    var markers = me.markers;
-    var box = me.infoBox;
-        $.each(empresas, function(index, empresa) {
+    $.getJSON(me.JsonPath+'bands.json', function(bands) {
+      console.log("entreiiiiii");
+      var markers = me.markers;
+      var box = me.infoBox;
+        $.each(bands, function(index, band) {
+          console.log(band);
             var marker = new google.maps.Marker({
-                position: new google.maps.LatLng(empresa.lat, empresa.lng),
-                title: empresa.nomeFantasia,
+                position: new google.maps.LatLng(band.latitude, band.longitude),
+                title: band.name,
                 map: me.map,
                 visible: true
             });
             markers.push(marker); //para agrupar marcadores próximos
             me.bounds.extend(marker.getPosition());
-            me.empresas_nomes.push(empresa.nomeFantasia);
+            me.bands_nomes.push(band.name);
             
             var img_html = "";
-      if (empresa.imagem) 
-        img_html = "<img src=" + me.uploadPath + empresa.imagem + " style='max-width: 180px;'>";
+      if (band.photo) 
+        img_html = "<img src=" + me.uploadPath + band.photo + " style='max-width: 180px;'>";
       else 
         img_html = "<img src=" + me.sysImgPath + me.imgPadrao + " style='max-width: 180px;'>";
             //conteudo e demais opcoes da InfoBox
             var iniTab = "<div id=\"info_header\">"+
-             "<h1>" + empresa.nomeFantasia + "</h1>"+
+             "<h1>" + band.name + "</h1>"+
              "</div>"+
              "<div id=\"info_content\">"+ 
              "<div id=\"info_img\">" +
              img_html +
              "</div>"+
-             "<div id=\"info_logo\">" +
-             "<img src=" + me.sysImgPath + me.logo + " style='max-width: 180px;'>" +
-             "</div>"+
              "<div id=\"info_text\">"+
-             "<p>" + empresa.logradouro + "</p>"+
-             "<p>" + empresa.bairro + "</p>"+
-             "<p>" + empresa.complemento + "</p>"+
-             "<p>" + empresa.cep + "</p>"+
-             "<p>" + empresa.cidade + ", "+ empresa.estado + "</p>"+
-             "<p>Tel: " + empresa.telefoneUm + "</p>"+
-             "<p>Fax: " + empresa.fax + "</p>"+
-             "<p>E-mail: <a href = mailto:" +empresa.email+ ">" + empresa.email + "</a></p>"+
-             "<a href =" + empresa.website + " target=\"_blank\">" + empresa.website + "</a>"+
-             "<p>GPS: " + empresa.lat + ", " + empresa.lng + "</p>"+
+             "<p>" + band.city + ", "+ band.estate + "</p>"+
+             "<p>Phone: " + band.phone + "</p>"+
+             "<p>E-mail: <a href = mailto:" +band.contactEmail+ ">" + band.contactEmail + "</a></p>"+
+             "<a href =" + band.website + " target=\"_blank\">" + band.website + "</a>"+
+             "<p>GPS: " + band.latitude + ", " + band.longitude + "</p>"+
              "</div>"+
              "</div>";
-      // Cria tab de atividades
-      var atividades_list = "<ul>";
-      empresa.atividades.forEach (function(atividade) {
-        atividade_html = "<li>" + atividade + "</li>";
-        atividades_list += atividade_html;
-      });
-      atividades_list += "</ul></div>";
-      // Estrutura da tab
-      var ativTab =   "<div id=\"tab2\">"+
-              "<div id=\"info_header\">"+
-              "<h1>Atividades:</h1>"+
-              "</div>";
-      ativTab += atividades_list;
-      
-      // Cria tab de categorias
-      var categorias_list = "<ul>";
-      empresa.categorias.forEach (function(categoria) {
-        categoria_html = "<li>" + categoria + "</li>";
-        categorias_list += categoria_html;
-      });
-      categorias_list += "</ul></div>";
-      // Estrutura da tab
-      var catTab =   "<div id=\"tab3\">"+
-              "<div id=\"info_header\">"+
-              "<h1>Categorias:</h1>"+
-              "</div>";
-      catTab += categorias_list;
        
             var boxOptions = {
         map: me.map,
@@ -241,19 +210,19 @@ MapHandler.prototype.loadMarkers = function() {
         backgroundClassName: 'infoBox'
       };
  
-      box[empresa.idEmpresa] = new InfoBubble(boxOptions); 
-      box[empresa.idEmpresa].addTab('Informações', iniTab);
-      box[empresa.idEmpresa].addTab('Atividades', ativTab);
-      box[empresa.idEmpresa].addTab('Categorias', catTab);
-      box[empresa.idEmpresa].marker = marker;
+      box[band.idBand] = new InfoBubble(boxOptions); 
+      box[band.idBand].addTab('Informações', iniTab);
+      box[band.idBand].marker = marker;
      
-      box[empresa.idEmpresa].listener = google.maps.event.addListener(marker, 'click', function (e) {
-        me.openInfoBox(empresa.idEmpresa, marker);
+      box[band.idBand].listener = google.maps.event.addListener(marker, 'click', function (e) {
+        me.openInfoBox(band.idBand, marker);
       });
 
         }); //each
         me.markerCluster = new MarkerClusterer(me.map, markers); //Agrupar pontos próximos
         me.loadConfig(); //Carrega configurações do sistema
+    }).done(function() {
+      console.log( "leu todas as bandas" );
     }); //GET
 } //loadMarkers
 
@@ -269,7 +238,7 @@ String.prototype.replaceSpecialChars = function() {
     return new_str;
 }
 
-MapHandler.prototype.searchServico = function(input) {
+/*MapHandler.prototype.searchServico = function(input) {
   var me = this;
   var results = [];
   var found = false;
@@ -287,10 +256,10 @@ MapHandler.prototype.searchServico = function(input) {
       }
     })
     
-    $.getJSON ("empresas.json", function(empresas) {
-      $.each(empresas, function(i, empresa) {
+    $.getJSON ("bands.json", function(bands) {
+      $.each(bands, function(i, band) {
         found = false;
-        var filtros = empresa.categorias.concat(empresa.atividades);
+        var filtros = band.categorias.concat(band.atividades);
         for (var j = filtros.length-1; j >= 0; j--) {
           var clean_upper_filter = filtros[j].toUpperCase().replaceSpecialChars();
             for (var k = uppercased_inputs.length-1; k >= 0; k--) {
@@ -307,7 +276,7 @@ MapHandler.prototype.searchServico = function(input) {
       });
       if ( results.length == 0) {
         for (var i = me.markers.length-1; i >= 0; i--) me.markers[i].setVisible(true); //mostra todos marcadores
-        $.growl.error({ title: "Erro!", message: "Nenhuma empresa foi encontrada!" });
+        $.growl.error({ title: "Erro!", message: "Nenhuma band foi encontrada!" });
       } else {
         me.markerCluster.clearMarkers();
         me.markerCluster = new MarkerClusterer(me.map, results); //recriar o cluster de marcadores
@@ -315,11 +284,11 @@ MapHandler.prototype.searchServico = function(input) {
         me.map.fitBounds(me.bounds);
         var texto = results.length;
         if (results.length == 1)
-          texto += " empresa foi encontrada.";
+          texto += " banda foi encontrada.";
         else
-          texto += " empresas foram encontradas.";
+          texto += " bandas foram encontradas.";
         $.growl.notice({ title: "Sucesso!", message: texto });
-        status_left.innerHTML = "Mostrando " + results.length + " de " + me.markers.length + " empresas.";
+        status_left.innerHTML = "Mostrando " + results.length + " de " + me.markers.length + " bandas.";
         //me.map.setZoom(me.searchZoom);
       }
       me.buscaRealizada = found;
@@ -328,15 +297,15 @@ MapHandler.prototype.searchServico = function(input) {
   } else {
     $.growl.error({ title: "Erro!", message: "Seu texto deve conter pelo menos 3 caracteres." });
   }
-}
+}*/
 
 MapHandler.prototype.searchNome = function(nome) {
   var me = this;
   var found = false;
   
-  for (var i = me.empresas_nomes.length-1; i >= 0 ; i--) {
+  for (var i = me.bands_nomes.length-1; i >= 0 ; i--) {
     me.markers[i].setVisible(false); //Esconde todos os marcadores
-    if (me.empresas_nomes[i] == nome) { 
+    if (me.bands_nomes[i] == nome) { 
       me.markers[i].setVisible(true); //mostra marcador escolhido
       me.map.setCenter( me.markers[i].getPosition() );
       me.map.setZoom(me.searchZoom);
@@ -346,12 +315,12 @@ MapHandler.prototype.searchNome = function(nome) {
       me.markerCluster = new MarkerClusterer(me.map, new Array(me.markers[i]));
       
       found = true;
-      $.growl.notice({ title: "Sucesso!", message: "Empresa '" + nome + "' encontrada!" });
+      $.growl.notice({ title: "Sucesso!", message: "banda '" + nome + "' encontrada!" });
     }
   }
   
   if (!found) {
-    $.growl.error({ title: "Erro!", message: "Empresa '" + nome + "'   não encontrada!" });
+    $.growl.error({ title: "Erro!", message: "banda '" + nome + "'   não encontrada!" });
   }
   
   me.buscaRealizada = found;
@@ -378,7 +347,7 @@ MapHandler.prototype.searchEndereco = function(endereco) {
       map.setZoom(me.searchZoom);
       
     found = true;
-    $.growl.warning({ title: "", message: "Mostrando empresas próximas do endereço buscado!" });
+    $.growl.warning({ title: "", message: "Mostrando bands próximas do endereço buscado!" });
   } else {
     $.growl.error({ title: "Erro!", message: "O endereço não foi encontrado." });
   }
@@ -395,13 +364,6 @@ $(document).ready(function() {
   var dropdown = document.getElementById('busca_dropdown');
   var to_loc_bt = document.getElementById('para_local');
   var show_all_bt = document.getElementById('mostrar_todos');
-  
-  setTimeout(
-    function() {
-    $("#busca_input").attr("placeholder", "Descreva o tipo de serviço que deseja encontrar.");
-    },
-    2000
-  );
   
   search_button.addEventListener(
     'click', 
@@ -421,19 +383,19 @@ $(document).ready(function() {
       var input = input_field.value;
       var end_input = document.getElementById('busca_end_input').value;
       var search_type = dropdown.value;
+      //console.log(dropdown.value);
       if (input != "" || end_input != "") {
+        //console.log(handler.markers.length);
         if (handler.markers.length > 0) {
-          if (search_type == 'servico') {
-            handler.searchServico(input);
-          }
-          else if (search_type == 'nome') {
+          if (search_type == 'nome') {
+            //console.log(input);
             handler.searchNome(input);
           }
           else if (search_type == 'endereco') {
             handler.searchEndereco( $("#busca_end_input").val() );
           }
         } else {
-          $.growl.error({ title: "Erro!", message: "O sistema não possui empresas cadastradas." });
+          $.growl.error({ title: "Erro!", message: "O sistema não possui bands cadastradas." });
         }
       } else {
         $.growl.error({ title: "Erro!", message: "Insira algum texto no campo de busca." });
@@ -456,16 +418,13 @@ $(document).ready(function() {
         $("#busca_input").show();
         
         if (dropdown.value == "nome") { // se for nome cria autocomplete
-            $("#busca_input").attr("placeholder", "Busque pelo nome da empresa. (escolha uma das sugestões)");
+            $("#busca_input").attr("placeholder", "Busque pelo nome da banda. (escolha uma das sugestões)");
             $( "#busca_input" ).autocomplete(
             {
-              source: handler.empresas_nomes,
+              source: handler.bands_nomes,
               autoFocus: true,
             });
-        } else { // == "servico"
-          $("#busca_input").autocomplete({source: []}); //remove autocomplete de nome
-          $("#busca_input").attr("placeholder", "Descreva o tipo de serviço que deseja encontrar.");
-        }
+        } 
       }
     },
     false
@@ -493,7 +452,7 @@ $(document).ready(function() {
       handler.markerCluster = new MarkerClusterer(handler.map, handler.markers);
       handler.map.fitBounds(handler.bounds);
     } else {
-      $.growl.error({ title: "Erro!", message: "O sistema não possui empresas cadastradas."});
+      $.growl.error({ title: "Erro!", message: "O sistema não possui bandas cadastradas."});
     }
   },
   false

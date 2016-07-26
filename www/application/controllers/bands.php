@@ -36,9 +36,9 @@ class Bands extends CI_Controller {
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = 900;
-        $config['max_width']        = 300;
-        $config['max_height']       = 300;
+        $config['max_size']         = 3000;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
         $this->load->library('upload', $config);
     }
 
@@ -144,6 +144,7 @@ class Bands extends CI_Controller {
             $this->Band->closeDatabase();
 
             if($result) {
+                $this->createJson();
                 $this->session->set_flashdata('result', 'createSuccess');
                 redirect('bands/myBands');
             }
@@ -191,6 +192,7 @@ class Bands extends CI_Controller {
                                 'latitude'      => $this->band->getLatitude(),
                                 'longitude'     => $this->band->getLongitude()
                             );
+                $data['idBand'] = $this->band->getIdBand();
                 $this->load->view('band/band_update_view', $data);
             }
             else {
@@ -216,6 +218,7 @@ class Bands extends CI_Controller {
                 $this->Band->closeDatabase();
 
                 if($result) {
+                    $this->createJson();
                     $this->session->set_flashdata('result', 'updateSuccess');
                     redirect('bands/editProfile/'.$id);
                 }
@@ -233,6 +236,14 @@ class Bands extends CI_Controller {
         $this->permissionTest();
         $this->Band->startDatabase();
         $this->band = $this->Band->getBand($id);
+        $this->Band->closeDatabase();
+        
+        $this->Band->startDatabase();
+        $data['countMembers'] = $this->Band->countMembers($id);
+        $data['countAlbuns'] = $this->Band->countAlbuns($id);
+        $data['countShows'] = $this->Band->countShows($id);
+        $data['countTours'] = $this->Band->countTours($id);
+        $data['countPosts'] = $this->Band->countPosts($id);
         $this->Band->closeDatabase();
 
         if(!empty($this->band)) {
@@ -351,5 +362,21 @@ class Bands extends CI_Controller {
         $data['posts'] = $this->Post->readPosts($idBand);
         $this->Post->closeDatabase();
         $this->load->view('band/band_blog_view', $data);
+    }
+
+    private function createJson(){
+        $this->load->helper('file');
+        
+        $this->Band->startDatabase();
+        $bands = $this->Band->readBands();
+        $this->Band->closeDatabase();
+        
+        $data = "[";
+        foreach($bands as $e){
+            $data .= json_encode($e->jsonSerialize()) . ",\n";
+        }
+        $data[strlen($data)-2] = "]"; // troca a última vírgula (desnecessária) pelo fecha colchete
+
+        write_file('./json-data/bands.json', $data);
     }
 }

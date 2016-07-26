@@ -2,54 +2,61 @@
 <html lang="pt-br">
     <head>
         <meta charset="utf-8" />
-        <title>Contato Ambiental - Empresas</title>
+        <title>Soundcheck</title>
         <!-- Estilos -->
-        <link rel="stylesheet" href="assets/css/mapa.css" type="text/css">
-        <link rel="stylesheet" href="assets/css/jquery-ui.css" type="text/css">
+        <link rel="stylesheet" href="assets/map/mapa.css" type="text/css">
+        <link rel="stylesheet" href="assets/map/jquery-ui.css" type="text/css">
+        <link href="assets/map/jquery.growl.css" rel="stylesheet" type="text/css" />
+
         <!-- Inicialização do JQuery -->
-		<script src="assets/js/jquery-1.10.2.js"></script>
-		<!-- Inicialização do JQuery UI (apenas autocomplete) -->
-		<script src="assets/js/jquery-ui.min.js"></script>
-		<!-- Google Maps Javascript API v3 -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC6HIt-7BKNGCCQVBE09zZPZzLiujz5Klc&sensor=false&libraries=places"></script>
+        <script src="assets/plugins/jquery-1.10.2.js"></script>
+        
+        <!-- Inicialização do JQuery UI (apenas autocomplete) -->
+        <script src="assets/map/jquery-ui.min.js"></script>
+        
+        <!-- Google Maps Javascript API v3 -->
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyC6HIt-7BKNGCCQVBE09zZPZzLiujz5Klc&libraries=places"></script>
+        
         <!-- MarkerClusterer para agrupar pontos do mapa -->
-        <script src="assets/js/markerclusterer.js"></script>
+        <script src="assets/map/markerclusterer.js"></script>
+        
         <!-- Infobox exibido ao clicar nos pontos do mapa -->
-		<script src="assets/js/infobubble.js"></script>
-        <!-- Arquivo de inicialização do mapa -->
-        <script src="assets/js/mapa.js"></script>
-        <script src="assets/js/jquery.ui.autocomplete.accentFolding.js" type="text/javascript"></script>
-        <script src="assets/js/jquery.growl.js" type="text/javascript"></script>
-		<link href="assets/css/jquery.growl.css" rel="stylesheet" type="text/css" />
+        <script src="assets/map/infobubble.js"></script>
+        
+        <!-- Arquivo de inicialização do map -->
+        <script src="assets/map/mapa.js"></script>
+        <script src="assets/map/jquery.ui.autocomplete.accentFolding.js" type="text/javascript"></script>
+        <script src="assets/map/jquery.growl.js" type="text/javascript"></script>
+        
     </head>
-	
-	<body>
-	  	<div id="upper_head">
-		  	<div class="busca">
-		  		<form action="javascript:void(0);">
-					<label for="busca_input">Buscar empresas: </label>
-					<select id="busca_dropdown">
-						<option value="servico">Serviço</option>
-						<option value="nome">Nome</option>
-						<option value="endereco">Endereço</option>
-					</select>
-					<input id="busca_input" type="search" name="busca_empresa" placeholder="Busque por nome, tipo de serviço ou endereço da empresa.">
-					<input id="busca_end_input" type="search" placeholder="Busque pelo endereço da empresa.">
-					<input id="busca_button" class="blue_button" type="submit" value="Buscar">
-				</form>
-		  	</div>
-	  	</div>  	
-
-	  	<div id="lower_head">
-	  		<button id="para_local" class="green_button">Ir para minha localização</button>
-			<button id="mostrar_todos" class="green_button">Mostrar todas as empresas</button>
-	  	</div>
     
-		<div id="mapa"></div>
+    <body>
+        <div id="upper_head">
+            <div class="busca">
+                <form action="javascript:void(0);">
+                    <label for="busca_input">Buscar bandas: </label>
+                    <select id="busca_dropdown">
+                        <option value="nome">Selecione uma opção...</option>
+                        <option value="nome">Nome</option>
+                        <option value="endereco">Endereço</option>
+                    </select>
+                    <input id="busca_input" type="search" name="busca_empresa" placeholder="Selecione a opção.">
+                    <input id="busca_end_input" type="search" placeholder="Busque pelo endereço da banda">
+                    <input id="busca_button" class="blue_button" type="submit" value="Buscar">
+                </form>
+            </div>
+        </div>      
 
-		<div id="status_bar">
-			<p id="left_msg"></p>
-			<p id="right_msg"></p>
-		</div>
+        <div id="lower_head">
+            <button id="para_local" class="green_button">Ir para minha localização</button>
+            <button id="mostrar_todos" class="green_button">Mostrar todas as Bandas</button>
+        </div>
+    
+        <div id="mapa"></div>
+
+        <div id="status_bar">
+            <p id="left_msg"></p>
+            <p id="right_msg"></p>
+        </div>
     </body>
 </html>

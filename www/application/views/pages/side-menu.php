@@ -18,9 +18,10 @@
                 </div>
                 <!--end user image section-->
             </li>
-
+            
+            <!-- search section-->
             <li class="sidebar-search">
-                <!-- search section-->
+                
                 <div class="input-group custom-search-form">
                     <input type="text" class="form-control" placeholder="Search...">
                     <span class="input-group-btn">
@@ -29,63 +30,72 @@
                         </button>
                     </span>
                 </div>
-                <!--end search section-->
-            </li>
+            </li><!---->
+            <!--end search section-->
 
-
-            <li class="">
-                <a href="<?php echo base_url('home'); ?>"><i class="fa fa-dashboard fa-fw"></i>Home</a>
+            <li class="<?php echo ($this->uri->segment(1)=='home')?'selected':''; ?>">
+                <a href="<?php echo base_url('home'); ?>"><i class="fa fa-bullseye fa-fw"></i>Home</a>
             </li>
 
             <?php 
-                if($this->session->userdata('user')['permission'] == 'musician') {
+                if($this->session->userdata('user')['permission'] == 'musician' || $this->session->userdata('user')['permission'] == 'M&M') {
             ?>
-                    <li>
-                        <a href="<?php echo base_url('bands/myBands'); ?>"><i class="fa fa-bar-chart-o fa-fw"></i>My Bands</a>
+                    <li class="<?php echo ($this->uri->segment(2)=='myBands')?'selected':''; ?>">
+                        <a href="<?php echo base_url('bands/myBands'); ?>"><i class="fa fa-music fa-fw"></i>My Bands</a>
                     </li>
             <?php 
                 }
             ?>
 
             <?php
-                if($this->session->userdata('user')['permission'] == 'manager') {
+                if($this->session->userdata('user')['permission'] == 'manager' || $this->session->userdata('user')['permission'] == 'M&M') {
             ?>
-            <li>
-                <a href="<?php echo base_url('studios/myStudios'); ?>"><i class="fa fa-flask fa-fw"></i>My Studios</a>
+            <li class="<?php echo ($this->uri->segment(2)=='myStudios')?'selected':''; ?>">
+                <a href="<?php echo base_url('studios/myStudios'); ?>"><i class="fa fa-volume-up fa-fw"></i>My Studios</a>
             </li>
-            <li>
-                <a href="<?php echo base_url('venues/myVenues'); ?>"><i class="fa fa-table fa-fw"></i>My Venues</a>
-            </li>
-            <?php 
-                }
-            ?>
-
-            <?php 
-                if(!$this->session->userdata('user')['permission'] == 'fa') {
-            ?>
-            <li>
-                <a href="<?php echo base_url('gigs/myGigs'); ?>"><i class="fa fa-edit fa-fw"></i>My Gigs</a>
+            <li class="<?php echo ($this->uri->segment(2)=='myVenues')?'selected':''; ?>">
+                <a href="<?php echo base_url('venues/myVenues'); ?>"><i class="fa fa-home fa-fw"></i>My Venues</a>
             </li>
             <?php 
                 }
             ?>
 
+            <?php 
+                if($this->session->userdata('user')['permission'] != 'fa') {
+            ?>
+            <li class="<?php echo ($this->uri->segment(2)=='myGigs')?'selected':''; ?>">
+                <a href="<?php echo base_url('gigs/myGigs'); ?>"><i class="fa fa-tasks fa-fw"></i>My Gigs</a>
+            </li>
+            <?php 
+                }
+            ?>
+
             <li>
-                <a href="#"><i class="fa fa-search fa-fw"></i>Search</a>
+                <a href="#"><i class="fa fa-search fa-fw"></i>Search <span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a class="submenu" href="<?php echo base_url('bands'); ?>"><i class="fa fa-bar-chart-o fa-fw"></i>Bands</a>
+                        <a class="submenu" href="<?php echo base_url('bands'); ?>"><i class="fa fa-music fa-fw"></i>Bands</a>
                     </li>
 
                     <li>
-                        <a class="submenu" href="<?php echo base_url('studios'); ?>"><i class="fa fa-flask fa-fw"></i>Studios</a>
+                        <a class="submenu" href="<?php echo base_url('studios'); ?>"><i class="fa fa-volume-up fa-fw"></i>Studios</a>
                     </li>
                     <li>
-                        <a class="submenu" href="<?php echo base_url('venues'); ?>"><i class="fa fa-table fa-fw"></i>Venues</a>
+                        <a class="submenu" href="<?php echo base_url('venues'); ?>"><i class="fa fa-home fa-fw"></i>Venues</a>
                     </li>
                     <li>
-                        <a class="submenu" href="<?php echo base_url('gigs'); ?>"><i class="fa fa-edit fa-fw"></i>Gigs</a>
+                        <a class="submenu" href="<?php echo base_url('events'); ?>"><i class="fa fa-calendar fa-fw"></i>Events</a>
                     </li>
+
+                    <?php 
+                        if(!$this->session->userdata('user')['permission'] != 'fa') {
+                    ?>
+                    <li>
+                        <a class="submenu" href="<?php echo base_url('gigs'); ?>"><i class="fa fa-tasks fa-fw"></i>Gigs</a>
+                    </li>
+                    <?php 
+                        }
+                    ?>
                 </ul>
             </li>
             

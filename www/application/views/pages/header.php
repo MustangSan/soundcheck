@@ -14,10 +14,45 @@ defined('BASEPATH') OR exit('No direct script access allowed');
     <link href="<?php echo base_url(); ?>assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/css/style.css" rel="stylesheet" />
     <link href="<?php echo base_url(); ?>assets/css/main-style.css" rel="stylesheet" />
-    <!-- Page-Level CSS -->
+    <link href="<?php echo base_url(); ?>assets/plugins/timeline/timeline.css" rel="stylesheet" />
+    
     <link href="<?php echo base_url(); ?>assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
 
+    <link href="<?php echo base_url(); ?>assets/plugins/dataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <link href="<?php echo base_url(); ?>assets/plugins/social-buttons/social-buttons.css" rel="stylesheet" />
+
+    <script src="<?php echo base_url(); ?>assets/plugins/jquery-1.10.2.js"></script>
+
     <style type="text/css">
+
+        .logo-ini {
+            width: 250px;
+            height: auto;
+            margin-top: -75px;
+        }
+
+        .logo-ini-sign-up {
+            width: 180px;
+            height: auto;
+            margin-bottom: -38px;
+        }
+
+        .navbar-brand img {
+            height: 90px;
+            margin-left: 40px;
+            top: 2px;
+            position: absolute;
+        }
+
+        .navbar-default {
+            border-color: rgb(83, 163, 163);
+        }
+
+        .page-header {
+            margin: 50px 0 20px;
+        }
+
         .fieldErrorLogin {
             width: 16px;
             height: 13px;
@@ -67,6 +102,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             padding: 3px 6px;
         }
 
+        .create-btn {
+            float: right;
+            margin-top: -2px;
+            border-radius: 5px;
+            padding: 3px 6px;
+        }
+
         .logo-margin-10 {
             margin-top: 15px;
         }
@@ -85,6 +127,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             height: auto;
         }
 
+        .user-section {
+            margin-top: 40px;
+        }
+
         .user-section-inner {
             float: none;
             -moz-border-radius: 7px;
@@ -100,8 +146,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             margin-left: 71px;
         }
 
+        .user-info {
+            display: block;
+        }
+
         .submenu {
             margin-left: 17px;
+        }
+
+        .profile-photo {
+            
+            margin-left: 22px;
+            margin-bottom: 10px;
+            width: 200px;
+            height: auto;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+            border-radius: 7px;
         }
     </style>
 </head>

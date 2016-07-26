@@ -31,9 +31,9 @@ class Albuns extends CI_Controller {
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = 900;
-        $config['max_width']        = 300;
-        $config['max_height']       = 300;
+        $config['max_size']         = 3000;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
         $this->load->library('upload', $config);
     }
 
@@ -218,7 +218,9 @@ class Albuns extends CI_Controller {
         if($this->form_validation->run() == FALSE) {
             $data = array(  'name'          => $this->input->post('name'),
                             'trackNumber'   => $this->input->post('trackNumber'),
-                            'genre'         => $this->input->post('genre')
+                            'genre'         => $this->input->post('genre'),
+                            'idBand'        => $idBand,
+                            'idAlbum'       => $idAlbum
                         );
             $this->load->view('song/song_create_view', $data);
         }
@@ -258,7 +260,9 @@ class Albuns extends CI_Controller {
             if($this->form_validation->run() == FALSE) {
                 $data = array(  'name'          => $song->getName(),
                                 'trackNumber'   => $song->getTrackNumber(),
-                                'genre'         => $song->getGenre()
+                                'genre'         => $song->getGenre(),
+                                'idBand'        => $song->getidBand(),
+                                'idAlbum'       => $song->getidAlbum()
                             );
                 $this->load->view('song/song_update_view', $data);
             }

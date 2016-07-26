@@ -5,20 +5,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 -- -----------------------------------------------------
--- Schema sound381_soundcheck
+-- Schema soundcheck
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `sound381_soundcheck` ;
+DROP SCHEMA IF EXISTS `soundcheck` ;
 
 -- -----------------------------------------------------
--- Schema sound381_soundcheck
+-- Schema soundcheck
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sound381_soundcheck` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
-USE `sound381_soundcheck` ;
+CREATE SCHEMA IF NOT EXISTS `soundcheck` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
+USE `soundcheck` ;
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`administrators`
+-- Table `soundcheck`.`administrators`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`administrators` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`administrators` (
   `idAdministrator` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
@@ -31,29 +31,30 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`users`
+-- Table `soundcheck`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`users` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`users` (
   `idUser` INT NOT NULL AUTO_INCREMENT,
   `email` VARCHAR(100) NOT NULL,
   `password` VARCHAR(50) NOT NULL,
   `name` VARCHAR(100) NOT NULL,
-  `photo` VARCHAR(45) NULL DEFAULT NULL,
+  `photo` VARCHAR(100) NULL,
   `country` VARCHAR(50) NOT NULL,
   `estate` VARCHAR(100) NOT NULL,
   `city` VARCHAR(100) NOT NULL,
   `zipcode` VARCHAR(45) NOT NULL,
   `registeredDate` VARCHAR(45) NOT NULL,
   `status` VARCHAR(45) NULL,
+  `permission` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idUser`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`musicians`
+-- Table `soundcheck`.`musicians`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`musicians` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`musicians` (
   `idUser` INT NOT NULL,
   `biography` MEDIUMTEXT NOT NULL,
   `website` VARCHAR(100) NULL,
@@ -64,16 +65,16 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`musicians` (
   PRIMARY KEY (`idUser`),
   CONSTRAINT `fk_musicians_users`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`users` (`idUser`)
+    REFERENCES `soundcheck`.`users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`managers`
+-- Table `soundcheck`.`managers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`managers` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`managers` (
   `idUser` INT NOT NULL,
   `agencyName` VARCHAR(150) NOT NULL,
   `description` TEXT NOT NULL,
@@ -87,30 +88,30 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`managers` (
   PRIMARY KEY (`idUser`),
   CONSTRAINT `fk_promoters_users1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`users` (`idUser`)
+    REFERENCES `soundcheck`.`users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`fans`
+-- Table `soundcheck`.`fans`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`fans` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`fans` (
   `idUser` INT NOT NULL,
   PRIMARY KEY (`idUser`),
   CONSTRAINT `fk_fans_users1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`users` (`idUser`)
+    REFERENCES `soundcheck`.`users` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`instruments`
+-- Table `soundcheck`.`instruments`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`instruments` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`instruments` (
   `idInstrument` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idInstrument`))
@@ -118,9 +119,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`music_genres`
+-- Table `soundcheck`.`music_genres`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`music_genres` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`music_genres` (
   `idMusicGenre` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(70) NOT NULL,
   PRIMARY KEY (`idMusicGenre`))
@@ -128,9 +129,9 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`bands`
+-- Table `soundcheck`.`bands`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`bands` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`bands` (
   `idBand` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `about` MEDIUMTEXT NOT NULL,
@@ -145,14 +146,16 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`bands` (
   `city` VARCHAR(100) NOT NULL,
   `contactEmail` VARCHAR(100) NOT NULL,
   `phone` VARCHAR(25) NULL,
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idBand`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`albuns`
+-- Table `soundcheck`.`albuns`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`albuns` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`albuns` (
   `idAlbum` INT NOT NULL AUTO_INCREMENT,
   `idBand` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -167,16 +170,16 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`albuns` (
   INDEX `fk_albuns_bands1_idx` (`idBand` ASC),
   CONSTRAINT `fk_albuns_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`songs`
+-- Table `soundcheck`.`songs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`songs` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`songs` (
   `idSong` INT NOT NULL AUTO_INCREMENT,
   `idAlbum` INT NOT NULL,
   `idBand` INT NOT NULL,
@@ -187,16 +190,16 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`songs` (
   INDEX `fk_songs_albuns1_idx` (`idAlbum` ASC, `idBand` ASC),
   CONSTRAINT `fk_songs_albuns1`
     FOREIGN KEY (`idAlbum` , `idBand`)
-    REFERENCES `sound381_soundcheck`.`albuns` (`idAlbum` , `idBand`)
+    REFERENCES `soundcheck`.`albuns` (`idAlbum` , `idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`posts`
+-- Table `soundcheck`.`posts`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`posts` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`posts` (
   `idPost` INT NOT NULL AUTO_INCREMENT,
   `idBand` INT NOT NULL,
   `idAuthor` INT NOT NULL,
@@ -211,21 +214,21 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`posts` (
   INDEX `fk_post_musicians_idx` (`idAuthor` ASC),
   CONSTRAINT `fk_posts_bands`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_post_musicians`
     FOREIGN KEY (`idAuthor`)
-    REFERENCES `sound381_soundcheck`.`musicians` (`idUser`)
+    REFERENCES `soundcheck`.`musicians` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`tours`
+-- Table `soundcheck`.`tours`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`tours` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`tours` (
   `idTour` INT NOT NULL AUTO_INCREMENT,
   `idBand` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -236,16 +239,16 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`tours` (
   INDEX `fk_tours_bands1_idx` (`idBand` ASC),
   CONSTRAINT `fk_tours_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`shows`
+-- Table `soundcheck`.`shows`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`shows` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`shows` (
   `idShow` INT NOT NULL AUTO_INCREMENT,
   `idBand` INT NOT NULL,
   `idTour` INT NULL,
@@ -254,26 +257,28 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`shows` (
   `date` VARCHAR(15) NOT NULL,
   `timetable` VARCHAR(10) NOT NULL,
   `place` VARCHAR(100) NOT NULL,
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idShow`, `idBand`),
   INDEX `fk_shows_bands1_idx` (`idBand` ASC),
   INDEX `fk_shows_tours1_idx` (`idTour` ASC),
   CONSTRAINT `fk_shows_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_shows_tours1`
     FOREIGN KEY (`idTour`)
-    REFERENCES `sound381_soundcheck`.`tours` (`idTour`)
+    REFERENCES `soundcheck`.`tours` (`idTour`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`gigs`
+-- Table `soundcheck`.`gigs`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`gigs` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`gigs` (
   `idGig` INT NOT NULL AUTO_INCREMENT,
   `idUser` INT NOT NULL,
   `description` TEXT NOT NULL,
@@ -290,11 +295,13 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`gigs` (
   `zipcode` VARCHAR(20) NULL,
   `phone` VARCHAR(25) NULL,
   `contactEmail` VARCHAR(100) NOT NULL,
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idGig`, `idUser`),
   INDEX `fk_gigs_managers1_idx` (`idUser` ASC),
   CONSTRAINT `fk_gigs_managers1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`managers` (`idUser`)
+    REFERENCES `soundcheck`.`managers` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -302,9 +309,9 @@ COMMENT = '							';
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`venues`
+-- Table `soundcheck`.`venues`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`venues` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`venues` (
   `idVenue` INT NOT NULL AUTO_INCREMENT,
   `idUser` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -324,20 +331,22 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`venues` (
   `phone` VARCHAR(25) NOT NULL,
   `phoneAuxiliar` VARCHAR(25) NULL,
   `contactEmail` VARCHAR(100) NOT NULL,
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idVenue`, `idUser`),
   INDEX `fk_venues_managers1_idx` (`idUser` ASC),
   CONSTRAINT `fk_venues_managers1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`managers` (`idUser`)
+    REFERENCES `soundcheck`.`managers` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`studios`
+-- Table `soundcheck`.`studios`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`studios` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`studios` (
   `idStudio` INT NOT NULL AUTO_INCREMENT,
   `idUser` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
@@ -357,11 +366,13 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`studios` (
   `phone` VARCHAR(25) NOT NULL,
   `phoneAuxiliar` VARCHAR(25) NULL,
   `contactEmail` VARCHAR(100) NOT NULL,
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`idStudio`, `idUser`),
   INDEX `fk_studios_promoters1_idx` (`idUser` ASC),
   CONSTRAINT `fk_studios_promoters1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`managers` (`idUser`)
+    REFERENCES `soundcheck`.`managers` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -369,9 +380,9 @@ COMMENT = '	';
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`members`
+-- Table `soundcheck`.`members`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`members` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`members` (
   `idMember` INT NOT NULL AUTO_INCREMENT,
   `idBand` INT NOT NULL,
   `name` VARCHAR(100) NULL,
@@ -381,18 +392,18 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`members` (
   INDEX `fk_membersBand_bands1_idx` (`idBand` ASC),
   CONSTRAINT `fk_membersBand_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`events`
+-- Table `soundcheck`.`events`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`events` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`events` (
   `idEvent` INT NOT NULL AUTO_INCREMENT,
-  `idUser` INT NOT NULL,
+  `idVenue` INT NOT NULL,
   `name` VARCHAR(100) NOT NULL,
   `about` TEXT NOT NULL,
   `website` VARCHAR(100) NULL,
@@ -412,42 +423,45 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`events` (
   `phone` VARCHAR(25) NOT NULL,
   `phoneAuxiliar` VARCHAR(25) NULL,
   `contactEmail` VARCHAR(100) NOT NULL,
-  PRIMARY KEY (`idEvent`, `idUser`),
-  INDEX `fk_events_managers1_idx` (`idUser` ASC),
-  CONSTRAINT `fk_events_managers1`
-    FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`managers` (`idUser`)
+  `latitude` VARCHAR(50) NOT NULL,
+  `longitude` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`idEvent`, `idVenue`),
+  INDEX `fk_events_venues1_idx` (`idVenue` ASC),
+  CONSTRAINT `fk_events_venues1`
+    FOREIGN KEY (`idVenue`)
+    REFERENCES `soundcheck`.`venues` (`idVenue`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`band_members`
+-- Table `soundcheck`.`band_members`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_members` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`band_members` (
   `idBand` INT NOT NULL,
   `idUser` INT NOT NULL,
+  `instrument` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`idBand`, `idUser`),
   INDEX `fk_bands_has_musicians_musicians1_idx` (`idUser` ASC),
   INDEX `fk_bands_has_musicians_bands1_idx` (`idBand` ASC),
   CONSTRAINT `fk_bands_has_musicians_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_bands_has_musicians_musicians1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`musicians` (`idUser`)
+    REFERENCES `soundcheck`.`musicians` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`band_followers`
+-- Table `soundcheck`.`band_followers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_followers` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`band_followers` (
   `idUser` INT NOT NULL,
   `idBand` INT NOT NULL,
   PRIMARY KEY (`idUser`, `idBand`),
@@ -455,21 +469,21 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_followers` (
   INDEX `fk_fans_has_bands_fans1_idx` (`idUser` ASC),
   CONSTRAINT `fk_fans_has_bands_fans1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`fans` (`idUser`)
+    REFERENCES `soundcheck`.`fans` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_fans_has_bands_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`event_participation`
+-- Table `soundcheck`.`event_participation`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`event_participation` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`event_participation` (
   `idUser` INT NOT NULL,
   `idEvent` INT NOT NULL,
   PRIMARY KEY (`idUser`, `idEvent`),
@@ -477,43 +491,43 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`event_participation` (
   INDEX `fk_fans_has_events_fans1_idx` (`idUser` ASC),
   CONSTRAINT `fk_fans_has_events_fans1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`fans` (`idUser`)
+    REFERENCES `soundcheck`.`fans` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_fans_has_events_events1`
     FOREIGN KEY (`idEvent`)
-    REFERENCES `sound381_soundcheck`.`events` (`idEvent`)
+    REFERENCES `soundcheck`.`events` (`idEvent`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`venue_followers`
+-- Table `soundcheck`.`venue_followers`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`venue_followers` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`venue_followers` (
   `idUser` INT NOT NULL,
-  `idVenues` INT NOT NULL,
-  PRIMARY KEY (`idUser`, `idVenues`),
-  INDEX `fk_fans_has_venues_venues1_idx` (`idVenues` ASC),
+  `idVenue` INT NOT NULL,
+  PRIMARY KEY (`idUser`, `idVenue`),
+  INDEX `fk_fans_has_venues_venues1_idx` (`idVenue` ASC),
   INDEX `fk_fans_has_venues_fans1_idx` (`idUser` ASC),
   CONSTRAINT `fk_fans_has_venues_fans1`
     FOREIGN KEY (`idUser`)
-    REFERENCES `sound381_soundcheck`.`fans` (`idUser`)
+    REFERENCES `soundcheck`.`fans` (`idUser`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_fans_has_venues_venues1`
-    FOREIGN KEY (`idVenues`)
-    REFERENCES `sound381_soundcheck`.`venues` (`idVenue`)
+    FOREIGN KEY (`idVenue`)
+    REFERENCES `soundcheck`.`venues` (`idVenue`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`band_styles`
+-- Table `soundcheck`.`band_styles`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_styles` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`band_styles` (
   `idMusicGenre` INT NOT NULL,
   `idBand` INT NOT NULL,
   PRIMARY KEY (`idMusicGenre`, `idBand`),
@@ -521,21 +535,21 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_styles` (
   INDEX `fk_music_genres_has_bands_music_genres1_idx` (`idMusicGenre` ASC),
   CONSTRAINT `fk_music_genres_has_bands_music_genres1`
     FOREIGN KEY (`idMusicGenre`)
-    REFERENCES `sound381_soundcheck`.`music_genres` (`idMusicGenre`)
+    REFERENCES `soundcheck`.`music_genres` (`idMusicGenre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_music_genres_has_bands_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `sound381_soundcheck`.`band_instruments`
+-- Table `soundcheck`.`band_instruments`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_instruments` (
+CREATE TABLE IF NOT EXISTS `soundcheck`.`band_instruments` (
   `idInstrument` INT NOT NULL,
   `idBand` INT NOT NULL,
   PRIMARY KEY (`idInstrument`, `idBand`),
@@ -543,12 +557,12 @@ CREATE TABLE IF NOT EXISTS `sound381_soundcheck`.`band_instruments` (
   INDEX `fk_bands_has_instruments_bands1_idx` (`idBand` ASC),
   CONSTRAINT `fk_bands_has_instruments_bands1`
     FOREIGN KEY (`idBand`)
-    REFERENCES `sound381_soundcheck`.`bands` (`idBand`)
+    REFERENCES `soundcheck`.`bands` (`idBand`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_bands_has_instruments_instruments1`
     FOREIGN KEY (`idInstrument`)
-    REFERENCES `sound381_soundcheck`.`instruments` (`idInstrument`)
+    REFERENCES `soundcheck`.`instruments` (`idInstrument`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -559,11 +573,11 @@ SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 
 -- -----------------------------------------------------
--- Data for table `sound381_soundcheck`.`administrators`
+-- Data for table `soundcheck`.`administrators`
 -- -----------------------------------------------------
 START TRANSACTION;
-USE `sound381_soundcheck`;
-INSERT INTO `sound381_soundcheck`.`administrators` (`idAdministrator`, `email`, `password`, `name`, `permission`, `status`) VALUES (1, 'guilherme.raminho@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Guilherme Raminho', 'Overlord', 'Active');
+USE `soundcheck`;
+INSERT INTO `soundcheck`.`administrators` (`idAdministrator`, `email`, `password`, `name`, `permission`, `status`) VALUES (1, 'guilherme.raminho@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', 'Guilherme Raminho', 'Overlord', 'Active');
 
 COMMIT;
 

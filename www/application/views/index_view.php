@@ -8,22 +8,31 @@
     <div class="container">
         <div class="row">
             <div class="col-md-4 col-md-offset-4 text-center logo-margin ">
-                <!--img src="assets/img/logo.png" alt=""/-->
-                <h1>Soundcheck</h1>
+                <img class="logo-ini" src="<?php echo base_url(); ?>assets/img/soundcheck.png" alt=""/>
             </div>
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">    
                     <div class="panel-heading">
-                        <h3 class="panel-title">Welcome to Soundcheck</h3>
+                        <h3 class="text-center panel-title">Welcome to Soundcheck</h3>
                     </div>              
                     <div class="panel-body">
-                        <div class="row">
-                            <!-- Page Header -->
-                            <div class="col-lg-12">
-                                <center><p><a class="btn btn-primary btn-lg" href="<?php echo base_url('login'); ?>">Sign in</a>
-                                <a class="btn btn-primary btn-lg" href="<?php echo base_url('sign_up'); ?>">Sign up</a></p></center>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <a class="btn btn-primary btn-lg btn-block" href="<?php echo base_url('login'); ?>">Sign in</a>
+                                </div>
+                                <div class="col-md-6">
+                                    <a class="btn btn-primary btn-lg btn-block" href="<?php echo base_url('sign_up'); ?>">Sign up</a>
+                                </div>
                             </div>
-                            <!--End Page Header -->
+                            <br />
+                            <div class="row">
+                                <!-- Page Header -->
+                                <div class="col-md-12">
+                                    <a class="btn btn-success btn-lg btn-block" href="<?php echo base_url('mapa.html'); ?>">Mapa</a>
+                                </div>
+                                <!--End Page Header -->
+                            </div>
                         </div>
                     </div>
                 </div>

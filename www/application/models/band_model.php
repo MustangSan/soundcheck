@@ -28,6 +28,63 @@ class Band_model extends CI_Model {
         return $this->db->count_all('bands');
     }
 
+    public function countMembers($idBand) {
+        $this->db->trans_start();
+        $query = $this->db->query("select * from members where idBand=".$idBand);
+        $this->db->trans_complete();
+        $membersCreate = $query->num_rows();
+
+        $this->db->trans_start();
+        $query = $this->db->query("select * from band_members where idBand=".$idBand);
+        $this->db->trans_complete();
+        $membersInsert = $query->num_rows();
+
+        $countMembers = $membersCreate+$membersInsert;
+        if($this->db->trans_status())
+            return $countMembers;
+        return FALSE;
+    }
+
+    public function countAlbuns($idBand) {
+        $this->db->trans_start();
+        $query = $this->db->query("select * from albuns where idBand=".$idBand);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return $query->num_rows();
+        return FALSE;
+    }
+
+    public function countShows($idBand) {
+        $this->db->trans_start();
+        $query = $this->db->query("select * from shows where idTour is null and idBand=".$idBand);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return $query->num_rows();
+        return FALSE;
+    }
+
+    public function countTours($idBand) {
+        $this->db->trans_start();
+        $query = $this->db->query("select * from tours where idBand=".$idBand);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return $query->num_rows();
+        return FALSE;
+    }
+
+    public function countPosts($idBand) {
+        $this->db->trans_start();
+        $query = $this->db->query("select * from posts where idBand=".$idBand);
+        $this->db->trans_complete();
+
+        if($this->db->trans_status())
+            return $query->num_rows();
+        return FALSE;
+    }
+
     private function dismountClass($class) {
         $reflectionClass = new ReflectionClass(get_class($class));
         $data = array();

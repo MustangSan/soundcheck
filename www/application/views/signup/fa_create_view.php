@@ -9,7 +9,7 @@
         <div class="row">
             <div class="col-md-4 col-md-offset-4 text-center logo-margin-10 ">
                 <!--img src="assets/img/logo.png" alt=""/-->
-                <h1>Soundcheck</h1>
+                <img class="logo-ini-sign-up" src="<?php echo base_url(); ?>assets/img/soundcheck.png" alt=""/>
             </div>
             <div class="col-md-12">
                 <div class="singup-panel panel panel-default">                  

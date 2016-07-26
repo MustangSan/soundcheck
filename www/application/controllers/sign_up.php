@@ -21,17 +21,15 @@ class Sign_up extends CI_Controller {
 
         $config['upload_path']      = './content-uploaded/';
         $config['allowed_types']    = 'gif|jpg|png';
-        $config['max_size']         = 900;
-        $config['max_width']        = 300;
-        $config['max_height']       = 300;
+        $config['max_size']         = 3000;
+        $config['max_width']        = 1000;
+        $config['max_height']       = 1000;
         $this->load->library('upload', $config);
     }
 
     public function handle_upload() {
         if (isset($_FILES['photo']) && !empty($_FILES['photo']['name'])) {
             if ($this->upload->do_upload('photo')) {
-                if(!empty($this->band))
-                    unlink('./content-uploaded/'.$this->band->getPhoto());
                 
                 $upload_data    = $this->upload->data();
                 $_POST['photo'] = $upload_data['file_name'];
@@ -44,12 +42,8 @@ class Sign_up extends CI_Controller {
             return TRUE;
         }
         else {
-            if(empty($this->band)) {
-                $this->form_validation->set_message('handle_upload', "You must upload an image!");
-                return FALSE;
-            }
-            else
-                $_POST['photo'] = $this->band->getPhoto();
+            $this->form_validation->set_message('handle_upload', "You must upload an image!");
+            return FALSE;
         }
     }
 
@@ -111,7 +105,6 @@ class Sign_up extends CI_Controller {
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
                             'name'              => $this->input->post('name'),
-                            'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),
                             'estate'            => $this->input->post('estate'),
                             'city'              => $this->input->post('city'),
@@ -179,7 +172,6 @@ class Sign_up extends CI_Controller {
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
                             'name'              => $this->input->post('name'),
-                            'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),
                             'estate'            => $this->input->post('estate'),
                             'city'              => $this->input->post('city'),
@@ -262,7 +254,6 @@ class Sign_up extends CI_Controller {
         if($this->form_validation->run() == FALSE) {
             $data = array(  'email'             => $this->input->post('email'),
                             'name'              => $this->input->post('name'),
-                            'photo'             => $this->input->post('photo'),
                             'country'           => $this->input->post('country'),
                             'estate'            => $this->input->post('estate'),
                             'city'              => $this->input->post('city'),

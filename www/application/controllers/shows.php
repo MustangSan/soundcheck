@@ -75,7 +75,9 @@ class Shows extends CI_Controller {
                                 $this->input->post('description'),
                                 $this->input->post('date'),
                                 $this->input->post('timetable'),
-                                $this->input->post('place')
+                                $this->input->post('place'),
+                                $this->input->post('latitude'),
+                                $this->input->post('longitude')
                             ]);
             $this->Show->startDatabase();
             $result = $this->Show->createShow($data);
@@ -112,7 +114,9 @@ class Shows extends CI_Controller {
                                 'description'   => $show->getDescription(),
                                 'date'          => $show->getDate(),
                                 'timetable'     => $show->getTimetable(),
-                                'place'         => $show->getPlace()
+                                'place'         => $show->getPlace(),
+                                'latitude'      => $show->getLatitude(),
+                                'longitude'     => $show->getLongitude()
                             );
                 $data['idBand'] = $show->getIdBand();
                 $this->load->view('show/show_update_view', $data);
@@ -126,7 +130,9 @@ class Shows extends CI_Controller {
                                     $this->input->post('description'),
                                     $this->input->post('date'),
                                     $this->input->post('timetable'),
-                                    $this->input->post('place')
+                                    $this->input->post('place'),
+                                    $this->input->post('latitude'),
+                                    $this->input->post('longitude')
                                 ]);
                 $this->Show->startDatabase();
                 $result = $this->Show->updateShow($data);

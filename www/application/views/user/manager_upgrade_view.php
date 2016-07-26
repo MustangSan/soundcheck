@@ -17,13 +17,14 @@
             <div class="row">
                 <!-- Page Header -->
                 <div class="col-lg-12">
-                    <h1 class="page-header">Welcome to Soundcheck!</h1>
+                    <h1 class="page-header">Upgrade Account</h1>
                 </div>
                 <!--End Page Header -->
+                <h4>You're about to gain Manager Powers</h4>
             </div>
             
             <div class="row">
-               <?php  
+               <?php
         
                   echo form_open();
 
@@ -132,7 +133,7 @@
                   'name' => 'submit',
                   'id' => 'submit',
                   'class' => 'btn btn-lg btn-success btn-block',
-                  'value' => 'Sing Up',
+                  'value' => 'Upgrade Account',
                   'onclick' => 'setTimeout(twoClicks, 1);'
                   );
                   echo form_input($data);

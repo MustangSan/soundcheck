@@ -118,7 +118,7 @@ class User_model extends CI_Model {
             
             $this->db->trans_start();
             $this->db->insert('managers', $data);
-            $this->db->query('UPDATE users SET permission=´M&M´ WHERE idUser='.$idUser);
+            $this->db->query('UPDATE users SET permission="M&M" WHERE idUser='.$idUser);
             $this->db->trans_complete();
             
             if($this->db->trans_status())
@@ -165,7 +165,7 @@ class User_model extends CI_Model {
             
             $this->db->trans_start();
             $this->db->insert('musicians', $data);
-            $this->db->query('UPDATE users SET permission=´M&M´ WHERE idUser='.$idUser);
+            $this->db->query('UPDATE users SET permission="M&M" WHERE idUser='.$idUser);
             $this->db->trans_complete();
             
             if($this->db->trans_status())

@@ -1,179 +1,147 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+    defined('BASEPATH') OR exit('No direct script access allowed');
+    $this->load->view('pages/header');
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="utf-8">
-   <title>Albuns</title>
 
-   <style type="text/css">
-
-   ::selection { background-color: #E13300; color: white; }
-   ::-moz-selection { background-color: #E13300; color: white; }
-
-   body {
-      background-color: #fff;
-      margin: 40px;
-      font: 13px/20px normal Helvetica, Arial, sans-serif;
-      color: #4F5155;
-   }
-
-   a {
-      color: #003399;
-      background-color: transparent;
-      font-weight: normal;
-   }
-
-   h1 {
-      color: #444;
-      background-color: transparent;
-      border-bottom: 1px solid #D0D0D0;
-      font-size: 19px;
-      font-weight: normal;
-      margin: 0 0 14px 0;
-      padding: 14px 15px 10px 15px;
-   }
-
-   code {
-      font-family: Consolas, Monaco, Courier New, Courier, monospace;
-      font-size: 12px;
-      background-color: #f9f9f9;
-      border: 1px solid #D0D0D0;
-      color: #002166;
-      display: block;
-      margin: 14px 0 14px 0;
-      padding: 12px 10px 12px 10px;
-   }
-
-   #body {
-      margin: 0 15px 0 15px;
-   }
-
-   p.footer {
-      text-align: right;
-      font-size: 11px;
-      border-top: 1px solid #D0D0D0;
-      line-height: 32px;
-      padding: 0 10px 0 10px;
-      margin: 20px 0 0 0;
-   }
-
-   #container {
-      margin: 10px;
-      border: 1px solid #D0D0D0;
-      box-shadow: 0 0 8px #D0D0D0;
-   }
-
-   span {
-      margin-right: 15px;
-   }
-   </style>
-</head>
 <body>
+    <!--  wrapper -->
+    <div id="wrapper">
+       <?php
+           $this->load->view('pages/top-menu');
+           $this->load->view('pages/side-menu');
+       ?>
 
-<div id="container">
-   <h1>Create Album</h1>
+        <!--  page-wrapper -->
+        <div id="page-wrapper">
 
-   <div id="body">
-      <?php          
-      echo form_open_multipart();
+            <div class="row">
+                <!-- Page Header -->
+                <div class="col-lg-12">
+                    <h1 class="page-header">Create Album</h1>
+                </div>
+                <!--End Page Header -->
+            </div>
+            
+            <div class="row">
 
-      $data = array(
-      'name' => 'name',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $name
-      );       
-      echo '<div class="input-prepend" > <span class="add-on">Name</span>'.form_input($data);
-      echo form_error('name', '<div class="error">', '</div>');
-      echo '</div><br><br>';
+               <div class="col-lg-6">
+                  <?php
+                     echo form_open_multipart();
 
-      $data = array(
-      'name' => 'genre',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $genre
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Genre</span>'.form_input($data);
-      echo form_error('genre', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'name',
+                     'type' => 'text',
+                     'placeholder' => 'Name *',
+                     'class' => 'form-control',
+                     'value' => $name
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('name', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'releaseDate',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $releaseDate
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Release Date</span>'.form_input($data);
-      echo form_error('releaseDate', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'coverArt',
+                     'class' => 'form-control'
+                     );       
+                     echo '<div class="form-group">'.form_upload($data);
+                     echo form_error('coverArt', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'label',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $label
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Label</span>'.form_input($data);
-      echo form_error('label', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'genre',
+                     'type' => 'text',
+                     'placeholder' => 'Genre *',
+                     'class' => 'form-control',
+                     'value' => $genre
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('genre', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'copyrightDate',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $copyrightDate
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Copyright Date</span>'.form_input($data);
-      echo form_error('copyrightDate', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'releaseDate',
+                     'type' => 'text',
+                     'placeholder' => 'Release Date *',
+                     'class' => 'form-control',
+                     'value' => $releaseDate
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('releaseDate', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'sellerLink',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $sellerLink
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Seller Link</span>'.form_input($data);
-      echo form_error('sellerLink', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'label',
+                     'type' => 'text',
+                     'placeholder' => 'Label *',
+                     'class' => 'form-control',
+                     'value' => $label
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('label', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'listeningLink',
-      'type' => 'text',
-      'style' => 'width: 275px;',
-      'value' => $listeningLink
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Listening Link</span>'.form_input($data);
-      echo form_error('listeningLink', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'copyrightDate',
+                     'type' => 'text',
+                     'placeholder' => 'Copyright *',
+                     'class' => 'form-control',
+                     'value' => $copyrightDate
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('copyrightDate', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'name' => 'coverArt',
-      'style' => 'width: 275px;',
-      );       
-      echo '<div class="input-prepend"> <span class="add-on">Cover Art</span>'.form_upload($data);
-      echo form_error('coverArt', '<div class="error">', '</div>');
-      echo '</div><br>';
+                     $data = array(
+                     'name' => 'sellerLink',
+                     'type' => 'text',
+                     'placeholder' => 'Seller Link',
+                     'class' => 'form-control',
+                     'value' => $sellerLink
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('sellerLink', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      $data = array(
-      'type' => 'submit',
-      'name' => 'submit',
-      'id' => 'submit',
-      'class' => 'btn btn-info',
-      'value' => 'Concluir',
-      'onclick' => 'setTimeout(twoClicks, 1);'
-      );
-      echo form_input($data);
+                     $data = array(
+                     'name' => 'listeningLink',
+                     'type' => 'text',
+                     'placeholder' => 'Listening Link',
+                     'class' => 'form-control',
+                     'value' => $listeningLink
+                     );       
+                     echo '<div class="form-group">'.form_input($data);
+                     echo form_error('listeningLink', '<div data-toggle="tooltip" class="fieldErrorLogin" title="', '" ><i class="fa fa-warning fa-fw" data-toggle="tooltip"></i></div>');
+                     echo '</div>';
 
-      form_close();
+                  ?>
+                  <div class="col-lg-6">
+                  <?php
+                     $data = array(
+                     'type' => 'submit',
+                     'name' => 'submit',
+                     'id' => 'submit',
+                     'class' => 'btn btn-lg btn-success btn-block',
+                     'value' => 'Create Album',
+                     'onclick' => 'setTimeout(twoClicks, 1);'
+                     );
+                     echo form_input($data);
 
-      ?>
-   </div>
+                  form_close();
 
-   <p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
-</div>
+                  ?>
+                  </div>
 
-</body>
-</html>
+                  <div class="col-lg-6">
+                     <a href="<?php echo base_url('albuns/myAlbuns/'.$idBand);?>" class="btn btn-lg btn-danger btn-block">Cancel</a>
+                  </div>
+               </div>
+            </div>
+
+        </div>
+        <!-- end page-wrapper -->
+
+    </div>
+    <!-- end wrapper -->
+<?php
+    $this->load->view('pages/footer');
+?>

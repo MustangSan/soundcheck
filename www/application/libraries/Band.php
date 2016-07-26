@@ -207,6 +207,13 @@ class Band {
     public function getLongitude() {
         return $this->longitude;
     }
+
+    /** 
+    *  Função que serializa o objeto para ser usado com JSON
+    */
+    public function jsonSerialize() {
+        return get_object_vars($this);
+    }
 }
 
 /* End of file Band.php */
